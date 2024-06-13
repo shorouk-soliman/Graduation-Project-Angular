@@ -1,0 +1,42 @@
+<h1 class="text-center mt-5">Add new Values</h1>
+
+
+<form (submit)="AddValues()" [formGroup]="myForm" class="col-6 mx-auto">
+    <input formControlName="name" class="form-control my-2" placeholder="Values name" type="text">
+    <!-- Display error message if "required" validation fails -->
+    <div [class.d-none]="!NameError()?.['required']" class="text-danger">
+        Name is required
+    </div>
+
+    <!-- Display error message if "minlength" or "maxlength" validation fails -->
+    <div [class.d-none]="!(NameError()?.['minlength'] || NameError()?.['maxlength']) || !NameError()"
+        class="text-danger">
+        Name must be more than 2 chars and less than 150
+    </div>
+
+    <!-- Display success message when the form is valid -->
+    <div [class.d-none]="NameError()" class="text-success">
+        Name is valid
+    </div>
+
+
+
+
+    <select formControlName="attributeId">
+        <option [value]="0">select attribute</option>
+        <option [value]="attribute.id" *ngFor="let attribute of attributes">{{attribute.name}}</option>
+    </select>
+
+    <!-- Display error message if "required" validation fails -->
+    <div [class.d-none]="!attributeError()" class="text-danger">
+        attribute is required
+    </div>
+
+    <!-- Display success message when the form is valid -->
+    <div [class.d-none]="attributeError()" class="text-success">
+        attribute is valid
+    </div>
+
+
+    <button [disabled]="!myForm.valid" type="submit" class="btn btn-success w-50 mx-auto mt-3">Add</button>
+</form>

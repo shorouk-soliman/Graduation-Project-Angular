@@ -1,0 +1,24 @@
+<div>
+    <input placeholder="search" type="text">
+    <button routerLink="add" class="btn btn-success">Add Values</button>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+
+        <div *ngFor="let value of values" class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">{{value.name}}</h5>
+              <div class="d-flex justify-content-evenly">
+
+                  <!-- <button routerLink="update/{{attribute.id}}" class="btn btn-warning col-5">Update</button> -->
+
+                  <button (click)="DeleteAttribute(value.id)" class="btn btn-danger col-5">Delete</button>
+                  <!-- <button (click)="DeleteBrand(attribute)" class="btn btn-success col-5">Retrive</button> -->
+
+                </div>
+            </div>
+          </div>
+
+    </div>
+</div>

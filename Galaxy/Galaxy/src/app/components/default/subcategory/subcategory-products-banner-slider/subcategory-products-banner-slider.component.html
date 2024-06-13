@@ -1,0 +1,5 @@
+<carousel>
+    <slide class="banner-image" style="height: 20rem;" *ngFor="let item of banners">
+      <img [routerLink]="'/product/'+item.productId" [src]="item.imageURL" [alt]="item">
+    </slide>
+  </carousel>

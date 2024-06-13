@@ -1,0 +1,17 @@
+
+<div [class.d-none]="cart.length === 0" class="container">
+  <h1 class="text-center">Your Shopping Cart</h1>
+  <div class="row">
+    <div class="col-8"><app-cart-item [cartItems]="cart"></app-cart-item></div>
+    <div class="col-4"><app-cart-order-form [cartItems]="cart"></app-cart-order-form></div>
+  </div>
+</div>
+
+<div [class.d-none]="cart.length !== 0" class="row flex-column justify-content-center">
+  <div class="fs-1 text-center">Your cart is empty</div>
+  <button routerLink="/" class="btn btn-danger mx-auto my-4 col-2">Shop Now</button>
+</div>
+
+<div class="empty" [class.d-none]="cart.length !== 0">
+  <img src="../../../../../assets/images/emptycart.png" />
+</div>

@@ -1,0 +1,62 @@
+.sign-container {
+    background-image: linear-gradient(to top, #fff1eb 0%, #ace0f9 100%);
+    background-image: linear-gradient(to top, #accbee 0%, #e7f0fd 100%);
+    min-height: 100vh;
+    max-height: 100vh;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+}
+
+.sign-form {
+    background-color: rgb(255, 255, 255);
+    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+    background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    aspect-ratio: 1/1.2;
+    padding: 2rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+
+.form-container {
+    /* background-color: rgb(99, 47, 47); */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.image-sign {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.image-sign img {
+    width: 50%;
+    height: 50%;
+    margin: auto;
+    object-fit: contain;
+}
+
+.back {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+}
+
+.title {
+
+    background: rgb(63,94,251);
+    background: linear-gradient(90deg, rgba(63,94,251,1) 0%, rgba(123,86,206,1) 25%, rgba(174,70,252,1) 46%, rgba(82,137,183,1) 68%, rgba(82,121,183,1) 86%); 
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+}
+.title svg{
+
+}

@@ -1,0 +1,27 @@
+<div class="image-container">
+    <img src="../../../../../assets/images/orders.jpg" />
+</div>
+
+
+<div class="container-fluid buttons-container d-flex justify-content-center mt-5">
+    <div class="row justify-content-center w-100">
+
+        <div [class.clickedall]="getSort() === 'all'" (click)="SetSort('all')"
+            class="btn border-color-all col-md-2 col-lx-1 mx-1 ">All</div>
+        <div [class.clickedcan]="getSort() === 'cancelled'" (click)="SetSort('cancelled')"
+            class="btn border-color-red text-danger col-md-2 col-lx-1 mx-1">Cancelled</div>
+        <div [class.clickedpen]="getSort() === 'pending'" (click)="SetSort('pending')"
+            class="btn border-color-yellow text-warning col-md-2 col-lx-1 mx-1">Pending</div>
+        <div [class.clickedsu]="getSort() === 'deliverd'" (click)="SetSort('deliverd')"
+            class="btn border-color-green text-success col-md-2 col-lx-1 mx-">Deliverd</div>
+    </div>
+</div>
+
+<app-order-item [orders]="orders"></app-order-item>
+
+<div class="d-flex flex-column justify-content-center" [class.d-none]="orders.length !== 0">
+    <h2 class="text-center mt-3">There is no orders to show.</h2>
+    <button routerLink="/" class="btn btn-danger col-2 mt-3 mx-auto">Shop Now</button>
+</div>
+<app-pagination [class.d-none]="orders.length === 0" (NavigateTo)="FetchUserOrders($event)"
+    [TotalPages]="TotalPages"></app-pagination>

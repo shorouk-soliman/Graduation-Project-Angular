@@ -1,0 +1,64 @@
+<h1 class="text-center mt-5">Add new Category</h1>
+
+
+<form (submit)="AddImageAndBrand()" [formGroup]="myForm" class="col-6 mx-auto">
+    <input formControlName="name" class="form-control my-2" placeholder="category name" type="text">
+    <!-- Display error message if "required" validation fails -->
+    <div [class.d-none]="!NameError()?.['required']" class="text-danger">
+        Name is required
+    </div>
+
+    <!-- Display error message if "minlength" or "maxlength" validation fails -->
+    <div [class.d-none]="!(NameError()?.['minlength'] || NameError()?.['maxlength']) || !NameError()"
+        class="text-danger">
+        Name must be more than 2 chars and less than 150
+    </div>
+
+    <!-- Display success message when the form is valid -->
+    <div [class.d-none]="NameError()" class="text-success">
+        Name is valid
+    </div>
+
+    
+    
+
+
+
+    <input formControlName="description" class="form-control my-2" placeholder="category description" type="text">
+    <!-- Display error message if "required" validation fails -->
+    <div [class.d-none]="!descriptionError()?.['required']" class="text-danger">
+        description is required
+    </div>
+
+    <!-- Display error message if "minlength" or "maxlength" validation fails -->
+    <div [class.d-none]="!(descriptionError()?.['minlength'] || descriptionError()?.['maxlength']) || !descriptionError()"
+        class="text-danger">
+        description must be more than 3 chars and less than 500
+    </div>
+
+    <!-- Display success message when the form is valid -->
+    <div [class.d-none]="descriptionError()" class="text-success">
+        description is valid
+    </div>
+
+
+
+
+
+
+
+    <input formControlName="image" (change)="onFileSelected($event)" class="form-control my-2" placeholder="category image" type="file">
+
+    <!-- Display error message if "required" validation fails -->
+    <div [class.d-none]="!ImageError()?.['required']" class="text-danger">
+        image is required
+    </div>
+
+    <!-- Display success message when the form is valid -->
+    <div [class.d-none]="ImageError()" class="text-success">
+        image is valid
+    </div>
+
+
+    <button [disabled]="!myForm.valid" type="submit" class="btn btn-success w-50 mx-auto mt-3">Add</button>
+</form>

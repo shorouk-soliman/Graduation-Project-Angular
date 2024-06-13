@@ -1,0 +1,57 @@
+<h1 class="text-center mt-5">Add Category Banner</h1>
+
+
+<form (submit)="AddBanners()" [formGroup]="myForm" class="col-6 mx-auto">
+
+
+
+
+    <select (change)="onCategoryChange($event)" formControlName="categoryId">
+        <option [value]="0">select category</option>
+        <option [value]="category.id" *ngFor="let category of categories">{{category.name}}</option>
+    </select>
+
+    <!-- Display error message if "required" validation fails -->
+    <div [class.d-none]="!categoryError()" class="text-danger">
+        category is required
+    </div>
+
+    <!-- Display success message when the form is valid -->
+    <div [class.d-none]="categoryError()" class="text-success">
+        category is valid
+    </div>
+
+
+    <select formControlName="subcategoryId">
+        <option [value]="0">select sub category</option>
+        <option [value]="subcategory.id" *ngFor="let subcategory of subcategories">{{subcategory.name}}</option>
+    </select>
+
+    <!-- Display error message if "required" validation fails -->
+    <div [class.d-none]="!subcategoryError()" class="text-danger">
+        category is required
+    </div>
+
+    <!-- Display success message when the form is valid -->
+    <div [class.d-none]="subcategoryError()" class="text-success">
+        category is valid
+    </div>
+
+
+
+
+    <input formControlName="image" (change)="onFileSelected($event)" class="form-control my-2" placeholder="sub category image" type="file">
+
+    <!-- Display error message if "required" validation fails -->
+    <div [class.d-none]="!ImageError()?.['required']" class="text-danger">
+        image is required
+    </div>
+
+    <!-- Display success message when the form is valid -->
+    <div [class.d-none]="ImageError()" class="text-success">
+        image is valid
+    </div>
+
+
+    <button [disabled]="!myForm.valid" type="submit" class="btn btn-success w-50 mx-auto mt-3">Add</button>
+</form>

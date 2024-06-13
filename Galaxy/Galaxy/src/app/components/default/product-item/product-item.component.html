@@ -1,0 +1,80 @@
+<div class="container-fluid">
+  <div class="row justify-content-start">
+
+    <div style="width: 16rem;"  *ngFor="let item of products">
+
+
+      <div class="card my-1">
+        <img class="card-img-top le-image" routerLink="/product/{{item?.id}}" [src]="item?.image" [alt]="item?.name">
+        <button [class.d-none]="item.discount === 0" class="discount-btn btn btn-dark col-4">Save {{item.discount}}%</button>
+        <div class="card-body p-2">
+          <h5 class="card-title" routerLink="/product/{{item?.id}}">{{item?.name}}</h5>
+          <p class="card-text">{{item?.desctiption}}</p>
+
+
+          <!-- Rating -->
+          <div class="rating-box my-1">
+            <span [ngClass]="{'low':item.rate <2.5,'med':item.rate >= 2.5 && item.rate <=3.5,'hight':item.rate >=3.5,}"
+              class="me-1 btn me-2" [class.d-none]="item.rate === 0">{{item.rate.toFixed(1)}}</span>
+            <div class="w-content"><app-stars [class.d-none]="item.rate === 0" [Stars]="item.rate"></app-stars></div>
+            </div>
+            
+            
+            
+          <!-- Price -->
+          <div>
+            <div [class.d-none]="item?.discount !== 0" class="fs-5 my-1" style="font-weight: 600;">{{item.price | currency}}</div>
+            <div [class.d-none]="item?.discount === 0" class="fs-5 my-1" style="font-weight: 600;">{{ item?.price - (item?.price * (item?.discount / 100))  |currency}}</div>
+          </div>
+
+
+          <div class="row justify-content-between">
+
+            <select class="form-select w-40 px-2 text-center" [class.d-none]="item?.incart"
+              (change)="OnProductQtyChange(item?.id,$event)">
+              <option *ngFor="let num of item?.quantity | range">{{num}}</option>
+            </select>
+
+            <button [class.d-none]="item?.incart" (click)="AddToCart(item)" class="btn btn-success px-2 col-3">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
+                <path
+                  d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0" />
+              </svg>
+            </button>
+
+            <button [class.d-none]="!item?.incart" (click)="RemoveFromCart(item?.id)" class="btn btn-danger px-2"
+              style="width:72.2%;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-cart-dash-fill" viewBox="0 0 16 16">
+                <path
+                  d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M6.5 7h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1 0-1" />
+              </svg>
+            </button>
+
+            <button [class.d-none]="item.inwl" (click)="AddToWishList(item)" class="btn btn-unfav col-3 px-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
+              </svg>
+            </button>
+
+            <button [class.d-none]="!item.inwl" (click)="RemoveFromWishList(item)" class="btn btn-fav col-3 px-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
+              </svg>
+            </button>
+
+
+          </div>
+
+
+        </div>
+      </div>
+
+
+
+
+    </div>
+
+  </div>
+</div>

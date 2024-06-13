@@ -1,0 +1,23 @@
+<div class="container-fluid">
+<div class="row flex-row-reverse">
+<div class="col-2">
+    <label>Sort</label>
+    <select class="form-select" [(ngModel)]="sort" (change)="OnChangeSort($event)">
+        <option value="default">High Rating</option>
+        <option value="Low">Price: Low to High</option>
+        <option value="High">Price: High to Low</option>
+        <option value="Discount">Discount</option>
+        <option value="New">New</option>
+    </select>
+</div>
+
+<div class="col-2">
+    <label>Display</label>
+    <select class="form-select" [(ngModel)]="limit" (change)="OnChangeLimit($event)">
+        <option value=5>5 per page</option>
+        <option value=30>30 per page</option>
+        <option value=60>60 per page</option>
+    </select>
+</div>
+</div>
+</div>

@@ -1,0 +1,26 @@
+<div>
+    <input placeholder="search" type="text">
+    <button routerLink="add" class="btn btn-success">Add Category</button>
+    <button routerLink="addbanner" class="btn btn-success">Add Category banner</button>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+
+        <div *ngFor="let category of categories" class="card" style="width: 18rem;">
+            <img class="card-img-top" [src]="category.image" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">{{category.name}}</h5>
+              <div class="d-flex justify-content-evenly">
+
+                  <button routerLink="update/{{category.id}}" class="btn btn-warning col-5">Update</button>
+
+                  <button [class.d-none]="category.isDeleted" (click)="Deletecategory(category)" class="btn btn-danger col-5">Delete</button>
+                  <button [class.d-none]="!category.isDeleted" (click)="Retrivecategory(category)" class="btn btn-success col-5">Retrive</button>
+
+                </div>
+            </div>
+          </div>
+
+    </div>
+</div>

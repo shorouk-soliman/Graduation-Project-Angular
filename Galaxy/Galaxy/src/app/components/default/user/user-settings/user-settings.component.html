@@ -1,0 +1,39 @@
+<form [class.d-none]="FormVisability()" [formGroup]="UpdateForm" (submit)="onSubmit()" class="form-floating sign-form w-50 mx-auto mt-5">
+
+    <div class="fs-3 text-center fw-bold form-title">Update Your Info</div>
+    <div>
+
+        <div class="form-floating mb-3">
+            <input [class.is-invalid]="FNameError()" type="text" class="form-control is-valid"
+                id="floatingFirstname" formControlName="firstname" placeholder="First Name">
+            <label for="floatingFirstName">First Name</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input [class.is-invalid]="LNameError()" type="text" class="form-control is-valid" id="floatingLastName"
+                formControlName="lastname" placeholder="Last Name">
+            <label for="floatingLastName">Last Name</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input [class.is-invalid]="EmailError()" type="email" class="form-control is-valid" id="floatingEmail"
+                formControlName="email" placeholder="Email">
+            <label for="floatingEmail">Email</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input [class.is-invalid]="AddressError()" type="text" class="form-control is-valid"
+                id="floatingPassword" formControlName="address" placeholder="address">
+            <label for="floatingPassword">Address</label>
+        </div>
+
+    </div>
+    <div>
+        <div class="text-primary pointer" (click)="ToggleFromFunc()">change your password</div>
+
+        <button [disabled]="!UpdateForm.valid" type="submit"
+            class="btn btn-success rounded-pill py-2 mt-3 col-12">Update</button>
+    </div>  
+</form>
+
+<app-user-password-settings (ToggleForm)="ToggleFromMainFunc()" [class.d-none]="!FormVisability()"></app-user-password-settings>

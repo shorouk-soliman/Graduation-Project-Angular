@@ -1,0 +1,36 @@
+<div class="contanier" *ngFor="let item of orders">
+
+    <div class="card col-11 col-md-10 col-lg-8 col-xl-6 mx-auto  my-5">
+        <div class="card-header">order details</div>
+        <div class="card-body">
+            <div><span class="text-muted">ID: </span> <span class="fw-bold">{{item.id}}</span></div>
+            <div><span class="text-muted">Order date </span> <span class="fw-bold">{{item.shippingDate | date:'fullDate'}}</span>
+            <div><span class="text-muted">Order deliver date </span> <span class="fw-bold">{{item.deliverDate | date:'fullDate'}}</span></div>
+            <div><span class="text-muted">shipping address </span> <span class="fw-bold">{{item.shippingAddress}}</span></div>
+            </div>
+
+            <div><span class="text-muted">Order status </span> <button class="btn"
+                    style="background-color: rgb(232, 231, 230);" [class.text-danger]="item.status === 'Cancelled'"
+                    [class.text-success]="item.status === 'Deliverd'"
+                    [class.text-warning]="item.status === 'Pending'">{{item.status}}</button></div>
+                    
+            <ng-container *ngIf="item.status === 'Pending'">
+                        <br><button class="btn bg-danger text-white" (click)="CancelOrders(item.id)">cancel this order</button>
+            </ng-container>
+
+            <hr>
+            <h5 class="card-title">Order items</h5>
+
+            <div class="px-4 py-2 d-flex align-items-center my-2" *ngFor="let product of item.items">
+                <div class="itemsimgdiv"><img  [src]="product.product.image"></div>
+                <div class="d-flex justify-content-between w-100 p-4">
+                    <div>{{product.product.name}}</div>
+                    <div>Qty: {{product.itemQuantitem}}</div>
+                </div>
+            </div>
+            <hr />
+
+            <p class="card-text fs-5">Total {{item.total | currency}}</p>
+        </div>
+    </div>
+</div>
