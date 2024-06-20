@@ -1,49 +1,47 @@
 import { Injectable } from '@angular/core';
-import { GeneralService } from './general.service';
+import { GenericService } from './generic.service';
 import { CartService } from './cart.service';
-import { Observable } from 'rxjs';
+import { ISign } from '../Models/Auth/sign-model';
+import { ILogin } from '../Models/Auth/login-model';
+import { UserService } from './user.service';
 
 @Injectable()
 export class AuthService {
 
-  constructor(private general: GeneralService, private cartservice: CartService) { }
+  constructor(private generic: GenericService, private cartservice: CartService, private userService: UserService) { }
 
-  public Sign(signData: any) {
-    let SignURL = `${this.general.API}User/Signup`
+  Sign(signData: ISign): void {
+    let SignUrl: string = `User/Signup`;
 
-    this.general.http.post(SignURL, signData, { responseType: 'text' }).subscribe((token: string) => {
-      localStorage.setItem('jwt', token)
-      this.cartservice.AddLocalCart();
-      this.general.router.navigateByUrl('/');
-      this.general.location.go(this.general.location.path());
-    }, error => {
-
-    })
+    this.generic.postRequest<ISign>(SignUrl, signData, { responseType: 'text' })
+      .subscribe((token: string) => {
+        localStorage.setItem('jwt', token);
+        this.cartservice.AddLocalCart();
+        this.userService.FetchUser();
+        this.generic.router.navigateByUrl('/');
+      });
   }
 
 
+  Login(loginData: ILogin) {
+    let loginUrl = `User/Login`;
 
-  public Login(loginData: any) {
-    let loginURL = `${this.general.API}User/Login`
-
-    this.general.http.post(loginURL, loginData, { responseType: 'text' }).subscribe((token: string) => {
-      localStorage.setItem('jwt', token)
-      this.general.router.navigateByUrl('/');
-      this.general.location.go(this.general.location.path());
-    }, error => {
-
-    })
+    this.generic.postRequest<ILogin>(loginUrl, loginData, { responseType: 'text' })
+      .subscribe((token: string) => {
+        localStorage.setItem('jwt', token);
+        this.userService.FetchUser();
+        this.generic.router.navigateByUrl('/');
+      });
   }
 
-  public LogoutFunction() {
+  LogoutFunction() {
     localStorage.clear();
-    this.general.router.navigate(['']);
     this.cartservice.clearCart();
-    this.general.location.go(this.general.location.path());
+    this.generic.router.navigateByUrl('/');
   }
 
-  public isAuthunicated(): boolean {
-    return this.general.IsLogged();
+  isAuthunicated(): boolean {
+    return this.generic.IsLogged();
   }
 
 }

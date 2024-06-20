@@ -1,53 +1,58 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { GeneralService } from './general.service';
+import { GenericService } from './generic.service';
+import { IAddRate } from '../Models/Rating/rating-add';
+import { IProductRating } from '../Models/Rating/rating-product';
+import { IUpdateRate } from '../Models/Rating/rating-update';
+import { IRateRead } from '../Models/Rating/rating-read';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RatingService {
 
-  constructor(private general: GeneralService) { }
-  productId:number = 0;
-  page:number = 0;
+  constructor(private generic: GenericService) { }
 
-  
-  private RatingSubject:BehaviorSubject<any> = new BehaviorSubject<any>(null);
-  
+  ratedBeforeSubject:BehaviorSubject<IRateRead | null> = new BehaviorSubject<IRateRead | null>(null);
+  productId: number = 0;
+  page: number = 0;
 
-  CheckproductEligabilityToRate(productId:number){      
-      let checkeligabilityUrl = `${this.general.API}Rating/IsProductEligable?productId=${productId}`;
-      return this.general.http.get<any>(checkeligabilityUrl);
+  sendRate(rate:IRateRead | null):void{
+    this.ratedBeforeSubject.next(rate);
   }
 
-  AddRating(rating:any, productId:number):Observable<any>{
-    let AddRating = `${this.general.API}Rating/AddRating?productId=${productId}`;
-    return this.general.http.post(AddRating,rating);
+  listenToRate():Observable<IRateRead | null>{
+    return this.ratedBeforeSubject.asObservable();
   }
 
-  GetProductRating = ():Observable<any> => this.RatingSubject.asObservable();
-  
-  GetAvgRating(productId:string | null):Observable<any>{
-    let GetAvgRateUrl = `${this.general.API}Rating/GetAvgRating?productId=${productId}`
-    return this.general.http.get(GetAvgRateUrl);
-  }
+  CheckproductEligabilityToRate(productId: number): Observable<boolean> {
+    let Url: string = `Rating/IsProductEligable?productId=${productId}`;
+    return this.generic.getRequest<boolean>(Url);
+  };
 
-  FetchProductRating(page:number = this.page, productId:number = this.productId){
-    this.page = page;
-    this.productId = productId;
-    let GetRating = `${this.general.API}Rating/GetProductRating?productId=${productId}&page=${page}`;
-    return this.general.http.get(GetRating).subscribe((rating:any)=>{
-      this.RatingSubject.next(rating);
-    });
-  }
+  AddRating(rating: IAddRate, productId: number): Observable<any> {
+    let Url: string = `Rating/AddRating?productId=${productId}`;
+    return this.generic.postRequest<any>(Url, rating);
+  };
 
-  UpdateRating(rating:any, productId:number):Observable<any>{
-    let UpdateRating = `${this.general.API}Rating/UpdateRating?productId=${productId}`;
-    return this.general.http.put(UpdateRating,rating);
-  }
+  GetAvgRating(productId: number): Observable<number> {
+    let Url: string = `Rating/GetAvgRating?productId=${productId}`;
+    return this.generic.getRequest<number>(Url);
+  };
 
-  DeleteRating(productId:number){
-    let DeleteRatingUrl = `${this.general.API}Rating/DeleteRating?productId=${productId}`;
-    return this.general.http.delete(DeleteRatingUrl);
-  }
-}
+  GetProductRating(page: number, productId: number): Observable<IProductRating> {
+    let Url: string = `Rating/GetProductRating?productId=${productId}&page=${page}`;
+    return this.generic.getRequest<IProductRating>(Url);
+  };
+
+  UpdateRating(rating: IUpdateRate, productId: number): Observable<any> {
+    let Url: string = `Rating/UpdateRating?productId=${productId}`;
+    return this.generic.putRequest<any>(Url, rating);
+  };
+
+  DeleteRating(productId: number) {
+    let Url: string = `Rating/DeleteRating?productId=${productId}`;
+    return this.generic.deleteRequest<any>(Url);
+  };
+
+};

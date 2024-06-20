@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UnitService } from '../../../../services/unit.service';
+import { IOrderHistory, initOrderHistory } from '../../../../Models/Order/order-history';
 
 @Component({
   selector: 'app-main-order',
@@ -10,35 +11,33 @@ export class MainOrderComponent implements OnInit {
 
   constructor(private unit: UnitService) { }
 
+  orders: IOrderHistory = initOrderHistory;
   page: number = 1;
-  TotalPages: number = 0;
-  orders: any;
   sort: string = 'all';
 
   ngOnInit(): void {
     this.FetchUserOrders(this.page);
     this.GetUserOrders()
-  }
+  };
 
-  getSort(){
+  getSort() {
     return this.sort;
-  }
+  };
 
   FetchUserOrders(page: number): void {
-    this.unit.order.FetchUserOrders(page,this.sort);
-  }
+    this.unit.order.FetchUserOrders(page, this.sort);
+  };
 
   GetUserOrders(): void {
-    this.unit.order.GetUserOrders().subscribe((ordersData: any) => {
-      this.orders = ordersData.orders;
-      this.TotalPages = ordersData.totalPages
+    this.unit.order.GetUserOrders().subscribe((ordersData: IOrderHistory) => {
+      this.orders = ordersData;
     });
-  }
+  };
 
   SetSort(sort: string): void {
     this.sort = sort;
     this.page = 1;
     this.FetchUserOrders(1);
-  }
+  };
 
 }

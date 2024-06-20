@@ -1,6 +1,11 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, output } from '@angular/core';
 import { UnitService } from '../../../../services/unit.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { IAddRate } from '../../../../Models/Rating/rating-add';
+import { IMapperService } from '../../../../Mapper/IMapper/IMapper.service';
+import { IRateRead } from '../../../../Models/Rating/rating-read';
+import { IUpdateRate } from '../../../../Models/Rating/rating-update';
 
 @Component({
   selector: 'app-product-rating-form',
@@ -8,25 +13,24 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./product-rating-form.component.css']
 })
 export class ProductRatingFormComponent implements OnInit, OnChanges {
-  constructor(private unit: UnitService) { }
+  constructor(private unit: UnitService, private activatedRoute: ActivatedRoute, private mapper: IMapperService) { }
 
-  @Input() productId: any;
+  @Input() productId: number = 0;
   @Output() UpdateAvgRate: EventEmitter<any> = new EventEmitter<any>();
 
-  ratedBefore: any = null;
+  ratedBefore: IRateRead | null = null;
   rate: number = 3;
   IsEligable: boolean = false;
 
 
   ngOnInit() {
-    this.GetRatedBefore();
-    this.GetEligibility();
+    this.listienToRateAdded()
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.GetRatedBefore();
     this.GetEligibility();
-    }
+  }
+
 
   myForm: FormGroup = new FormGroup({
     rate: new FormControl(this.rate),
@@ -34,52 +38,74 @@ export class ProductRatingFormComponent implements OnInit, OnChanges {
     reviewText: new FormControl(''),
   });;
 
-  reviewtitleError = () => this.myForm.get('reviewtitle')?.errors
+  reviewtitleError = () => this.myForm.get('reviewtitle')?.errors;
   isUserAuthunicated = (): boolean => this.unit.auth.isAuthunicated();
 
-
+  listienToRateAdded(): void {
+    /* Event in order Not to make API call to get the rating Client Side */
+    this.unit.rate.listenToRate().subscribe((rate: IRateRead | null) => {
+          this.ratedBefore = rate;
+    });
+  };
 
   GetEligibility() {
     if (this.unit.auth.isAuthunicated()) {
-
-      this.unit.rate.CheckproductEligabilityToRate(this.productId).subscribe((eligable: any) => {
-        this.IsEligable = eligable;
-      })
+        this.unit.rate.CheckproductEligabilityToRate(this.productId).subscribe((eligable: boolean) => {
+          this.IsEligable = eligable;
+        });
     } else {
       this.IsEligable = false;
     }
-  }
-  GetRatedBefore() {
-    this.unit.rate.GetProductRating().subscribe((rateData: any) => {
-      this.ratedBefore = rateData.ratedBefore;
-      this.updateFormValues(rateData.ratedBefore)
-    })
-  }
+  };
+
 
   AddRating(): void {
     if (!this.myForm.valid) return;
-    let ratingObj = { ...this.myForm.value, rate: this.rate }
-    this.unit.rate.AddRating(ratingObj, this.productId).subscribe(() => {
-      this.unit.rate.FetchProductRating();
-      this.UpdateAvgRate.emit();
-    }, error => {
-      alert(error.error)
+
+    let formValue = { ...this.myForm.value, rate: this.rate };
+    let addRate: IAddRate = this.mapper.rate.ToAddRate(formValue.rate, formValue.reviewtitle, formValue.reviewText);
+    let readRate: IRateRead | undefined = this.mapper.rate.AddToRead(addRate, this.productId);
+
+    this.unit.rate.AddRating(addRate, this.productId).subscribe(() => {
+      this.UpdatingUIAfterAddRate(readRate);
     })
-  }
+  };
+
+  private UpdatingUIAfterAddRate(readRate: IRateRead): void {
+    /* send the rate created to the rating section client side addition */
+    this.unit.rate.sendRate(readRate);
+    
+    /* send the rate created to the rating section client side addition */
+    this.ratedBefore = readRate;
+
+    /* updating the avg rating after rating */
+    this.UpdateAvgRate.emit();
+  };
 
   UpdateRating(): void {
     if (!this.myForm.valid) return;
-    let ratingObj = { ...this.myForm.value, rate: this.rate }
-    this.unit.rate.UpdateRating(ratingObj, this.productId).subscribe(() => {
-      this.unit.rate.FetchProductRating();
-      this.UpdateAvgRate.emit();
-    }, error => {
-      alert(error.error)
-    })
-  }
 
+    let formValue = { ...this.myForm.value, rate: this.rate };
+    let updateRate: IUpdateRate = this.mapper.rate.ToUpdateRate(formValue.rate, formValue.reviewtitle, formValue.reviewText);
+    let readRate: IRateRead | undefined = this.mapper.rate.UpdateToRead(updateRate, this.productId);
 
-  checkIfRatedBefore = (): boolean => this.ratedBefore !== null;
+    this.unit.rate.UpdateRating(updateRate, this.productId).subscribe(() => {
+      this.UpdatingUIAfterUpdateRate(readRate);
+    });
+  };
+
+  private UpdatingUIAfterUpdateRate(readRate: IRateRead): void {
+    /* send the rate created to the rating section client side addition */
+    this.unit.rate.sendRate(readRate);
+    
+    /* send the rate created to the rating section client side addition */
+    this.ratedBefore = readRate;
+
+    /* updating the avg rating after rating */
+    this.UpdateAvgRate.emit();
+  };
+
+  checkIfRatedBefore = (): boolean => this.ratedBefore !== null && this.ratedBefore !== undefined;
 
   SetRate(rate: number) {
     this.rate = rate;

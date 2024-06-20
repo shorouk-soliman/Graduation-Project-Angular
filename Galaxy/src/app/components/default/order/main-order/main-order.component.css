@@ -13,23 +13,22 @@
     color: white !important;
 }
 
-.btn {
-    
-}
-.clickedall{
+.clickedall {
     background-color: #17a2b8;
     color: white !important;
 }
-.clickedsu{
+
+.clickedsu {
     background-color: #28a745;
     color: white !important;
 }
-.clickedpen{
+
+.clickedpen {
     background-color: #ffc107;
     color: white !important;
 }
 
-.clickedcan{
+.clickedcan {
     background-color: #dc3545;
     color: white !important;
 }
@@ -44,7 +43,7 @@
 
 .border-color-green {
     border: 0.1rem solid #28a745;
-    
+
 }
 
 .border-color-all {
@@ -52,27 +51,26 @@
     color: #17a2b8;
 }
 
-
 .border-color-yellow:hover {
     border: 0.1rem solid#ffc107;
-    background-color: #ffc107 ;
+    background-color: #ffc107;
     color: aliceblue !important;
 }
 
-.border-color-red:hover  {
+.border-color-red:hover {
     border: 0.1rem solid #dc3545;
-    background-color:#dc3545 ;
+    background-color: #dc3545;
     color: aliceblue !important;
 }
 
 .border-color-green:hover {
     border: 0.1rem solid #28a745;
-    background-color: #28a745 ;
+    background-color: #28a745;
     color: aliceblue !important;
 }
 
 .border-color-all:hover {
     border: 0.1rem solid #17a2b8;
-    background-color: #17a2b8 ;
+    background-color: #17a2b8;
     color: aliceblue !important;
 }

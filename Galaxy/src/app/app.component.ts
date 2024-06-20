@@ -10,8 +10,11 @@ export class AppComponent implements OnInit{
   constructor(private unit:UnitService){}
   ngOnInit(): void {
     this.unit.cart.CreateLocalCart();
-    this.unit.category.FetchGeneralCategories()
-    this.unit.wishlist.GetWishList();
+    this.unit.cart.FetchCart();
+    this.unit.brand.FetchGeneralBrands();
+    this.unit.category.fetchGeneralCategories()
+    this.unit.wishlist.fetchWishList();
+    this.unit.user.FetchUser();
   }
   title = 'Galaxy';
 }

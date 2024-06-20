@@ -1,26 +1,30 @@
 import { Injectable } from '@angular/core';
-import { GeneralService } from './general.service';
+import { GenericService } from './generic.service';
 import { Observable } from 'rxjs';
+import { IValueRead } from '../Models/Values/values-read-model';
+import { IAddValue } from '../Models/Values/values-add';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class ValuesService {
 
-  constructor(private general:GeneralService) { }
+  constructor(private generic: GenericService) { }
 
-  GetValues(){
-    let GetValuesURL = `${this.general.API}Values/GetAllValues`;
-    return this.general.http.get(GetValuesURL);
-  }
+  GetValues(): Observable<IValueRead[]> {
+    let Url: string = `Values/GetAllValues`;
+    return this.generic.getRequest<IValueRead[]>(Url);
+  };
 
-  AddValues(value: any): Observable<any> {
-    let AddvaluesURL = `${this.general.API}Values/AddValue`;
-    return this.general.http.post(AddvaluesURL, value);
-  }
+  AddValues(value: IAddValue): Observable<any> {
+    let Url: string = `Values/AddValue`;
+    return this.generic.postRequest<IAddValue>(Url, value);
+  };
 
-  DeleteValues(valuesId: any): Observable<any> {
-    let DeleteValuesURL = `${this.general.API}Values/deleteValues?valueId=${valuesId}`;
-    return this.general.http.delete(DeleteValuesURL);
-  }
-}
+  DeleteValues(valuesId: string | null): Observable<any> {
+    let Url: string = `Values/deleteValues?valueId=${valuesId}`;
+    return this.generic.deleteRequest<any>(Url);
+  };
+
+};

@@ -9,7 +9,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class UserSettingsComponent implements OnInit {
   constructor(private unit: UnitService) { }
-  @Output() refreshUser:EventEmitter<any> = new EventEmitter<any>()
 
   ToggleForm:boolean = false;
   oldValues:any
@@ -33,12 +32,12 @@ ngOnInit(): void {
   onSubmit(){
     if(!this.UpdateForm.valid) return;
     this.unit.user.UpdateUser(this.UpdateForm.value).subscribe(()=>{
-      this.refreshUser.emit();
+      this.unit.user.FetchUser();
     });
   }
 
   GetProfile(){
-    this.unit.user.GetProfile().subscribe((res)=>{
+    this.unit.user.GetUser().subscribe((res)=>{
       this.updateProfileForm(res)
     })
   }

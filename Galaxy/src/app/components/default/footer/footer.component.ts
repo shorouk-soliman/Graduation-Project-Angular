@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { UnitService } from '../../../services/unit.service';
 import { ViewportScroller } from '@angular/common';
+import { ICategoryRead } from '../../../Models/Category/category-read';
+import { IBrandRead } from '../../../Models/Brand/Brand-Read-model';
+import { ICategorySubs } from '../../../Models/Category/category-with-subs';
 
 @Component({
   selector: 'app-footer',
@@ -8,11 +11,11 @@ import { ViewportScroller } from '@angular/common';
   styleUrls: ['./footer.component.css']
 })
 export class FooterComponent implements OnInit {
-  constructor(private unit:UnitService,private viewportScroller: ViewportScroller) { }
+  constructor(private unit: UnitService, private viewportScroller: ViewportScroller) { }
 
-  categroies:any;
-  brands:any;
-  currentYear = new Date().getFullYear();
+  categroies: ICategoryRead[] = [];
+  brands: IBrandRead[] = [];
+  currentYear: number = new Date().getFullYear();
 
   ngOnInit() {
     this.unit.brand.FetchGeneralBrands();
@@ -24,16 +27,16 @@ export class FooterComponent implements OnInit {
     this.viewportScroller.scrollToPosition([0, 0]);
   }
 
-  GetBrands(){
-    this.unit.brand.GetGeneralBrands().subscribe((res:any)=>{
+  GetBrands() {
+    this.unit.brand.getGeneralBrands().subscribe((res: any) => {
       this.brands = res;
-    })
-  }
+    });
+  };
 
-  GetCategory(){
-    this.unit.category.GetGeneralCategories().subscribe((res:any)=>{
+  GetCategory() {
+    this.unit.category.getGeneralCategories().subscribe((res: ICategoryRead[]) => {
       this.categroies = res;
-    })
-  }
+    });
+  };
 
 }

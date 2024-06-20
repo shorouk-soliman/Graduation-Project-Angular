@@ -1,157 +1,179 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { GeneralService } from './general.service';
+import { GenericService } from './generic.service';
+import { ICart } from '../Models/Cart/cart-model';
+import { ICartItem, initialCartItem } from '../Models/Cart-Items/Cart-item-model';
+import { IAddToCart } from '../Models/Cart-Items/Add-To-Cart-model';
+import { IMapperService } from '../Mapper/IMapper/IMapper.service';
+import { IUpdateCartItem } from '../Models/Cart-Items/Update-Cart-Item-model';
+import { IProducts } from '../Models/Product/products-model';
 
 @Injectable()
 export class CartService {
 
-    private cartSubject: BehaviorSubject<any> = new BehaviorSubject<any>([]);
+    private cartItemsSubject: BehaviorSubject<ICartItem[]> = new BehaviorSubject<ICartItem[]>([]);
 
-    constructor(private general: GeneralService) { }
-    loding: boolean = false;
+    constructor(
+        private generic: GenericService,
+        private mapper: IMapperService
+    ) { }
+
+    loading: boolean = false;
 
     FetchCart(): void {
-        this.loding = true;
-        if (this.general.IsLogged()) {
-            const getCartURL: string = `${this.general.API}Cart/GetCart`;
+        this.loading = true;
+        if (this.generic.IsLogged()) {
+            let Url: string = `Cart/GetCart`;
 
-            this.general.http.get(getCartURL).subscribe((cart: any) => {
-                this.cartSubject.next(cart.products);
-                this.loding = false;
+            this.generic.getRequest<ICart>(Url).subscribe((cart: ICart) => {
+                this.cartItemsSubject.next(cart.cartitems);
+                this.loading = false;
             });
         } else {
-            const localCart = JSON.parse(localStorage.getItem('local-cart') || '[]');
-            this.cartSubject.next(localCart);
-            this.loding = false;
+            let localCart: ICartItem[] = JSON.parse(localStorage.getItem('local-cart') || '[]');
+            this.cartItemsSubject.next(localCart);
+            this.loading = false;
         }
-    }
+    };
 
-    GetCart(): Observable<any> {
-        return this.cartSubject.asObservable();
-    }
+    GetCart(): Observable<ICartItem[]> {
+        return this.cartItemsSubject.asObservable();
+    };
 
     CreateLocalCart(): void {
-        if (localStorage.getItem('local-cart') != null)
-            return;
-        localStorage.setItem('local-cart', '[]')
+        if (localStorage.getItem('local-cart') === null)
+            localStorage.setItem('local-cart', '[]')
+    };
+
+
+    /* update quantity in the array and return a deep copy of it */
+    private UpdateQtyInArray(cartItems: ICartItem[], productId: number, newQty: number): ICartItem[] {
+        let newArray: ICartItem[] = JSON.parse(JSON.stringify(cartItems));
+
+        return newArray.map((cartItem: ICartItem) => {
+            if (+cartItem.product.id === +productId)
+                return { ...cartItem, cartProductQuantity: +newQty };
+
+            return cartItem;
+        });
     }
 
-    UpdateItemQuantity(productId: number, cartProductQuantity: number): void {
 
-        let oldValue = this.cartSubject.getValue();
-        
-        let updatedcart = JSON.parse(JSON.stringify(oldValue));
-        
-        updatedcart = updatedcart.map((item: any) => {
-            if (+item.product.id === +productId) {
-                return { ...item, cartProductQuantity: +cartProductQuantity };
-            }
-            return item;
-        });
 
-        this.cartSubject.next(updatedcart)
+    UpdateItemQuantity(productId: number, newQty: number): void {
 
-        if (this.general.IsLogged()) {
-            const UpdateQuantityURL = `${this.general.API}Cart/UpdateInCart`;
-            this.general.http.put(UpdateQuantityURL, { productId, cartProductQuantity })
-                .subscribe(() => {
+        let oldValue: ICartItem[] = this.cartItemsSubject.getValue();
 
-                }, error => {
-                    this.cartSubject.next(oldValue);
-                });
-        }else{
-            localStorage.setItem('local-cart',JSON.stringify(updatedcart))
+        /* get the array after updating quantity */
+        let newValue: ICartItem[] = this.UpdateQtyInArray(oldValue, productId, newQty);
+
+        /* convert to insert cart item object then update subject with it's value */
+        let addToCart: IUpdateCartItem = this.mapper.cart.ToAddToCart(productId, newQty);
+
+        this.cartItemsSubject.next(newValue);
+
+        if (this.generic.IsLogged()) {
+            let UpdateQuantityUrl: string = `Cart/UpdateInCart`;
+            this.generic.putRequest<IUpdateCartItem>(UpdateQuantityUrl, addToCart).subscribe(() => {
+                /* in case of faliture return the old value again to the subject */
+                error: () => this.cartItemsSubject.next(oldValue);
+            });
+        } else {
+            /* in case of user is in guest mode local cart will be updated with the new value */
+            localStorage.setItem('local-cart', JSON.stringify(newValue))
         }
     }
 
-    AddLocalCart(){
+    AddLocalCart() {
         let localcart = JSON.parse(localStorage.getItem('local-cart') ?? '[]')
-        if(localcart?.lenght <= 0 ) return;
+        if (localcart?.lenght <= 0) return;
 
-        let AddlocalcartUrl = `${this.general.API}Cart/AddToCartLocally`;
+        let AddlocalcartUrl = `Cart/AddToCartLocally`;
         const transformedArray = localcart.map((item: any) => ({
             productId: item.productId,
             cartProductQuantity: item.cartProductQuantity
-          }));
-          console.log('transformedArray',transformedArray)
-        return this.general.http.post(AddlocalcartUrl,transformedArray).subscribe(()=>{
+        }));
+        return this.generic.postRequest(AddlocalcartUrl, transformedArray).subscribe(() => {
             this.FetchCart();
         });
     }
 
-    AddToCart(item: any,newQuantity:number): void {
+    AddToCart(product: IProducts, qty: number): void {
         /* add item to the cart whether if user logged in or not */
-        let currentCartData = this.cartSubject.getValue();
-        let updatedcart = JSON.parse(JSON.stringify(currentCartData));
-        updatedcart?.push({
-            productId: item?.id,
-            product: item,
-            cartProductQuantity: newQuantity
-        });
+        let oldValue: ICartItem[] = this.cartItemsSubject.getValue();
 
-        this.cartSubject.next(updatedcart)
+        /* convert to add object */
+        let addCartItem: ICartItem = this.mapper.cartItem.ToCartItem(product.id, qty, product);
+        
+        
+        /* make a deep copy array and add the item to it */
+        let updatedValue: ICartItem[] = this.AddToArray(oldValue, addCartItem);
+        this.cartItemsSubject.next(updatedValue)
 
-        if (this.general.IsLogged()) {
-            let AddToCartObject = {productId:item.id,cartProductQuantity:newQuantity};
+        /* if logged add it by api */
+        if (this.generic.IsLogged()) {
 
-            /* if logged add it by api */
-            this.general.http.post(`${this.general.API}Cart/AddToCart`, AddToCartObject)
-            .subscribe(() => {
-                // this.cartSubject.next(updatedcart)
-            },error => {
-                this.cartSubject.next(currentCartData);
+            let addToCartUrl = `Cart/AddToCart`;
+            this.generic.postRequest(addToCartUrl, addCartItem).subscribe(() => {
+                error: () => this.cartItemsSubject.next(oldValue);
             });
         } else {
-            /* if not logged just update the temp cart in the local storage */
-            localStorage.setItem('local-cart', JSON.stringify(this.cartSubject.getValue()))
+            /* in case of user is in guest mode local cart will be updated with the new value */
+            localStorage.setItem('local-cart', JSON.stringify(updatedValue))
         }
     }
 
+    /* return a deep copy of product items array after adding cart item */
+    private AddToArray(cartItems: ICartItem[], cartItem: ICartItem): ICartItem[] {
+        let updated: ICartItem[] = JSON.parse(JSON.stringify(cartItems));
+        updated.push(cartItem);
+        return updated;
+    }
 
 
     RemoveFromCart(ProductId: number): void {
 
         /* remove the product from the cart whether if user logged in or not */
-        let oldValue = this.cartSubject.getValue();
+        let oldValue = this.cartItemsSubject.getValue();
         let updatedcart = JSON.parse(JSON.stringify(oldValue));
 
         updatedcart = updatedcart.filter((item: any) => item.productId !== +ProductId);
-        this.cartSubject.next(updatedcart);
+        this.cartItemsSubject.next(updatedcart);
 
-        if (this.general.IsLogged()) {
+        if (this.generic.IsLogged()) {
             /* if logged remove it by api */
-            let RemoveFromcartURL = `${this.general.API}Cart/RemoveFromCart?productId=${ProductId}`;
-            this.general.http.delete(RemoveFromcartURL).subscribe(() => {
+            let RemoveFromcartURL = `Cart/RemoveFromCart?productId=${ProductId}`;
+            this.generic.deleteRequest(RemoveFromcartURL).subscribe(() => {
             },
                 (error) => {
-                    this.cartSubject.next(oldValue);
+                    this.cartItemsSubject.next(oldValue);
                 });
         } else {
             /* if not logged just update the temp cart in the local storage */
-            localStorage.setItem('local-cart', JSON.stringify(this.cartSubject.getValue()))
+            localStorage.setItem('local-cart', JSON.stringify(this.cartItemsSubject.getValue()))
         }
     }
 
 
     clearCart(): void {
-        this.loding = true;
+        this.loading = true;
 
-        if (this.general.IsLogged()) {
-            let oldValue = this.cartSubject.getValue();
-            const clearCartURL = `${this.general.API}Cart/ClearCart`;
+        if (this.generic.IsLogged()) {
+            let oldValue = this.cartItemsSubject.getValue();
+            const clearCartURL = `Cart/ClearCart`;
 
-            this.general.http.delete(clearCartURL).subscribe(() => {
-                this.cartSubject.next([]);
-                this.loding = false;
+            this.generic.deleteRequest(clearCartURL).subscribe(() => {
+                this.cartItemsSubject.next([]);
+                this.loading = false;
             },
                 error => {
-                    this.cartSubject.next(oldValue);
-                    this.loding = false;
+                    this.cartItemsSubject.next(oldValue);
+                    this.loading = false;
                 });
         } else {
             localStorage.setItem('local-cart', '[]')
-            this.cartSubject.next([]);
-            this.loding = false;
+            this.cartItemsSubject.next([]);
+            this.loading = false;
         }
     }
 

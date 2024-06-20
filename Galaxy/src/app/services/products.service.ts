@@ -1,58 +1,70 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { GeneralService } from './general.service';
+import { BehaviorSubject, Observable, map, switchMap } from 'rxjs';
+import { GenericService } from './generic.service';
 import { CartService } from './cart.service';
 import { WishlistService } from './wishlist.service';
+import { IProducts } from '../Models/Product/products-model';
+import { IGeneralProducts, initGeneralProducts } from '../Models/Product/general-product-model';
+import { ICartItem } from '../Models/Cart-Items/Cart-item-model';
+import { IProductQuery } from '../Models/Product/product-query-model';
 
 @Injectable()
 export class ProductsService {
 
-constructor(private general:GeneralService,private cartService:CartService,private wishlistService:WishlistService) { }
-private productsDataSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  constructor(private generic: GenericService, private cartService: CartService, private wishlistService: WishlistService) { }
+  private productsDataSubject: BehaviorSubject<IGeneralProducts> = new BehaviorSubject<IGeneralProducts>(initGeneralProducts);
 
 
-FetchGeneralProducts(page:number,limit:number,sort:string,categoryId:any,brandId:any): void{
-    const getProductGeneralURL:string =
-     `${this.general.API}Product/GetGeneralPagination?page=${page}&limit=${limit}&sort=${sort}&categoryId=${categoryId}&brandId=${brandId}`;
+  fetchGeneralProducts(productQuery:IProductQuery): void {
+    let Url: string = `Product/GetGeneralPagination`;
 
-     this.general.http.get(getProductGeneralURL).subscribe((products:any)=>{
-      this.cartService.GetCart().subscribe((cart:any)=>{
-        this.wishlistService.GetWishList().subscribe((wishlistproducts:any)=>{
-               
-          products.products = this.ChangeProductsInCart(products,cart)
-          products.products = this.ChangeProductsInWishList(products,wishlistproducts)
+    this.generic.postRequest<IProductQuery>(Url,productQuery).subscribe((products: IGeneralProducts) => {
 
-        this.productsDataSubject.next(products);
+        this.cartService.GetCart().subscribe((cartItem: ICartItem[]) => {
+          this.wishlistService.GetWishList().subscribe((wishlistproducts: any) => {
+
+            products.products = this.ChangeProductsInCart(products.products, cartItem)
+            products.products = this.ChangeProductsInWishList(products.products, wishlistproducts)
+
+            this.productsDataSubject.next(products);
+          })
         })
-      })
-    });
+
+      });
+
   }
-  
-  GetProducts():Observable<any>{
+
+  UpdateProductsWlCart(products: IProducts[], cartItems: ICartItem[], wishListProducts: IProducts[]): IProducts[] {
+    products = this.ChangeProductsInCart(products, cartItems);
+    products = this.ChangeProductsInWishList(products, wishListProducts);
+    return products;
+  }
+
+  GetProducts(): Observable<IGeneralProducts> {
     return this.productsDataSubject.asObservable();
   }
 
-  isProductExiestInCart(cartProducts:any[],item:any):boolean{
-    return cartProducts.some(cp => cp.productId === item.id);
-  }
-  
-  isProductExiestInWL(WLProducts:any[],item:any):boolean{
-    return WLProducts.some(wl => wl.id === item.id);
-  }
-
-  ChangeProductsInCart(productsArray: any, cartArray: any[]): any[] {
-    return productsArray?.products.map((product:any) => {
-      const isInCart = this.isProductExiestInCart(cartArray, product);
-      return { ...product, incart: isInCart };
+  ChangeProductsInCart(productsArray: IProducts[], cartArray: ICartItem[]): IProducts[] {
+    return productsArray?.map((product: IProducts) => {
+      let isInCart = this.isProductExiestInCart(cartArray, product);
+      return { ...product, inCart: isInCart };
     });
   }
-  
 
-  ChangeProductsInWishList(productsArray: any, WishListArray: any[]): any[] {
-    return productsArray?.products.map((product:any) => {
+  isProductExiestInCart(cartProducts: ICartItem[], product: IProducts): boolean {
+    return cartProducts?.some(cp => +cp.productId === +product.id);
+  }
+
+
+  ChangeProductsInWishList(productsArray: IProducts[], WishListArray: IProducts[]): IProducts[] {
+    return productsArray?.map((product: IProducts) => {
       const isInWL = this.isProductExiestInWL(WishListArray, product);
-      return { ...product, inwl: isInWL };
+      return { ...product, inWishList: isInWL };
     });
+  }
+
+  isProductExiestInWL(WLProducts: IProducts[], product: IProducts): boolean {
+    return WLProducts?.some(wl => wl.id === product.id);
   }
 
 }

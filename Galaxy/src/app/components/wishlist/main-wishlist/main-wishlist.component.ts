@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { GeneralService } from '../../../services/general.service';
 import { UnitService } from '../../../services/unit.service';
+import { IProducts } from '../../../Models/Product/products-model';
+import { ICartItem } from '../../../Models/Cart-Items/Cart-item-model';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-main-wishlist',
@@ -9,21 +11,21 @@ import { UnitService } from '../../../services/unit.service';
 })
 export class MainWishlistComponent implements OnInit {
   constructor(private unit: UnitService) { }
-  wishlistproducts: any;
-  ngOnInit(): void {
-    this.unit.wishlist.GetWishList().subscribe((res: any) => {
-      this.unit.cart.GetCart().subscribe((cart: any) => {
-        this.wishlistproducts = res;
-        this.wishlistproducts = this.ChangeProductsInCart(res, cart)
-      })
-    })
-  }
+  wishlistproducts: IProducts[] = [];
 
-  ChangeProductsInCart(productsArray: any, cartArray: any[]): any[] {
-    return productsArray?.map((product:any) => {
-      const isInCart = this.unit.products.isProductExiestInCart(cartArray, product);
-      return { ...product, incart: isInCart };
+
+  ngOnInit(): void {
+    this.GetWishListProducts()
+  };
+
+  GetWishListProducts() {
+    this.unit.wishlist.GetWishList().subscribe((wishListProducts: IProducts[]) => {
+      wishListProducts.map((wlProduct:IProducts) => wlProduct.inWishList = true);
+      this.unit.cart.GetCart().subscribe((cartItems: ICartItem[]) => {
+        this.wishlistproducts = this.unit.products.ChangeProductsInCart(wishListProducts, cartItems);
+      });
     });
   }
+  
 
 }

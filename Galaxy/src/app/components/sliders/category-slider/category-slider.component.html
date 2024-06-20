@@ -1,28 +1,33 @@
-  
-  <div id="custom-slider" class="carousel slide" >
-    <div class="carousel-inner" role="listbox">
-      <div class="carousel-item" *ngFor="let chunk of chunks(items, itemsPerSlide); let i = index" [ngClass]="{ 'active': i === 0 }">
+
+<div id="custom-slider" class="carousel slide" >
+  <div class="carousel-inner" role="listbox">
+    
+    @for (chunk of chunks(categories, itemsPerSlide); track $index) {
+      <div class="carousel-item" [ngClass]="{ 'active': $index === 0 }">
+        
         <div class="row my-3">
+          @for (category of chunk; track $index) {
+            <div class="col d-flex justify-content-center">        
+              <div class="item object-fit border-0 rrr ">  
 
-          <div class="col d-flex justify-content-center " *ngFor="let category of chunk">
-            <div class="item object-fit border-0 rrr " >
-              <div class="ImageHolder mx-auto">
-                <img style="cursor:pointer;" class="p-2 " [routerLink]="'category/'+category.id" [src]="category.image" [alt]="category.name">
+                <div class="ImageHolder mx-auto">
+                  <img style="cursor:pointer;" class="p-0 " [routerLink]="'category/'+category.id" [src]="category.image" [alt]="category.name">
+                </div>
+
+                <!-- <div class="categoryTitle fs-6 text-center  mx-auto" [routerLink]="'category/'+category.id"style="cursor:pointer;">{{category.name}}</div>         -->
               </div>
-              <div class="categoryTitle fs-6 text-center  mx-auto" [routerLink]="'category/'+category.id"style="cursor:pointer;">{{category.name}}</div>
-
+            </div>
+          }
         </div>
+        
+        <button class="carousel-control-prev btnslidercusotm my-auto" type="button" data-bs-target="#custom-slider" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next btnslidercusotm my-auto" type="button" data-bs-target="#custom-slider" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
       </div>
-    </div>
 
-
-
-    <button class="carousel-control-prev btnslidercusotm my-auto" type="button" data-bs-target="#custom-slider" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next btnslidercusotm my-auto" type="button" data-bs-target="#custom-slider" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
-  </div>
+    }

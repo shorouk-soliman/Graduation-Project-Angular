@@ -1,5 +1,5 @@
 <carousel>
-    <slide class="banner-image" style="height: 20rem;" *ngFor="let item of CategoryBanners">
-      <img [src]="item.imageURL" [alt]="item">
+    <slide style="height: 20rem !important; cursor: pointer;" class="banner-image" *ngFor="let banner of CategoryBanners">
+     <span><img routerLink="/subcategory/{{banner.subCategoryId}}" [src]="banner.imageURL" [alt]="banner.categoryId"></span>
     </slide>
-  </carousel>
+</carousel>

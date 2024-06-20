@@ -7,14 +7,14 @@
 <div class="profile-photo">
   <input type="file" #fileInput (change)="onFileSelected($event)" style="display: none;">
   <label></label>
-  <img class="rounded-circle pfp" (click)="fileInput.click()" [src]="user?.image || 'path/to/default/image.jpg'" alt="Profile Photo">
+  <img class="rounded-circle pfp" (click)="fileInput.click()" [src]="user.image || 'path/to/default/image.jpg'" alt="Profile Photo">
 </div>
 
 
 
-<h5 class="text-center fs-3 my-3">{{user?.firstName +' '+ user?.lastName}}</h5>
+<h5 class="text-center fs-3 my-3">{{user.firstName +' '+ user.lastName}}</h5>
 
-<div class="d-flex justify-content-center">
-  <button routerLink="/settings" class="btn btn-primary mx-2 col-1">Edit Account</button>
-  <button routerLink="/order" class="btn btn-primary mx-2 col-1">Your Orders</button>
+<div class="row justify-content-center">
+  <button routerLink="/settings" class="btn btn-primary mx-2 my-1  my-md-0 col-10 col-md-5 col-lg-2">Edit Account</button>
+  <button routerLink="/order" class="btn btn-primary my-1 my-md-0 mx-2 col-10 col-md-5  col-lg-2 ">Your Orders</button>
 </div>

@@ -17,7 +17,7 @@ export class AddCagtegoryBannerAdminComponent {
   }
 
   GetCategoies(){
-    this.unit.category.GetGeneralCategories().subscribe((res:any)=>{
+    this.unit.category.getGeneralCategories().subscribe((res:any)=>{
       this.categories = res;
     })
   }
@@ -53,7 +53,7 @@ export class AddCagtegoryBannerAdminComponent {
     if (this.selectedFile)
       formDataImage.append('image', this.selectedFile);
 
-    this.unit.ConvertImage(formDataImage).subscribe((res: string) => {
+    this.unit.image.ConvertImage(formDataImage).subscribe((res: string) => {
       let insert = { ...this.myForm.value, imageURL: res }
       this.Addbanner(insert);
     });

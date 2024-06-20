@@ -8,13 +8,13 @@
   
   .ImageHolder {
     width: 17rem;
-    height: 9rem;
+    height: 11rem;
     overflow: hidden;
   }
   
   .ImageHolder img {
     filter: drop-shadow(0.5rem 0.5rem 0.4rem #00000075);
-    object-fit: contain !important;
+    object-fit: cover !important;
     width: 100%;
     height: 100%;
   }

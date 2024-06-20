@@ -1,28 +1,29 @@
 import { Injectable } from '@angular/core';
-import { GeneralService } from './general.service';
+import { GenericService } from './generic.service';
 import { Observable } from 'rxjs';
+import { IAttributeRead } from '../Models/Attribute/Attribute-Read-model';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class AttributesService {
 
-  constructor(private general: GeneralService) { }
+  constructor(private generic: GenericService) { }
 
-  GetAttributes(): Observable<any> {
-    let GetAttributesURL = `${this.general.API}Attribute/GetAll`;
-    return this.general.http.get(GetAttributesURL);
+  GetAttributes(): Observable<IAttributeRead[]> {
+    let Url:string = `Attribute/GetAll`;
+    return this.generic.getRequest<IAttributeRead[]>(Url);
   }
 
-  AddAttribute(attribute: any): Observable<any> {
-    let AddAttributesURL = `${this.general.API}Attribute/AddAttribute`;
-    return this.general.http.post(AddAttributesURL, attribute);
+  AddAttribute(attribute: IAttributeRead): Observable<any> {
+    let Url:string = `Attribute/AddAttribute`;
+    return this.generic.postRequest<any>(Url, attribute);
   }
 
-  DeleteAttribute(attributeId: any): Observable<any> {
-    let AddAttributesURL = `${this.general.API}Attribute/DeleteAttribute?Id=${attributeId}`;
-    return this.general.http.delete(AddAttributesURL);
+  DeleteAttribute(attributeId: string): Observable<any> {
+    let Url:string = `Attribute/DeleteAttribute?Id=${attributeId}`;
+    return this.generic.deleteRequest(Url);
   }
-
 
 }

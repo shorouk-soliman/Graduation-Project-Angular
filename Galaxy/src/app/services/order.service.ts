@@ -1,54 +1,55 @@
 import { Injectable } from '@angular/core';
-import { GeneralService } from './general.service';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { GenericService } from './generic.service';
+import { IOrderHistory, initOrderHistory } from '../Models/Order/order-history';
+import { IOrderRead } from '../Models/Order/order-read';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
 
-  constructor(private general:GeneralService) { }
+  constructor(private generic: GenericService) { }
 
-  OrdersSubject:BehaviorSubject<any> = new BehaviorSubject<any>([]);
+  OrdersSubject: BehaviorSubject<IOrderHistory> = new BehaviorSubject<IOrderHistory>(initOrderHistory);
 
 
-
-  FetchUserOrders(page:number,sort :string):void{
-    const GetUserOrdersURL = `${this.general.API}Order/ViewOrderHistory?page=${page}&sort=${sort}`;
-    this.general.http.get(GetUserOrdersURL).subscribe((orders:any)=>{
+  FetchUserOrders(page: number, sort: string): void {
+    let Url:string  = `Order/ViewOrderHistory?page=${page}&sort=${sort}`;
+    this.generic.getRequest<IOrderHistory>(Url).subscribe((orders: IOrderHistory) => {
       this.OrdersSubject.next(orders);
-    })
-  }
-
-  GetUserOrders():Observable<any>{
-    return this.OrdersSubject.asObservable();
-  }
-
-  Checkout(address:any):void{
-    const CheckoutURL = `${this.general.API}Order/Checkout?address=${address.address}`;
-    this.general.http.post(CheckoutURL,{address:address},{ responseType: 'text' })
-    .subscribe((sessionURL:string)=>{
-      window.location.href = sessionURL;
     });
-  }
+  };
 
-  CancelOrder(orderId:number):void{
-    const CancelOrderURL = `${this.general.API}Order/CancelOrder?orderId=${orderId}`;
-    this.general.http.delete(CancelOrderURL).subscribe(()=>{
+  GetUserOrders(): Observable<IOrderHistory> {
+    return this.OrdersSubject.asObservable();
+  };
+
+  Checkout(address: any): void {
+    let Url:string  = `Order/Checkout?address=${address.address}`;
+    this.generic.postRequest<any>(Url, { address: address }, { responseType: 'text' })
+      .subscribe((sessionUrl: string) => {
+        window.location.href = sessionUrl;
+      });
+  };
+
+  CancelOrder(orderId: number): void {
+    let Url:string  = `Order/CancelOrder?orderId=${orderId}`;
+    this.generic.deleteRequest<any>(Url).subscribe(() => {
       this.updatingOrdersafterCancel(orderId);
-    })
-  }
+    });
+  };
 
-  private updatingOrdersafterCancel(id: any) {
+  private updatingOrdersafterCancel(id: number): void {
     let oldOrderValue = this.OrdersSubject.getValue().orders;
-  
-    let modifiedOrdersArray = oldOrderValue.map((order: any) => {
-      if (order.id === id) order.status = 'Cancelled';
+
+    let modifiedOrdersArray = oldOrderValue.map((order: IOrderRead) => {
+      if (+order.id === +id) order.status = 'Cancelled';
       return order;
     });
-  
-    this.OrdersSubject.next({ ...this.OrdersSubject.getValue(), orders: modifiedOrdersArray });
-  }
-  
 
-}
+    this.OrdersSubject.next({ ...this.OrdersSubject.getValue(), orders: modifiedOrdersArray });
+  };
+
+
+};

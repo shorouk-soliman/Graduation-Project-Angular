@@ -1,7 +1,7 @@
-<form [formGroup]="myForm" (submit)="checkIfRatedBefore()? UpdateRating():AddRating()" class="d-flex flex-column justify-content-between col-12">
+<form [formGroup]="myForm" (submit)="checkIfRatedBefore()? UpdateRating():AddRating()"
+  class="d-flex flex-column justify-content-between col-12">
   <div class="form-header">
     <div *ngFor="let item of 3 | range"></div>
-    <div>{{IsEligable}}</div>
   </div>
 
   <div class="fs-5 text-center">Rate this product</div>
@@ -27,26 +27,32 @@
   </div>
 
   <input formControlName="reviewtitle" class="px-4" placeholder="Title" type="text">
-      <!-- Display error message if "required" validation fails -->
-      <div [class.d-none]="!reviewtitleError()?.['required']" class="text-danger px-4">
-        title is required
-    </div>
-
-    <!-- Display error message if "minlength" or "maxlength" validation fails -->
-    <div [class.d-none]="!(reviewtitleError()?.['minlength'] || reviewtitleError()?.['maxlength']) || !reviewtitleError()"
-        class="text-danger px-4">
-        title must be more than 2 chars and less than 150
-    </div>
-
-    <!-- Display success message when the form is valid -->
-    <div [class.d-none]="IsEligable" class="text-danger px-4">
-      you must order this product to rate it
-    </div>
 
 
-  <textarea formControlName="reviewText" class="mx-4 px-2" placeholder="what do you think about this product"></textarea>
-  <button [class.d-none]="checkIfRatedBefore()" [disabled]="!isUserAuthunicated() || !myForm.valid || !IsEligable" type="submit" class="col-11 btn btn-success mx-auto">Rate</button>
-  <button [class.d-none]="!checkIfRatedBefore()" [disabled]="!isUserAuthunicated() || !myForm.valid || !IsEligable" type="submit" class="col-11 btn btn-success mx-auto">Update Rate</button>
+
+  @if(!IsEligable){
+    <div class="text-danger px-4">you must order this product to rate it</div>
+  }@else {
+    @if (reviewtitleError()?.['required']) {
+      <div class="text-danger px-4">title is required</div>
+    }@else if((reviewtitleError()?.['minlength'] || reviewtitleError()?.['maxlength']) || reviewtitleError()){
+      <div class="text-danger px-4">title must be more than 2 chars and less than 150</div>
+    }
+  }
+
+
+
+  <textarea formControlName="reviewText" class="mx-4 px-2"
+    placeholder="what do you think about this product"></textarea>
+
+  @if(checkIfRatedBefore()){
+  <button [disabled]="!isUserAuthunicated() || !myForm.valid || !IsEligable" type="submit"
+    class="col-11 btn btn-dark mx-auto">Update Rate</button>
+  }
+  @if(!checkIfRatedBefore()){
+  <button [disabled]="!isUserAuthunicated() || !myForm.valid || !IsEligable" type="submit"
+    class="col-11 btn btn-dark mx-auto">Rate</button>
+  }
+
   <div class="form-footer"></div>
-
 </form>

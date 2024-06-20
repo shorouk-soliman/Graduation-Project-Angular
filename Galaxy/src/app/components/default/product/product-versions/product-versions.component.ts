@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
+import { IVersion } from '../../../../Models/Version/version-read-model';
+import { IAttributeRead } from '../../../../Models/Attribute/Attribute-Read-model';
 
 @Component({
   selector: 'app-product-versions',
@@ -7,11 +9,11 @@ import { Router } from '@angular/router';
   styleUrl: './product-versions.component.css'
 })
 export class ProductVersionsComponent implements OnInit, OnChanges {
-  @Input() versions: any;
+  @Input() versions: IVersion[] = [];
   @Input() productId: number = 0;
   @Output() onChangeValue = new EventEmitter<number[]>();
 
-  currentValues: any[] = [];
+  currentValues: any;
   attributes: any[] = [];
   values: any[] = [];
 
@@ -32,7 +34,7 @@ export class ProductVersionsComponent implements OnInit, OnChanges {
 
   ChangeVersion(valueId: number, attributeId: number): void {
     let changedArray = this.ChangeCurrentValueArray(valueId, attributeId);
-    let x = changedArray.map((e) => e.id)
+    let x = changedArray.map((e:any) => e.id)
     this.onChangeValue.emit(x);
   }
 
@@ -43,7 +45,7 @@ export class ProductVersionsComponent implements OnInit, OnChanges {
 
   ChangeCurrentValueArray(valueId: number, attributeId: number) {
 
-    return this.currentValues.map((element) => {
+    return this.currentValues.map((element:any) => {
       let e = { ...element };
 
       if (e.attributeId === attributeId) e.id = valueId;
@@ -75,12 +77,12 @@ export class ProductVersionsComponent implements OnInit, OnChanges {
   }
 
   AssignAttributes() {
-    let productVersion = this.versions?.find((x: any) => x?.productId === this.productId)
+    let productVersion = this.versions.find((v: any) => v.productId === this.productId);
     this.currentValues = productVersion?.values;
 
     this.versions?.forEach((version: any) => {
 
-      version?.attributesReadDTO?.forEach((attribute: any) => {
+      version?.attributes?.forEach((attribute: IAttributeRead) => {
         if (!this.attributes?.some(a => a?.id === attribute?.id)) {
           this.attributes?.push(attribute);
         }
@@ -94,7 +96,7 @@ export class ProductVersionsComponent implements OnInit, OnChanges {
 
     });
 
-    this.attributes?.forEach(element => {
+    this.attributes?.forEach((element) => {
       element.values = [];
       this.values?.forEach((value: any) => {
         if (value?.attributeId === element?.id) {

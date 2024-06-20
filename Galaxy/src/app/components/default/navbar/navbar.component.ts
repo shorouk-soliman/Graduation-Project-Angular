@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UnitService } from '../../../services/unit.service';
+import { ICartItem } from '../../../Models/Cart-Items/Cart-item-model';
+import { IUserRead, initUserRead } from '../../../Models/User/user-read';
 
 @Component({
   selector: 'app-navbar',
@@ -8,42 +10,50 @@ import { UnitService } from '../../../services/unit.service';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private unit:UnitService) { }
-  cart:any;
+  constructor(private unit: UnitService) { }
+  cart: ICartItem[] = [];
+  user: IUserRead = initUserRead;
 
   ngOnInit() {
-    this.FetchCart()
     this.GetCart();
-  }
+    this.getUser();
+  };
 
-  WishListCount(){
+  getUser():void {
+    this.unit.user.GetUser().subscribe((user: IUserRead) => {
+      this.user = user;
+    })
+  };
+
+  WishListCount():number{
     return this.unit.wishlist.GetwishListCount();
-  }
+  };
 
-  FetchCart():void{
+  FetchCart(): void {
     this.unit.cart.FetchCart();
-  }
+  };
 
-  GetCart():void{
-     this.unit.cart.GetCart().subscribe((cart:any)=>{
+  GetCart(): void {
+    this.unit.cart.GetCart().subscribe((cart: ICartItem[]) => {
       this.cart = cart;
       this.GetCartItemsCount();
-     })
-  }
+    });
+  };
 
-  isAuthunticated():boolean{
+  isAuthunticated(): boolean {
     return this.unit.auth.isAuthunicated();
-  }
-  logoutFunction():void{
+  };
+
+  logoutFunction(): void {
     this.unit.auth.LogoutFunction();
-  }
-  
-  GetCartItemsCount():number{
+  };
+
+  GetCartItemsCount(): number {
     let count = 0;
-    for(let i = 0;i<this.cart?.length;i++){
+    for (let i = 0; i < this.cart?.length; i++) {
       count += +this.cart[i].cartProductQuantity;
-    }
+    };
     return count;
-  }
+  };
 
 }

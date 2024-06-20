@@ -7,19 +7,19 @@
     <app-sort-product
     (changeSort)="OnSortChange($event)"
     (changeLimit)="OnLimitChange($event)"
-    [sort]="sort"
-    [limit]="limit">
+    (changeKeyword)="OnKeywordChange($event)"
+    [sort]="query.sort"
+    [limit]="query.limit">
 </app-sort-product>
 </div>
 
 <app-product-item 
-[products]="productsArray"
-[productsTotalPages]="Totalpages">
+[products]="productsArray">
 </app-product-item> 
 
 
 <app-pagination 
 [TotalPages]="Totalpages"
- [page]="page"
+ [page]="query.page"
  (NavigateTo)="OnPageChange($event)">
 </app-pagination>

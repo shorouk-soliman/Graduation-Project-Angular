@@ -1,51 +1,53 @@
 import { Injectable } from '@angular/core';
-import { GeneralService } from './general.service';
+import { GenericService } from './generic.service';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { IBrandRead } from '../Models/Brand/Brand-Read-model';
+import { IBrandAdmin } from '../Models/Brand/Brand-Admin-model';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class BrandService {
 
-  constructor(private general: GeneralService) { }
-  BrandGeneralSubject:BehaviorSubject<any> = new BehaviorSubject<any>([]);
+  constructor(private generic: GenericService) { }
 
-  FetchGeneralBrands(){
-    let GetAllBrandsURL = `${this.general.API}Brand/GetAllGeneral`;
+  generalBrandSubject: BehaviorSubject<IBrandRead[]> = new BehaviorSubject<IBrandRead[]>([]);
 
-    this.general.http.get(GetAllBrandsURL).subscribe((brands:any)=>{
-      this.BrandGeneralSubject.next(brands);
-    })
-  }
+  FetchGeneralBrands(): void {
+    let Url: string = `Brand/GetAllGeneral`;
+    this.generic.getRequest<IBrandRead[]>(Url).subscribe((brands: IBrandRead[]) => {
+      this.generalBrandSubject.next(brands);
+    });
+  };
 
-  GetOneBrand(brandId:number):Observable<any>{
-    let GenOneBrandURL = `${this.general.API}Brand/GetBrand?id=${brandId}`;
-    return this.general.http.get(GenOneBrandURL);
-  }
+  GetOneBrand(brandId: number): Observable<IBrandRead> {
+    let Url: string = `Brand/GetBrand?id=${brandId}`;
+    return this.generic.getRequest<IBrandRead>(Url);
+  };
 
-  GetAdminBrand():Observable<any>{
-    let getAdminBrandsURL = `${this.general.API}Brand/GetAllAdmin`;
-    return this.general.http.get(getAdminBrandsURL);
-  }
+  GetAdminBrand(): Observable<IBrandAdmin> {
+    let Url: string = `Brand/GetAllAdmin`;
+    return this.generic.getRequest<IBrandAdmin>(Url);
+  };
 
-  GetGeneralBrands():Observable<any>{
-    return this.BrandGeneralSubject.asObservable()
-  }
+  getGeneralBrands(): Observable<IBrandRead[]> {
+    return this.generalBrandSubject.asObservable();
+  };
 
-  AddBrand(brand:any):Observable<any>{
-    let AddBrandURL = `${this.general.API}Brand/AddBrand`;
-    return this.general.http.post(AddBrandURL,brand);
-  }
+  AddBrand(brand: any): Observable<any> {
+    let Url: string = `Brand/AddBrand`;
+    return this.generic.postRequest<any>(Url, brand);
+  };
 
-  DeleteBrand(brandId: number){
-    let DeleteBrandURL = `${this.general.API}Brand/DeleteBrand?id=${brandId}`;
-    return this.general.http.delete(DeleteBrandURL);
-  }
+  DeleteBrand(brandId: number): Observable<any> {
+    let Url: string = `Brand/DeleteBrand?id=${brandId}`;
+    return this.generic.deleteRequest(Url);
+  };
 
-  RetriveBrand(brandId: number){
-    let RetriveBrandURL = `${this.general.API}Brand/RetrieveDeletedBrand?id=${brandId}`;
-    return this.general.http.put(RetriveBrandURL,null);
-  }
+  RetriveBrand(brandId: number): Observable<any> {
+    let Url: string = `Brand/RetrieveDeletedBrand?id=${brandId}`;
+    return this.generic.putRequest(Url, null);
+  };
 
-
-}
+};

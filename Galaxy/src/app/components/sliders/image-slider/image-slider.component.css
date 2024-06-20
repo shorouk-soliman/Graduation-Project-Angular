@@ -1,9 +1,19 @@
-.image-container{
+.banner-image{
     height: 20rem;
 }
-.carousel-item img {
+
+.banner-image span{
+    height: 20rem !important;
     width: 100%;
-    height: 100%;
-    /* object-fit: cover; */
-  }
-  
+    display: block;
+}
+
+.banner-image div{
+    height: 20rem !important;
+}
+
+.banner-image img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important; 
+}

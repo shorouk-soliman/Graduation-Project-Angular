@@ -1,32 +1,36 @@
 import { Injectable } from '@angular/core';
-import { GeneralService } from './general.service';
+import { GenericService } from './generic.service';
 import { Observable } from 'rxjs';
+import { IGroupAttributeValues } from '../Models/Group/group-attrbuite-values';
+import { IGroupRead } from '../Models/Group/group-read';
+import { IAddGroup } from '../Models/Group/group-add';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GroupService {
 
-  constructor(private general:GeneralService) { }
+  constructor(private generic: GenericService) { }
 
-  GetAllGroups():Observable<any>{
-    const GetGroupsURL = `${this.general.API}VariantGroup/GetAll`
-    return this.general.http.get(GetGroupsURL);
-  }
+  GetAllGroups(): Observable<IGroupRead[]> {
+    let Url:string  = `VariantGroup/GetAll`;
+    return this.generic.getRequest<IGroupRead[]>(Url);
+  };
 
-  GetProductsbyGroup(GroupId:number):Observable<any>{
-    const GetGroupsURL = `${this.general.API}VariantGroup/GetOne?Id=${GroupId}`
-    return this.general.http.get(GetGroupsURL);
-  }
+  // GetProductsbyGroup(GroupId: number): Observable<IGroupRead[]> {
+  //   let Url = `VariantGroup/GetOne?Id=${GroupId}`;
+  //   return this.generic.getRequest<IGroupRead[]>(Url);
+  // };
 
-  AddGroups(insert:any):Observable<any>{
-    const AddGroupsURL = `${this.general.API}VariantGroup/Add`
-    return this.general.http.post(AddGroupsURL,insert);
-  }
+  GetGroupWithAttributesValues(GroupId: number):Observable<IGroupAttributeValues> {
+    let Url:string  = `VariantGroup/GetAttributeValuesByGroup?Id=${GroupId}`;
+    return this.generic.getRequest<IGroupAttributeValues>(Url);
+  };
 
-  GetGroupWithAttributesValues(GroupId:number){
-    const GetGroupsURL = `${this.general.API}VariantGroup/GetAttributeValuesByGroup?Id=${GroupId}`
-    return this.general.http.get(GetGroupsURL);
-  }
+  AddGroups(insert: IAddGroup): Observable<any> {
+    let Url:string  = `VariantGroup/Add`;
+    return this.generic.postRequest<any>(Url, insert);
+  };
 
-}
+
+};

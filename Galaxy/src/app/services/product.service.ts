@@ -1,33 +1,34 @@
 import { Injectable } from '@angular/core';
-import { GeneralService } from './general.service';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { GenericService } from './generic.service';
+import { Observable } from 'rxjs';
+import { ISimpleProduct } from '../Models/Product/simple-product-model';
+import { IVarProduct } from '../Models/Product/var-product-model';
+import { IProductDetails } from '../Models/Product/Product-Details-model';
 
 @Injectable()
 export class ProductService {
 
-constructor(private general:GeneralService) { }
+  constructor(private generic: GenericService) { }
 
 
-GetProductDetils(productId:string|null):Observable<any>{
-   const GetProductURL = `${this.general.API}Product/GetOneProduct?id=${productId}`;
-  return this.general.http.get(GetProductURL);
-}
+  GetProductDetails(productId: number): Observable<IProductDetails> {
+    let Url: string = `Product/GetOneProduct?id=${productId}`;
+    return this.generic.getRequest<IProductDetails>(Url);
+  }
 
+  AddSimpleProduct(insert: ISimpleProduct): Observable<ISimpleProduct> {
+    let Url: string = `Product/AddSimpleProduct`;
+    return this.generic.postRequest<ISimpleProduct>(Url, insert);
+  }
 
-AddSimpleProduct(insert:any):Observable<any>{
-  const AddProductURL = `${this.general.API}Product/AddSimpleProduct`;
- return this.general.http.post(AddProductURL,insert);
-}
+  AddVarProduct(insert: IVarProduct): Observable<IVarProduct> {
+    let Url: string = `Product/AddVarProduct`;
+    return this.generic.postRequest<IVarProduct>(Url, insert);
+  }
 
-AddVarProduct(insert:any):Observable<any>{
-  const AddProductURL = `${this.general.API}Product/AddVarProduct`;
- return this.general.http.post(AddProductURL,insert);
-}
+  DeleteProduct(productId: number): Observable<any> {
+    let Url: string = `Product/DeleteProduct?id=${productId}`;
+    return this.generic.deleteRequest<any>(Url);
+  }
 
-DeleteProduct(productId:number):Observable<any>{
-  const AddProductURL = `${this.general.API}Product/DeleteProduct?id=${productId}`;
- return this.general.http.delete(AddProductURL);
-}
-
-
-}
+};

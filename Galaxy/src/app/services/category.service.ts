@@ -1,57 +1,74 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { GeneralService } from './general.service';
+import { BehaviorSubject, Observable, map } from 'rxjs';
+import { GenericService } from './generic.service';
+import { ICategoryAdmin } from '../Models/Category/category-admin';
+import { ICategoryDetails } from '../Models/Category/category-details';
+import { IAddCategory } from '../Models/Category/cateory-add';
+import { IAddCategoryBanner } from '../Models/Category/category-banner-add';
+import { ICategoryRead } from '../Models/Category/category-read';
+import { ICategorySubs } from '../Models/Category/category-with-subs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryService {
 
-  categorySubject: BehaviorSubject<any> = new BehaviorSubject<any>(null)
+  constructor(private generic: GenericService) { }
 
-  constructor(private general: GeneralService) { }
+  categorySubject: BehaviorSubject<ICategoryRead[]> = new BehaviorSubject<ICategoryRead[]>([]);
+  categorywithSubsSubject: BehaviorSubject<ICategorySubs[]> = new BehaviorSubject<ICategorySubs[]>([]);
 
-  GetAdminCategories():Observable<any>{
-    let GetAllAdminURL = `${this.general.API}Category/GetAllAdmin`;
-    return this.general.http.get(GetAllAdminURL);
+  GetAdminCategories(): Observable<ICategoryAdmin[]> {
+    let Url: string = `Category/GetAllAdmin`;
+    return this.generic.getRequest<ICategoryAdmin[]>(Url);
+  };
+
+  fetchGeneralCategories(): void {
+    let Url: string = `Category/GetAllGeneral`;
+
+    this.generic.getRequest<ICategorySubs[]>(Url).subscribe((categoriesSubs: ICategorySubs[]) => {
+      this.categorySubject.next(this.getCategoriesOnly(categoriesSubs));
+      this.categorywithSubsSubject.next(categoriesSubs);
+    });
+    
   }
 
-  FetchGeneralCategories(): void {
-    const GetCategoriesURL = `${this.general.API}Category/GetAllGeneral`
-    this.general.http.get(GetCategoriesURL).subscribe((categories: any) => {
-      this.categorySubject.next(categories)
-    })
+  private getCategoriesOnly(categoriesSubs:ICategorySubs[]):ICategoryRead[]{
+    return categoriesSubs.map(cs => cs.category);
   }
 
-  GetGeneralCategories(): Observable<any> {
+
+  getGeneralCategories(): Observable<ICategoryRead[]> {
     return this.categorySubject.asObservable();
-  }
+  };
 
-  GetOneCategory(categoryId:string | null):Observable<any>{
-    const GetCategoryURL = `${this.general.API}Category/GetOneCategory?id=${categoryId}`
-    return this.general.http.get(GetCategoryURL);
-  } 
+  getCategoriesSubs(): Observable<ICategorySubs[]> {
+    return this.categorywithSubsSubject.asObservable();
+  };
 
+  GetOneCategory(categoryId: number): Observable<ICategoryDetails> {
+    let Url: string = `Category/GetOneCategory?id=${categoryId}`;
+    return this.generic.getRequest<ICategoryDetails>(Url);
+  };
 
-  AddCategory(category:any):Observable<any>{
-    let AddcategoryURL = `${this.general.API}Category/AddCategory`;
-    return this.general.http.post(AddcategoryURL,category);
-  }
+  AddCategory(category: IAddCategory): Observable<any> {
+    let Url: string = `Category/AddCategory`;
+    return this.generic.postRequest<any>(Url, category);
+  };
 
-  AddCategoryBanner(banner:any):Observable<any>{
-    let AddcategorybannerURL = `${this.general.API}Category/AddCategoryImages`;
-    return this.general.http.post(AddcategorybannerURL,banner);
-  }
+  AddCategoryBanner(banner: IAddCategoryBanner): Observable<any> {
+    let Url: string = `Category/AddCategoryImages`;
+    return this.generic.postRequest<any>(Url, banner);
+  };
 
-  DeleteCategory(categoryId: number){
-    let DeletecategoryURL = `${this.general.API}category/DeleteCategory?id=${categoryId}`;
-    return this.general.http.delete(DeletecategoryURL);
-  }
+  DeleteCategory(categoryId: number): Observable<any> {
+    let Url: string = `category/DeleteCategory?id=${categoryId}`;
+    return this.generic.deleteRequest<any>(Url);
+  };
 
-  RetriveCategory(categoryId: number){
-    let RetrivecategoryURL = `${this.general.API}Category/RetrieveDeletedCategory?id=${categoryId}`;
-    return this.general.http.put(RetrivecategoryURL,null);
-  }
+  RetriveCategory(categoryId: number): Observable<any> {
+    let Url: string = `Category/RetrieveDeletedCategory?id=${categoryId}`;
+    return this.generic.putRequest<any>(Url, null);
+  };
 
-}
+};

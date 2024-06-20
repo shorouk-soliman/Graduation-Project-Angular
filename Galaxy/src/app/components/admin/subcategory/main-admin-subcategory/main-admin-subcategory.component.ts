@@ -15,15 +15,15 @@ export class MainAdminSubcategoryComponent {
     this.GetSubCategory()
   }
 
-  Deletecategory(subcategory:any){
-    this.unit.category.DeleteCategory(subcategory.id).subscribe(()=>{
+  DeleteSubcategory(subcategory:any){
+    this.unit.subcategory.DeleteSubCategory(subcategory.id).subscribe(()=>{
       subcategory.isDeleted = true;
     },error=>{
       
     })
   }
-  Retrivecategory(subcategory:any){
-    this.unit.category.RetriveCategory(subcategory.id).subscribe(()=>{
+  RetriveSubCategory(subcategory:any){
+    this.unit.subcategory.RetriveSubCategory(subcategory.id).subscribe(()=>{
       subcategory.isDeleted = false;
     },error=>{
       

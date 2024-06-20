@@ -2,13 +2,13 @@
 
 <app-subcategory-slider [subcategories]="subcatigories"></app-subcategory-slider>
 
-<h1 class="text-center">{{category?.name}}</h1>
-<div class="text-center fs-6">{{category?.description}}</div>
+<h1 class="text-center">{{category.name}}</h1>
+<div class="text-center fs-6">{{category.description}}</div>
 
-<div [class.d-none]="item?.products?.length === 0" *ngFor="let item of subcatigorieswithproducts">
+<div [class.d-none]="subCategory?.products?.length === 0" *ngFor="let subCategory of subcatigorieswithproducts">
 
-    <div class="fs-2 fw-bold">{{item?.subcategory?.name}}</div>
+    <div class="fs-2 fw-bold">{{subCategory?.subcategory?.name}}</div>
     <hr>
-    <app-product-item [products]="item?.products"></app-product-item>
+    <app-product-item [products]="subCategory.products"></app-product-item>
 
 </div>

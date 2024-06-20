@@ -3,10 +3,10 @@
 <div class="fs-5 p-0 m-0">Versions</div>
 
 <div>   
-    <div *ngFor="let item of attributes">
-        <div class="item.attributesReadDTO.id fs-6 mt-2 mb-1"> {{item.name}}</div>
+    <div *ngFor="let attribute of attributes">
+        <div class="item.attributesReadDTO.id fs-6 mt-2 mb-1"> {{attribute.name}}</div>
         <div class="d-flex">
-            <div *ngFor="let value of item.values">
+            <div *ngFor="let value of attribute.values">
 
 
             <button 
@@ -17,9 +17,9 @@
                 {{value.name}}
             </button>
             <button 
-                (click)="ChangeVersion(value.id,item.id)"
+                (click)="ChangeVersion(value.id,attribute.id)"
                 [class.d-none]="isValueCurrent(value.id)"
-                [disabled]="isValueCurrent(value.id) || !checkValueForOtherVersions(value.id,item.id)" 
+                [disabled]="isValueCurrent(value.id) || !checkValueForOtherVersions(value.id,attribute.id)" 
                 class="btn mx-1 btn-light" 
                 [class.btn-outline-secondar]="isValueCurrent(value.id)">
                 {{value.name}}

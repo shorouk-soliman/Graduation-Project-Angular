@@ -1,41 +1,41 @@
 <div class="container-fluid">
   <div class="row justify-content-start">
 
-    <div style="width: 16rem;"  *ngFor="let item of products">
+    <div style="width: 16rem;"  *ngFor="let product of products">
 
 
       <div class="card my-1">
-        <img class="card-img-top le-image" routerLink="/product/{{item?.id}}" [src]="item?.image" [alt]="item?.name">
-        <button [class.d-none]="item.discount === 0" class="discount-btn btn btn-dark col-4">Save {{item.discount}}%</button>
+        <img loading="lazy" class="card-img-top le-image" routerLink="/product/{{product?.id}}" [src]="product?.image" [alt]="product?.name">
+        <button [class.d-none]="product.discount === 0" class="discount-btn btn btn-dark col-4">Save {{product.discount}}%</button>
         <div class="card-body p-2">
-          <h5 class="card-title" routerLink="/product/{{item?.id}}">{{item?.name}}</h5>
-          <p class="card-text">{{item?.desctiption}}</p>
+          <h5 class="card-title" routerLink="/product/{{product?.id}}">{{product?.name}}</h5>
+          <p class="card-text">{{product?.desctiption}}</p>
 
 
           <!-- Rating -->
           <div class="rating-box my-1">
-            <span [ngClass]="{'low':item.rate <2.5,'med':item.rate >= 2.5 && item.rate <=3.5,'hight':item.rate >=3.5,}"
-              class="me-1 btn me-2" [class.d-none]="item.rate === 0">{{item.rate.toFixed(1)}}</span>
-            <div class="w-content"><app-stars [class.d-none]="item.rate === 0" [Stars]="item.rate"></app-stars></div>
+            <span [ngClass]="{'low':product.rate <2.5,'med':product.rate >= 2.5 && product.rate <=3.5,'hight':product.rate >=3.5,}"
+              class="me-1 btn me-2" [class.d-none]="product.rate === 0">{{product.rate.toFixed(1)}}</span>
+            <div class="w-content"><app-stars [class.d-none]="product.rate === 0" [Stars]="product.rate"></app-stars></div>
             </div>
             
             
             
           <!-- Price -->
           <div>
-            <div [class.d-none]="item?.discount !== 0" class="fs-5 my-1" style="font-weight: 600;">{{item.price | currency}}</div>
-            <div [class.d-none]="item?.discount === 0" class="fs-5 my-1" style="font-weight: 600;">{{ item?.price - (item?.price * (item?.discount / 100))  |currency}}</div>
+            <div [class.d-none]="product?.discount !== 0" class="fs-5 my-1" style="font-weight: 600;">{{product.price | currency}}</div>
+            <div [class.d-none]="product?.discount === 0" class="fs-5 my-1" style="font-weight: 600;">{{ product.price - (product.price * (product.discount / 100))  |currency}}</div>
           </div>
 
 
           <div class="row justify-content-between">
 
-            <select class="form-select w-40 px-2 text-center" [class.d-none]="item?.incart"
-              (change)="OnProductQtyChange(item?.id,$event)">
-              <option *ngFor="let num of item?.quantity | range">{{num}}</option>
+            <select class="form-select w-40 px-2 text-center" [class.d-none]="product?.inCart"
+              (change)="OnProductQtyChange(product.id,$event)">
+              <option *ngFor="let num of product.quantity | range">{{num}}</option>
             </select>
 
-            <button [class.d-none]="item?.incart" (click)="AddToCart(item)" class="btn btn-success px-2 col-3">
+            <button [class.d-none]="product?.inCart" (click)="AddToCart(product)" class="btn btn-success px-2 col-3">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                 class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
                 <path
@@ -43,7 +43,7 @@
               </svg>
             </button>
 
-            <button [class.d-none]="!item?.incart" (click)="RemoveFromCart(item?.id)" class="btn btn-danger px-2"
+            <button [class.d-none]="!product?.inCart" (click)="RemoveFromCart(product.id)" class="btn btn-danger px-2"
               style="width:72.2%;">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                 class="bi bi-cart-dash-fill" viewBox="0 0 16 16">
@@ -52,13 +52,13 @@
               </svg>
             </button>
 
-            <button [class.d-none]="item.inwl" (click)="AddToWishList(item)" class="btn btn-unfav col-3 px-2">
+            <button [class.d-none]="product.inWishList" (click)="AddToWishList(product)" class="btn btn-unfav col-3 px-2">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
               </svg>
             </button>
 
-            <button [class.d-none]="!item.inwl" (click)="RemoveFromWishList(item)" class="btn btn-fav col-3 px-2">
+            <button [class.d-none]="!product.inWishList" (click)="RemoveFromWishList(product)" class="btn btn-fav col-3 px-2">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
               </svg>
@@ -70,8 +70,6 @@
 
         </div>
       </div>
-
-
 
 
     </div>

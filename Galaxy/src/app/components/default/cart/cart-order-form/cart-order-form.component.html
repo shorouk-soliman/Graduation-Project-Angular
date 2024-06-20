@@ -6,11 +6,11 @@
       <input formControlName="address" placeholder="shipping address" class="py-2 px-3 w-100">
 
 
-      <div class="text-danger mt-2" [class.d-none]="!myForm.controls['address']?.errors">
-        <div [class.d-none]="!myForm.controls['address']?.errors?.['required']">
+      <div class="text-danger mt-2" [class.d-none]="!myForm.controls['address']!.errors">
+        <div [class.d-none]="!myForm.controls['address']!.errors?.['required']">
           Shipping Address is required.
         </div>
-        <div [class.d-none]="!myForm.controls['address']?.errors?.['pattern']">
+        <div [class.d-none]="!myForm.controls['address']!.errors?.['pattern']">
           Shipping Address must be at least 6 characters long.
         </div>
 

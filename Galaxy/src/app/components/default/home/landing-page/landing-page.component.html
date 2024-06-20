@@ -1,26 +1,30 @@
-
 <app-image-slider></app-image-slider>
+
 <app-category-slider></app-category-slider>
-<div class="text-center fs-3">Trending Products</div>
+
+<app-categories-subs-cards></app-categories-subs-cards>
+
+<div class="text-center fs-3 mt-3">Trending Products</div>
+
 <div class="mb-2">
     <app-sort-product
-    (changeSort)="OnSortChange($event)"
-    (changeLimit)="OnLimitChange($event)"
-    [sort]="sort"
-    [limit]="limit">
-</app-sort-product>
-
+     (changeSort)="OnSortChange($event)" 
+     (changeLimit)="OnLimitChange($event)"
+     (changeKeyword)="OnKeyWordChange($event)"
+    [sort]="query.sort"
+    [limit]="query.limit">
+    </app-sort-product>
 </div>
 
 
 <div class="container-fluid ">
-    <app-product-item 
-        [products]="productsArray"
-        [productsTotalPages]="Totalpages">
-    </app-product-item> 
+    <app-product-item [products]="products.products"></app-product-item>
 
-    <app-pagination 
-    [TotalPages]="Totalpages"
-     [page]="page"
-     (NavigateTo)="OnPageChange($event)" ></app-pagination>
+    <app-pagination [TotalPages]="products.totalPages" [page]="query.page"
+        (NavigateTo)="OnPageChange($event)"></app-pagination>
+</div>
+
+<div>
+    <h1 class="text-center fs-3 mb-3">Top Brands</h1>
+    <app-brand-slider></app-brand-slider>
 </div>

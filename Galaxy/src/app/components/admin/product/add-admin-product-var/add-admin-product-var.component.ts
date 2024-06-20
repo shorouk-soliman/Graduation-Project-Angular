@@ -119,10 +119,10 @@ export class AddAdminProductVarComponent implements OnDestroy {
         formDataImages.append('images', file);
       })
 
-    this.unit.ConvertImage(formDataImage).subscribe((res: string) => {
+    this.unit.image.ConvertImage(formDataImage).subscribe((res: string) => {
       let insert = { ...this.myForm.value, image: res }
 
-      this.unit.ConvertListImage(formDataImages).subscribe((sres: any) => {
+      this.unit.image.ConvertListImage(formDataImages).subscribe((sres: any) => {
         insert = { ...insert, productImages: sres };
         this.AddSimpleProduct(insert);
       })

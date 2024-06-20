@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { UnitService } from '../../../../services/unit.service';
+import { IOrderItemRead } from '../../../../Models/Order Items/order-item-read';
+import { IOrderRead } from '../../../../Models/Order/order-read';
 
 @Component({
   selector: 'app-order-item',
@@ -8,7 +10,7 @@ import { UnitService } from '../../../../services/unit.service';
 })
 export class OrderItemComponent {
 
-  @Input() orders :any
+  @Input() orders :IOrderRead[] = []
 
   constructor(private unit:UnitService){}
 

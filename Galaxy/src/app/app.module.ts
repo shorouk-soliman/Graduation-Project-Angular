@@ -18,13 +18,8 @@ import { LandingPageComponent } from './components/default/home/landing-page/lan
 import { RangePipe } from './pipes/range.pipe';
 import { SortProductComponent } from './components/default/home/sort-product/sort-product.component';
 import { UnitService } from './services/unit.service';
-import { ProductService } from './services/product.service';
-import { ProductsService } from './services/products.service';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
-import { CartService } from './services/cart.service';
 import { AuthService } from './services/auth.service';
-import { GeneralService } from './services/general.service';
-import { InterceptorService } from './services/interceptor.service';
 import { LoginComponent } from './components/auth/login/login.component';
 import { SignComponent } from './components/auth/sign/sign.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -33,7 +28,6 @@ import { OrderItemComponent } from './components/default/order/order-item/order-
 import { PaginationComponent } from './components/default/pagination/pagination.component';
 import { MainProfileComponent } from './components/default/user/main-profile/main-profile.component';
 import { ProfileViewComponent } from './components/default/user/profile-view/profile-view.component';
-import { UserService } from './services/user.service';
 import { BrandSliderComponent } from './components/sliders/brand-slider/brand-slider.component';
 import { CategorySliderComponent } from './components/sliders/category-slider/category-slider.component';
 import { ImageSliderComponent } from './components/sliders/image-slider/image-slider.component';
@@ -75,6 +69,16 @@ import { MainWishlistComponent } from './components/wishlist/main-wishlist/main-
 import { MainSearchComponent } from './components/search/main-search/main-search.component';
 import { MainSubcategoryComponent } from './components/default/subcategory/main-subcategory/main-subcategory.component';
 import { SubcategoryProductsBannerSliderComponent } from './components/default/subcategory/subcategory-products-banner-slider/subcategory-products-banner-slider.component';
+import { AuthInterceptorService } from './interceptors/auth-interceptor';
+import { GenericService } from './services/generic.service';
+import { ProductService } from './services/product.service';
+import { ProductsService } from './services/products.service';
+import { CartService } from './services/cart.service';
+import { UserService } from './services/user.service';
+import { CategoriesSubsCardsComponent } from './components/default/home/categories-subs-cards/categories-subs-cards.component';
+import { ConfirmComponent } from './components/Helpers/confirm/confirm.component';
+import { ErrorCardComponent } from './components/error-card/error-card.component';
+// import { ErrorInterceptorService } from './interceptors/error-interceptor';
 
 
 @NgModule({
@@ -142,7 +146,10 @@ import { SubcategoryProductsBannerSliderComponent } from './components/default/s
     MainSearchComponent,
     MainSubcategoryComponent,
     SubcategoryProductsBannerSliderComponent,
-    ],
+    CategoriesSubsCardsComponent,
+    ConfirmComponent,
+    ErrorCardComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -159,15 +166,12 @@ import { SubcategoryProductsBannerSliderComponent } from './components/default/s
     CartService,
     AuthService,
     UserService,
-    GeneralService,
-    InterceptorService,
+    GenericService,
+    AuthInterceptorService,
     HttpClient,
     Location,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: InterceptorService,
-      multi: true
-    },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true },
+    // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true },
   ],
   bootstrap: [AppComponent]
 })

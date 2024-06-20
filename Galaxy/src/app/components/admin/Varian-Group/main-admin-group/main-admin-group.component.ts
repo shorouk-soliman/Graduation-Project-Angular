@@ -18,15 +18,11 @@ export class MainAdminGroupComponent {
   Deletecategory(category:any){
     this.unit.category.DeleteCategory(category.id).subscribe(()=>{
       category.isDeleted = true;
-    },error=>{
-      
     })
   }
   Retrivecategory(category:any){
     this.unit.category.RetriveCategory(category.id).subscribe(()=>{
       category.isDeleted = false;
-    },error=>{
-      
     })
   }
 

@@ -52,7 +52,7 @@ export class AddSubcagtegoryBannerAdminComponent implements OnInit {
     if (this.selectedFile)
       formDataImage.append('image', this.selectedFile);
 
-    this.unit.ConvertImage(formDataImage).subscribe((res: string) => {
+    this.unit.image.ConvertImage(formDataImage).subscribe((res: string) => {
       let insert = { ...this.myForm.value, imageURL: res }
       this.Addbanner(insert);
     });

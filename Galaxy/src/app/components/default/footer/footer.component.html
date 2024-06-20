@@ -1,4 +1,4 @@
-<div (click)="scrollToTop()" style="cursor: pointer;" class="bg-secondary py-1 fw-bold text-center col-12 mt-5">
+<div (click)="scrollToTop()" style="cursor: pointer;" class="bg-secondary header py-1 fw-bold text-center col-12 mt-5">
   <span>To Top</span>
   <span>
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16">
@@ -14,7 +14,7 @@
   <div class="col-3">
     <div class="fs-5">Categories</div>
     <div *ngFor="let category of categroies">
-      <div class="fs-6">{{category.name}}</div>
+      <div style="cursor: pointer;" routerLink="category/{{category.id}}" class="fs-6">{{category.name}}</div>
     </div>
   </div>
 

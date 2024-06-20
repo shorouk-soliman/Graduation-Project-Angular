@@ -1,5 +1,6 @@
-<nav *ngIf="TotalPages >0">
-    <ul class="pagination justify-content-center">
+@if (TotalPages > 0) {
+<nav>
+    <ul class="pagination justify-content-center mt-3">
 
         <li class="page-item disabled" [class.disabled]="page===1">
             <span style="cursor:pointer;" class="page-link" (click)="GotoPage(page-1)"><svg
@@ -36,3 +37,4 @@
 
     </ul>
 </nav>
+}

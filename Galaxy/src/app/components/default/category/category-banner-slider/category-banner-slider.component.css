@@ -1,8 +1,19 @@
-.banner-image {
-    height: 20rem
+.banner-image{
+    height: 20rem;
 }
-.banner-image img{
-    object-fit: cover;
-    height: 100%;
+
+.banner-image span{
+    height: 20rem !important;
     width: 100%;
+    display: block;
+}
+
+.banner-image div{
+    height: 20rem !important;
+}
+
+.banner-image img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important; 
 }

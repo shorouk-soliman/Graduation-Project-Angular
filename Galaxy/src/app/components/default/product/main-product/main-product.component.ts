@@ -1,56 +1,66 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { UnitService } from '../../../../services/unit.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { IProductDetails, initialProductDetails } from '../../../../Models/Product/Product-Details-model';
+import { ICartItem } from '../../../../Models/Cart-Items/Cart-item-model';
+import { IProducts } from '../../../../Models/Product/products-model';
+import { IProductRating, initProductRating } from '../../../../Models/Rating/rating-product';
 
 @Component({
   selector: 'app-main-product',
   templateUrl: './main-product.component.html',
   styleUrls: ['./main-product.component.css']
 })
-export class MainProductComponent implements OnInit {
+export class MainProductComponent implements OnInit,OnChanges {
 
-  product:any;
-  Qty:number | null = null;
-  productId:string|null ='';
+  constructor(private unit: UnitService,private route:ActivatedRoute) { }
 
-  constructor(
-    private unit: UnitService,
-    private route:ActivatedRoute,
-    private router:Router) { }
+  product:IProductDetails = initialProductDetails;
+  Qty:number | undefined = 0;
+  productId:number = 0;
+  
 
   ngOnInit() {
-    this.productId = this.route.snapshot.paramMap.get('id');
-    this.GetProductDetails()
-  }
+    this.getIdParamter();
+  };
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.getIdParamter();
+  };
+
+  getIdParamter():void{
+    this.route.paramMap.subscribe(params =>{
+      this.productId = Number(params.get('id'));
+      this.GetProductDetails();
+    });
+  };
 
   GetProductDetails():void{
-    this.unit.product.GetProductDetils(this.productId)
-    .subscribe((productData:any)=>{
-      this.unit.cart.GetCart().subscribe((cart:any)=>{
+    this.unit.product.GetProductDetails(this.productId).subscribe((productData:IProductDetails)=>{
+      this.unit.cart.GetCart().subscribe((cartItems:ICartItem[])=>{
         this.product = productData;
-        this.product.incart = cart?.some((cp:any) => cp?.productId === Number(this.productId));
-        this.Qty = cart?.find((cp: any) => cp?.productId === Number(this.productId))?.cartProductQuantity;
-        this.unit.wishlist.GetWishList().subscribe((wl:any)=>{
-          this.product.inwl = wl?.some((wl:any) => wl?.id === Number(this.productId));
+        this.product.inCart = cartItems?.some((cp:ICartItem) => cp?.productId === Number(this.productId));
+        this.Qty = cartItems?.find((ci: ICartItem) => ci.productId === Number(this.productId))?.cartProductQuantity;
+        this.unit.wishlist.GetWishList().subscribe((WishListProducts:IProducts[])=>{
+          this.product.inWishList = WishListProducts?.some((product:IProducts) => product?.id === Number(this.productId));
         })
       })
     });
-  }
+  };
+
+
 
   onChangeValues(event:any){
-    this.unit.eav.GetProductIdbyValues(this.product.variantGroupId,event)
-    .subscribe((productId:number)=>{
+    this.unit.eav.GetProductIdbyValues(this.product.variantGroupId,event).subscribe((productId:number)=>{
       /* change id pramter */
-      this.router.navigate(['/product',productId])
-      this.productId = productId.toString();
-      this.GetProductDetails();
-    })
-  }
+      this.unit.generic.router.navigate(['/product',productId])
+    });
+  };
 
   UpdateAvgRating():void{
-    this.unit.rate.GetAvgRating(this.productId).subscribe((avg:any)=>{
-      this.product.rate = avg;
-    })
-  }
+    this.unit.rate.GetAvgRating(this.productId).subscribe((avgRate:number)=>{
+      this.product.rate = avgRate;
+    });
+  };
 
 }

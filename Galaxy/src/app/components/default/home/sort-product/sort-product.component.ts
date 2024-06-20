@@ -12,12 +12,23 @@ export class SortProductComponent {
 
   @Output() changeSort = new EventEmitter<string>();
   @Output() changeLimit = new EventEmitter<number>();
+  @Output() changeKeyword = new EventEmitter<string>();
 
   OnChangeSort(event: any) {
     this.changeSort.emit(event.target.value)
-  }
+  };
+
   OnChangeLimit(event: any) {
     this.changeLimit.emit(event.target.value)
-  }
+  };
+
+  OnChangeKeyword(keyword: string) {
+    this.changeKeyword.emit(keyword)
+  };
+  
+  OnClearKeyword(keyword: string){
+    if(keyword === '')
+    this.changeKeyword.emit('')
+  };
 
 }

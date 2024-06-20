@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { GeneralService } from './general.service';
+import { GenericService } from './generic.service';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -7,15 +7,11 @@ import { Observable } from 'rxjs';
 })
 export class EAVService {
 
-  constructor(private general: GeneralService) { }
+  constructor(private generic: GenericService) { }
 
-  GetProductIdbyValues(groupId:number, valuesIds:number[]):Observable<any>{
-    const GetProductIdByEAVURL = `${this.general.API}EAV/GetProductIdbyValues`;
-    let formData = new FormData();
-    formData.append('groupId',groupId.toString());
-    valuesIds.forEach((valueId) => {
-      formData.append('values',valueId.toString());
-    });
-   return this.general.http.post(GetProductIdByEAVURL,formData);
-  }
-}
+  GetProductIdbyValues(groupId: number, values: number[]): Observable<any> {
+    let Url:string  = `EAV/GetProductIdbyValues?groupId=${groupId}`;
+    return this.generic.postRequest<any>(Url, values);
+  };
+  
+};

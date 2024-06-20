@@ -1,0 +1,12 @@
+@if (show) {
+    <div (click)="hide()" class="overlay">
+        <div class="confirm-card col-4 mx-auto mt-5 p-4">
+            <div class="fs-4 text-center mb-1">Are you sure?</div>
+            <div class="fs-6 text-center mb-4">{{msg}}</div>
+            <div class="d-flex justify-content-evenly">    
+                <button (click)="hide()" class="btn btn-danger col-5">No</button>
+                <button (click)="YesCondition()" class="btn btn-success col-5">Yes</button>
+            </div>
+        </div>
+    </div>
+}

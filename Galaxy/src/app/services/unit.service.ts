@@ -3,20 +3,20 @@ import { AuthService } from './auth.service';
 import { CartService } from './cart.service';
 import { ProductsService } from './products.service';
 import { ProductService } from './product.service';
-import { GeneralService } from './general.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, } from '@angular/forms';
 import { OrderService } from './order.service';
 import { UserService } from './user.service';
 import { CategoryService } from './category.service';
 import { SubcategoryService } from './subcategory.service';
 import { EAVService } from './eav.service';
 import { BrandService } from './brand.service';
-import { Observable } from 'rxjs';
 import { AttributesService } from './attributes.service';
 import { ValuesService } from './values.service';
 import { GroupService } from './group.service';
 import { RatingService } from './rating.service';
 import { WishlistService } from './wishlist.service';
+import { GenericService } from './generic.service';
+import { ImageService } from './image.service';
 
 @Injectable()
 export class UnitService {
@@ -28,6 +28,7 @@ export class UnitService {
         public products: ProductsService,
         public product: ProductService,
         public eav: EAVService,
+        public image: ImageService,
         public brand: BrandService,
         public order: OrderService,
         public category: CategoryService,
@@ -37,17 +38,10 @@ export class UnitService {
         public group: GroupService,
         public rate: RatingService,
         public wishlist: WishlistService,
-        public general: GeneralService,
+        public generic: GenericService,
         public formbuilder: FormBuilder,
     ) { }
 
-   ConvertImage(form: FormData):Observable<string>{
-      let ConvertimageURL = `${this.general.API}Images/ConvertImage`;
-      return this.general.http.post<string>(ConvertimageURL,form, { responseType: 'text' as 'json' })
-    }
+    public isAuthunicated = (): boolean => localStorage.getItem('jwt') !== null;
 
-    ConvertListImage(form: FormData): Observable<any> {
-        let convertImageURL = `${this.general.API}Images/ConvertListImage`;
-        return this.general.http.post(convertImageURL, form);
-      }
 }

@@ -1,17 +1,22 @@
+@if (cart.length !== 0) {
 
-<div [class.d-none]="cart.length === 0" class="container">
+<div class="container">
   <h1 class="text-center">Your Shopping Cart</h1>
   <div class="row">
-    <div class="col-8"><app-cart-item [cartItems]="cart"></app-cart-item></div>
-    <div class="col-4"><app-cart-order-form [cartItems]="cart"></app-cart-order-form></div>
+    <div class="col-sm-12 col-lg-7 col-xl-8 "><app-cart-item [cartItems]="cart"></app-cart-item></div>
+    <div class="col-sm-12 col-lg-5 col-xl-4"><app-cart-order-form [cartItems]="cart"></app-cart-order-form></div>
   </div>
 </div>
 
-<div [class.d-none]="cart.length !== 0" class="row flex-column justify-content-center">
-  <div class="fs-1 text-center">Your cart is empty</div>
-  <button routerLink="/" class="btn btn-danger mx-auto my-4 col-2">Shop Now</button>
+}@else{
+
+<div class="row flex-column justify-content-center">
+  <div class="fs-1 mt-4 text-center">Your cart is empty</div>
+  <button routerLink="/" class="btn btn-danger mx-auto my-4 col-8 col-md-6 col-lg-2">Shop Now</button>
+
+  <div class="empty mt-4 col-12 col-md-8 col-lg-6 mx-auto">
+    <img src="../../../../../assets/images/emptycart.png" />
+  </div>
 </div>
 
-<div class="empty" [class.d-none]="cart.length !== 0">
-  <img src="../../../../../assets/images/emptycart.png" />
-</div>
+}

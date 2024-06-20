@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UnitService } from '../../../../services/unit.service';
+import { ICartItem } from '../../../../Models/Cart-Items/Cart-item-model';
 
 @Component({
   selector: 'app-main-cart',
@@ -8,22 +9,22 @@ import { UnitService } from '../../../../services/unit.service';
 })
 export class MainCartComponent implements OnInit {
 
-  constructor(private unit:UnitService) { }
+  constructor(private unit: UnitService) { }
 
-  cart:any;
+  cart: ICartItem[] = [];
+
   ngOnInit() {
-    this.FetchCart();
-    this.GetCart(); 
-  }
+    this.GetCart();
+  };
 
-  FetchCart():void{
+  FetchCart(): void {
     this.unit.cart.FetchCart();
-  }
+  };
 
-  GetCart():void{
-    this.unit.cart.GetCart().subscribe((cartData:any)=>{
-      this.cart = cartData
+  GetCart(): void {
+    this.unit.cart.GetCart().subscribe((cartData: ICartItem[]) => {
+      this.cart = cartData;
     });
-  }
+  };
 
-}
+};

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UnitService } from '../../../../services/unit.service';
 import { ActivatedRoute } from '@angular/router';
+import { IProductQuery, initProductQuery } from '../../../../Models/Product/product-query-model';
 
 @Component({
   selector: 'app-main-subcategory',
@@ -9,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class MainSubcategoryComponent implements OnInit{
 
-  subcategoryId: string|null = '';
+  subcategoryId: number = 0;
   subcategory:any;
 
   constructor(
@@ -17,16 +18,15 @@ export class MainSubcategoryComponent implements OnInit{
     private unit:UnitService
   ){}
 
+  query:IProductQuery = new initProductQuery();
 
   productsArray:any;
   Totalpages:number = 1;
 
-  sort:string = "default";
-  page:number = 1;
-  limit:number = 30;
   
   ngOnInit(): void {
-    this.subcategoryId = this.route.snapshot.paramMap.get('id');
+    this.subcategoryId = Number(this.route.snapshot.paramMap.get('id'));
+    this.query.subCategoryId = this.subcategoryId;
     this.GetSubCategory();
     this.FetchGeneralProducts();
     this.GetGeneralProducts();
@@ -39,7 +39,7 @@ export class MainSubcategoryComponent implements OnInit{
   }
 
   FetchGeneralProducts():void{
-    this.unit?.products?.FetchGeneralProducts(this.page,this.limit,this.sort,this.subcategoryId,0);
+    this.unit?.products?.fetchGeneralProducts(this.query);
   }
 
   GetGeneralProducts() : void{
@@ -51,18 +51,22 @@ export class MainSubcategoryComponent implements OnInit{
   }
 
   OnSortChange(sort:string):void{    
-    this.sort = sort;
+    this.query.sort = sort;
     this.FetchGeneralProducts();
   }
   
   OnLimitChange(limit:number):void{
-    this.limit = limit;
-    this.page = 1;
+    this.query.limit = limit;
+    this.query.page = 1;
     this.FetchGeneralProducts();
   }
   
+  OnKeywordChange(keyword:string):void{
+    this.query.keyword = keyword;
+    this.FetchGeneralProducts();
+  }
   OnPageChange(page:number):void{
-    this.page = page;
+    this.query.page = page;
     this.FetchGeneralProducts();
   }
 

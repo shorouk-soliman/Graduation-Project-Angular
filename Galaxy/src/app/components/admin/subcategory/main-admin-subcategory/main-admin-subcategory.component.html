@@ -16,8 +16,8 @@
 
                   <button routerLink="update/{{subcategory.id}}" class="btn btn-warning col-5">Update</button>
 
-                  <button [class.d-none]="subcategory.isDeleted" (click)="Deletecategory(subcategory)" class="btn btn-danger col-5">Delete</button>
-                  <button [class.d-none]="!subcategory.isDeleted" (click)="Retrivecategory(subcategory)" class="btn btn-success col-5">Retrive</button>
+                  <button [class.d-none]="subcategory.isDeleted" (click)="DeleteSubcategory(subcategory)" class="btn btn-danger col-5">Delete</button>
+                  <button [class.d-none]="!subcategory.isDeleted" (click)="RetriveSubCategory(subcategory)" class="btn btn-success col-5">Retrive</button>
 
                 </div>
             </div>

@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { IProductDetails, initialProductDetails } from '../../../../Models/Product/Product-Details-model';
 
 @Component({
   selector: 'app-product-price',
@@ -6,5 +7,5 @@ import { Component, Input } from '@angular/core';
   styleUrl: './product-price.component.css'
 })
 export class ProductPriceComponent {
-@Input() product:any;
+@Input() product:IProductDetails = initialProductDetails;
 }

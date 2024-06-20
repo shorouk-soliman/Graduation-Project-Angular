@@ -17,11 +17,15 @@
     </div>
 </div>
 
-<app-order-item [orders]="orders"></app-order-item>
+<app-order-item [orders]="orders.orders"></app-order-item>
 
-<div class="d-flex flex-column justify-content-center" [class.d-none]="orders.length !== 0">
+<div class="d-flex flex-column justify-content-center" [class.d-none]="orders.orders.length !== 0">
     <h2 class="text-center mt-3">There is no orders to show.</h2>
     <button routerLink="/" class="btn btn-danger col-2 mt-3 mx-auto">Shop Now</button>
 </div>
-<app-pagination [class.d-none]="orders.length === 0" (NavigateTo)="FetchUserOrders($event)"
-    [TotalPages]="TotalPages"></app-pagination>
+
+<app-pagination
+    [class.d-none]="orders.orders.length === 0"
+    [TotalPages]="orders.totalPages"
+    (NavigateTo)="FetchUserOrders($event)">
+</app-pagination>

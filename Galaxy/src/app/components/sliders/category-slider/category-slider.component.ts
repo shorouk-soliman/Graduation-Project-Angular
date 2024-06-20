@@ -1,5 +1,6 @@
 import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { UnitService } from '../../../services/unit.service';
+import { ICategoryRead } from '../../../Models/Category/category-read';
 
 @Component({
   selector: 'app-category-slider',
@@ -7,23 +8,22 @@ import { UnitService } from '../../../services/unit.service';
   styleUrl: './category-slider.component.css'
 })
 export class CategorySliderComponent implements OnInit {
-  items: any;
+  categories: ICategoryRead[] = [];
   
   constructor(private unit: UnitService) { }
 
   ngOnInit(): void {
-    this.FetchCategories();
     this.GetCategories();
   }
 
   GetCategories(){
-    this.unit.category.GetGeneralCategories().subscribe((categories:any)=>{
-        this.items = categories;
+    this.unit.category.getGeneralCategories().subscribe((categories:ICategoryRead[])=>{
+        this.categories = categories;
     })
   }
 
   FetchCategories(){
-    this.unit.category.FetchGeneralCategories();
+    this.unit.category.fetchGeneralCategories();
   }
 
   itemsPerSlide: number = this.calculateItemsPerSlide();
@@ -33,6 +33,7 @@ export class CategorySliderComponent implements OnInit {
     const screenWidth = window.innerWidth;
     return Object.values(breakpoints).find((value, index, array) => screenWidth < +Object.keys(breakpoints)[index] || index === array?.length - 1);
   }
+
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.itemsPerSlide = this.calculateItemsPerSlide();

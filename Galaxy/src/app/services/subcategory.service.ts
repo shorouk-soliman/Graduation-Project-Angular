@@ -1,54 +1,58 @@
 import { Injectable } from '@angular/core';
-import { GeneralService } from './general.service';
 import { Observable } from 'rxjs';
+import { GenericService } from './generic.service';
+import { ISubCategoryRead } from '../Models/Sub Category/subcategory-read';
+import { IAdminSubCategoryRead } from '../Models/Sub Category/subcategory-admin-read';
+import { ISubcategoryDetails } from '../Models/Sub Category/subcategory-detalis';
+import { ISubcategoryProducts } from '../Models/Sub Category/subcategory-with-products';
+import { IAddSubcategory } from '../Models/Sub Category/subcategory-add';
+import { IAddSubCategoryBanners } from '../Models/Sub Category/subcategory-banner-add';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SubcategoryService {
 
-  constructor(private general: GeneralService) { }
+  constructor(private generic: GenericService) { }
 
-  GetSubCategoriesbyCategoryId(categoryId: string | null): Observable<any> {
-    const getSubCategoriesByCategoryURL = `${this.general.API}SubCategory/GetbyCategory?Id=${categoryId}`;
-    return this.general.http.get(getSubCategoriesByCategoryURL);
-  }
+  GetSubCategoriesbyCategoryId(categoryId: number): Observable<ISubCategoryRead[]> {
+    let Url: string = `SubCategory/GetbyCategory?Id=${categoryId}`;
+    return this.generic.getRequest<ISubCategoryRead[]>(Url);
+  };
 
-  GetAdminSubCategories(): Observable<any> {
-    const GetSubCategoriesURL = `${this.general.API}SubCategory/GetAll`
-    return this.general.http.get(GetSubCategoriesURL);
-  }
+  GetAdminSubCategories(): Observable<IAdminSubCategoryRead[]> {
+    let Url: string = `SubCategory/GetAll`;
+    return this.generic.getRequest<IAdminSubCategoryRead[]>(Url);
+  };
 
-  GetOneSubCategory(subcategoryId:string | null):Observable<any>{
-    const GetSubCategoryURL = `${this.general.API}SubCategory/GetOne?Id=${subcategoryId}`
-    return this.general.http.get(GetSubCategoryURL);
-  } 
+  GetOneSubCategory(subcategoryId: number): Observable<ISubcategoryDetails> {
+    let Url: string = `SubCategory/GetOne?Id=${subcategoryId}`;
+    return this.generic.getRequest<ISubcategoryDetails>(Url);
+  };
 
-  GetSubCategoriesWithProductsbyCategory(categoryId:string | null):Observable<any>{
-    const GetCategoryURL = `${this.general.API}SubCategory/GetSubCategoriesWithProducts?Id=${categoryId}`
-    return this.general.http.get(GetCategoryURL);
-  } 
+  GetSubCategoriesWithProductsbyCategory(categoryId:number): Observable<ISubcategoryProducts[]> {
+    let Url: string = `SubCategory/GetSubCategoriesWithProducts?Id=${categoryId}`;
+    return this.generic.getRequest<ISubcategoryProducts[]>(Url);
+  };
 
+  AddSubCategory(SubCategory: IAddSubcategory): Observable<any> {
+    let Url: string = `SubCategory/AddOne`;
+    return this.generic.postRequest<any>(Url, SubCategory);
+  };
 
-  AddSubCategory(SubCategory:any):Observable<any>{
-    let AddSubCdategoryURL = `${this.general.API}SubCategory/AddOne`;
-    return this.general.http.post(AddSubCdategoryURL,SubCategory);
-  }
+  AddSubCategoryBanner(banner: IAddSubCategoryBanners): Observable<any> {
+    let Url: string = `SubCategory/AddCategorybanner`;
+    return this.generic.postRequest<any>(Url, banner);
+  };
 
-  AddSubCategoryBanner(banner:any):Observable<any>{
-    let AddcategorybannerURL = `${this.general.API}SubCategory/AddCategorybanner`;
-    return this.general.http.post(AddcategorybannerURL,banner);
-  }
+  DeleteSubCategory(subcategoryId: number): Observable<any> {
+    let Url: string = `category/DeleteCategory?id=${subcategoryId}`;
+    return this.generic.deleteRequest<any>(Url);
+  };
 
+  RetriveSubCategory(subcategoryId: number): Observable<any> {
+    let Url: string = `Category/RetrieveDeletedCategory?id=${subcategoryId}`;
+    return this.generic.putRequest<any>(Url, null);
+  };
 
-  // DeleteCategory(categoryId: number){
-  //   let DeletecategoryURL = `${this.general.API}category/DeleteCategory?id=${categoryId}`;
-  //   return this.general.http.delete(DeletecategoryURL);
-  // }
-
-  // RetriveCategory(categoryId: number){
-  //   let RetrivecategoryURL = `${this.general.API}Category/RetrieveDeletedCategory?id=${categoryId}`;
-  //   return this.general.http.put(RetrivecategoryURL,null);
-  // }
-
-}
+};

@@ -1,87 +1,74 @@
 import { Injectable } from '@angular/core';
-import { GeneralService } from './general.service';
+import { GenericService } from './generic.service';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { IProducts } from '../Models/Product/products-model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WishlistService {
 
-  constructor(private general: GeneralService) { }
+  constructor(private generic: GenericService) { }
 
-  private WishListSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  private WishListSubject: BehaviorSubject<IProducts[]> = new BehaviorSubject<IProducts[]>([]);
+
+  GetwishListCount(): number {
+    let wishlist = this.WishListSubject.getValue();
+    return wishlist?.length;
+  };
 
 
+fetchWishList():void{
+  if (this.generic.IsLogged()) {
 
-GetwishListCount(){
-  let wishlist = this.WishListSubject.getValue()
-  return wishlist?.length;
+    let Url: string = `WishList/GetWishListProducts`;
+    this.generic.getRequest<IProducts[]>(Url).subscribe((WishListProducts: IProducts[]) => {
+      this.WishListSubject.next(WishListProducts);
+    });
+  } else {
+    let localwishlist :string = sessionStorage.getItem('local-wishList') ?? '[]';
+    this.WishListSubject.next(JSON.parse(localwishlist));
+  }
+
 }
 
-
-
-  GetWishList(): Observable<any> {
-    if (this.general.IsLogged()) {
-
-      const cartURL = `${this.general.API}WishList/GetWishListProducts`;
-      this.general.http.get<any>(cartURL).subscribe((WLproducts: any) => {
-        this.WishListSubject.next(WLproducts);
-      },
-        error => {
-        });
-    } else {
-      let localwishlist = sessionStorage.getItem('local-wishList') ?? '[]';
-      this.WishListSubject.next(JSON.parse(localwishlist));
-    }
-
+  GetWishList(): Observable<IProducts[]> {
     return this.WishListSubject.asObservable();
-  }
+  };
 
-
-
-
-  AddToWishList(item: any): void {
-
+  AddToWishList(product: IProducts): void {
     let currentWishList = this.WishListSubject.getValue();
     let updatedcart = JSON.parse(JSON.stringify(currentWishList));
-    updatedcart?.push(item);
+    updatedcart?.push(product);
 
-    this.WishListSubject.next(updatedcart)
+    this.WishListSubject.next(updatedcart);
 
-    if (this.general.IsLogged()) {
-      let AddWishList = `${this.general.API}WishList/AddToWishList?productId=${item.id}`;
+    if (this.generic.IsLogged()) {
+      let AddWishList = `WishList/AddToWishList?productId=${product.id}`;
 
-      this.general.http.post(AddWishList, null)
-        .subscribe(() => {
-        }, error => {
-          this.WishListSubject.next(currentWishList);
-        });
+      this.generic.postRequest(AddWishList, null).subscribe(() => {
+        error: () => this.WishListSubject.next(currentWishList);
+      });
     } else {
-      sessionStorage.setItem('local-wishList', JSON.stringify(this.WishListSubject.getValue()))
+      sessionStorage.setItem('local-wishList', JSON.stringify(this.WishListSubject.getValue()));
     }
-  }
+  };
 
-
-
-  RemoveFromWishList(Product: any): void {
-
+  RemoveFromWishList(Product: IProducts): void {
     let oldValue = this.WishListSubject.getValue();
     let updated = JSON.parse(JSON.stringify(oldValue));
 
-    updated = updated.filter((item: any) => item.id !== +Product.id);
+    updated = updated.filter((item: IProducts) => +item.id !== +Product.id);
     this.WishListSubject.next(updated);
 
-    if (this.general.IsLogged()) {
-      let RemoveFromWLURL = `${this.general.API}WishList/RemoveFromWishList?productId=${Product.id}`;
-      this.general.http.delete(RemoveFromWLURL).subscribe(() => {
-      },
-        (error) => {
-          this.WishListSubject.next(oldValue);
-        });
+    if (this.generic.IsLogged()) {
+      let RemoveFromWLURL = `WishList/RemoveFromWishList?productId=${Product.id}`;
+      this.generic.deleteRequest(RemoveFromWLURL).subscribe(() => {
+       error:()=> this.WishListSubject.next(oldValue);
+      });
     } else {
       sessionStorage.setItem('local-wishList', JSON.stringify(this.WishListSubject.getValue()))
     }
-  }
+  };
 
-
-}
+};
