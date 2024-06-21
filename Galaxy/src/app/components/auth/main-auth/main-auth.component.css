@@ -1,62 +1,138 @@
 .sign-container {
-    background-image: linear-gradient(to top, #fff1eb 0%, #ace0f9 100%);
-    background-image: linear-gradient(to top, #accbee 0%, #e7f0fd 100%);
-    min-height: 100vh;
-    max-height: 100vh;
-    overflow: hidden;
-    height: 100vh;
-    width: 100vw;
-    position: relative;
-}
-
-.sign-form {
-    background-color: rgb(255, 255, 255);
-    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
-    background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-    background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
-    aspect-ratio: 1/1.2;
-    padding: 2rem 2rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-}
-
-
-.form-container {
-    /* background-color: rgb(99, 47, 47); */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  background-image: linear-gradient(to top, #fff1eb 0%, #ace0f9 100%);
+  min-height: 100vh;
+  width: 100vw;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .image-sign {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }
 
 .image-sign img {
-    width: 50%;
-    height: 50%;
-    margin: auto;
-    object-fit: contain;
-}
-
-.back {
-    position: absolute;
-    top: 5%;
-    left: 5%;
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  object-fit: contain;
 }
 
 .title {
-
-    background: rgb(63,94,251);
-    background: linear-gradient(90deg, rgba(63,94,251,1) 0%, rgba(123,86,206,1) 25%, rgba(174,70,252,1) 46%, rgba(82,137,183,1) 68%, rgba(82,121,183,1) 86%); 
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-
+  background: rgb(63,94,251);
+  background: linear-gradient(90deg, rgba(63,94,251,1) 0%, rgba(123,86,206,1) 25%, rgba(174,70,252,1) 46%, rgba(82,137,183,1) 68%, rgba(82,121,183,1) 86%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
-.title svg{
 
+.sign-form {
+  background-color: rgb(255, 255, 255);
+  background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+  background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-header {
+  background-image: linear-gradient(270deg, #dde4e8 0%, #ced9df 100%);
+  border-radius: .5rem .5rem 0 0;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.8rem;
+}
+
+.form-header span {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  background-color: rgb(170, 147, 192);
+  margin: 0.2rem;
+  border-radius: 50%;
+}
+
+.sign-form input {
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #8989ba;
+  background-color: transparent;
+  padding: 10px;
+}
+
+.sign-form button {
+  background-image: linear-gradient(to top, #a7a6cb 0%, #8989ba 52%, #8989ba 100%);
+  border: none;
+  cursor: pointer;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.sign-form input:focus {
+  outline: none;
+  border-bottom: 1px solid #8989ba;
+}
+
+.return-Home {
+  position: absolute;
+  top: 5%;
+  left: 5%;
+}
+
+.spanColor {
+  color: #8989ba;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+@media (max-width: 360px) {
+  .sign-container {
+      padding: 1rem;
+  }
+
+  .image-sign img {
+      max-width: 100%;
+      height: auto;
+  }
+
+  .sign-form {
+      padding: 1rem;
+      width: 90%;
+      max-width: 100%;
+      margin: 0 auto;
+  }
+
+  .form-header {
+      height: 1.5rem;
+  }
+
+  .form-header span {
+      width: 0.6rem;
+      height: 0.6rem;
+  }
+
+  .sign-form button {
+      font-size: 0.9rem;
+      padding: 8px 16px;
+  }
 }

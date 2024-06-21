@@ -4,6 +4,7 @@ import { CartService } from './cart.service';
 import { ISign } from '../Models/Auth/sign-model';
 import { ILogin } from '../Models/Auth/login-model';
 import { UserService } from './user.service';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class AuthService {
@@ -22,16 +23,9 @@ export class AuthService {
       });
   }
 
-
-  Login(loginData: ILogin) {
+  Login(loginData: ILogin): Observable<string> {
     let loginUrl = `User/Login`;
-
-    this.generic.postRequest<ILogin>(loginUrl, loginData, { responseType: 'text' })
-      .subscribe((token: string) => {
-        localStorage.setItem('jwt', token);
-        this.userService.FetchUser();
-        this.generic.router.navigateByUrl('/');
-      });
+    return this.generic.postRequest<ILogin>(loginUrl, loginData, { responseType: 'text' });
   }
 
   LogoutFunction() {
@@ -43,5 +37,4 @@ export class AuthService {
   isAuthunicated(): boolean {
     return this.generic.IsLogged();
   }
-
 }
