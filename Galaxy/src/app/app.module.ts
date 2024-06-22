@@ -3,6 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
 import { LayoutComponent } from './components/default/layout/layout.component';
 import { NavbarComponent } from './components/default/navbar/navbar.component';
 import { FooterComponent } from './components/default/footer/footer.component';
@@ -78,6 +81,8 @@ import { UserService } from './services/user.service';
 import { CategoriesSubsCardsComponent } from './components/default/home/categories-subs-cards/categories-subs-cards.component';
 import { ConfirmComponent } from './components/Helpers/confirm/confirm.component';
 import { ErrorCardComponent } from './components/error-card/error-card.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 // import { ErrorInterceptorService } from './interceptors/error-interceptor';
 
 
@@ -157,7 +162,11 @@ import { ErrorCardComponent } from './components/error-card/error-card.component
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    CarouselModule
+    CarouselModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatIconModule,
+    BrowserAnimationsModule
   ],
   providers: [
     UnitService,

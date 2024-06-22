@@ -1,47 +1,37 @@
 <div class="form-container">
-    <div class="form-header">
-        <span></span>
-        <span></span>
-        <span></span>
+  <div class="notification d-flex align-items-center justify-content-center text-center w-100 mb-3" *ngIf="notificationMessage">
+    <i class="fas fa-exclamation-circle notification-icon"></i>
+    <span class="notification-text">{{ notificationMessage }}</span>
+  </div>
+  <div class="form-header">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <form [formGroup]="SignForm" (ngSubmit)="onSubmit()" class="form-floating sign-form ">
+    <div class="fs-3 text-center form-title">Sign Up</div>
+    <div>
+      <div class="form-floating mb-3">
+        <input [class.is-invalid]="FNameError()" type="text" class="form-control is-valid" id="floatingFirstName" formControlName="firstName" placeholder="First Name">
+        <label for="floatingFirstName">First Name</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input [class.is-invalid]="LNameError()" type="text" class="form-control is-valid" id="floatingLastName" formControlName="lastName" placeholder="Last Name">
+        <label for="floatingLastName">Last Name</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input [class.is-invalid]="EmailError()" type="email" class="form-control is-valid" id="floatingEmail" formControlName="email" placeholder="Email">
+        <label for="floatingEmail">Email</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input [class.is-invalid]="PasswordError()" type="password" class="form-control is-valid" id="floatingPassword" formControlName="password" placeholder="Password">
+        <label for="floatingPassword">Password</label>
+      </div>
     </div>
-
-    <form [formGroup]="SignForm" (submit)="onSubmit()" class="form-floating sign-form ">
-
-        <div class="fs-3 text-center form-title">Registration</div>
-        <div>
-
-            <div class="form-floating mb-3">
-                <input [class.is-invalid]="FNameError()" type="text" class="form-control is-valid"
-                    id="floatingFirstName" formControlName="firstName" placeholder="First Name">
-                <label for="floatingFirstName">First Name</label>
-            </div>
-
-            <div class="form-floating mb-3">
-                <input [class.is-invalid]="LNameError()" type="text" class="form-control is-valid" id="floatingLastName"
-                    formControlName="lastName" placeholder="Last Name">
-                <label for="floatingLastName">Last Name</label>
-            </div>
-
-            <div class="form-floating mb-3">
-                <input [class.is-invalid]="EmailError()" type="email" class="form-control is-valid" id="floatingEmail"
-                    formControlName="email" placeholder="Email">
-                <label for="floatingEmail">Email</label>
-            </div>
-
-            <div class="form-floating mb-3">
-                <input [class.is-invalid]="PasswordError()" type="password" class="form-control is-valid"
-                    id="floatingPassword" formControlName="password" placeholder="Password">
-                <label for="floatingPassword">Password</label>
-            </div>
-
-        </div>
-        <div>
-
-            <div>Already have account? <span routerLink="/auth/login" class="spanColor">login</span></div>
-
-            <button [disabled]="!SignForm.valid" type="submit"
-                class="btn btn-success rounded-pill py-2 mt-3 col-12">Sign
-                Up</button>
-        </div>
-    </form>
+    <div>
+      <div>Already have an account? <span routerLink="/auth/login" class="spanColor">login</span></div>
+      <button [disabled]="!SignForm.valid" type="submit" class="btn btn-success rounded-pill py-2 mt-3 col-12">Sign Up</button>
+    </div>
+  </form>
 </div>
