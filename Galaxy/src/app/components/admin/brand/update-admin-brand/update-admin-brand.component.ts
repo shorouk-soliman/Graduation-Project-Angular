@@ -70,14 +70,14 @@ export class UpdateAdminBrandComponent implements OnInit {
         (adminBrands: any) => {
           const exists = adminBrands.some((b: any) => b.name.toLowerCase() === this.myForm.value.Name.toLowerCase());
           if (exists) {
-             this.notificationMessage =`Brand with name '${this.myForm.value.Name}' already exists.`;
+            this.notificationMessage = `Brand with name '${this.myForm.value.Name}' already exists.`;
           } else {
             this.UpdateBrandAndImage(formDataImage);
           }
         },
         (error) => {
           console.error('Error fetching admin brands:', error);
-            this.notificationMessage ='Failed to update brand. Please try again later.';
+          this.notificationMessage = 'Failed to update brand. Please try again later.';
         }
       );
     } else {
@@ -128,6 +128,14 @@ export class UpdateAdminBrandComponent implements OnInit {
         this.UpdateImageAndBrand();
       }
     });
+  }
+
+  cancelUpdate(): void {
+    this.myForm.patchValue({
+      Name: this.brand.name,
+      image: this.brand.image
+    });
+    this.router.navigateByUrl('/admin/brand');
   }
 
   NameError = () => this.myForm.get('Name')?.errors;

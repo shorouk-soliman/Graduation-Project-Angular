@@ -32,6 +32,7 @@
   border-radius: 50%;
   overflow: hidden;
   align-items: center;
+  margin: auto;
 }
 
 .image-container img {
@@ -71,7 +72,7 @@
   margin-top: 20px;
   margin-bottom: 20px;
   padding: 0 0px;
-  max-width: 80%;
+  max-width: 85%;
 }
 .bg-primary {
   --bs-bg-opacity: 1;
@@ -82,7 +83,7 @@
     padding: 0;
     border-radius: 10px;
     border: none;
-    box-shadow: 0 0 0 5px #5a486a ,0 0 0 10px #5a486a;
+    box-shadow: 0 0 0 5px #5a486a ,0 0 0 10px #392d43;
 }
 .row {
   margin:auto;
@@ -139,7 +140,7 @@
 .panel .panel-body .table thead tr th{
     color: #5a486a;
     background-color:#ce9cf6;
-    font-size: 20x;
+    font-size: 17x;
     font-weight:bold;
     text-transform: uppercase;
     padding: 12px;
@@ -158,7 +159,7 @@ tbody tr
 .panel .panel-body .table tbody tr td {
     color: #544065;
     font-size: 20px;
-    padding: 5px 100px;
+    padding: 5px 50px;
     vertical-align: middle;
     border: none;
 }

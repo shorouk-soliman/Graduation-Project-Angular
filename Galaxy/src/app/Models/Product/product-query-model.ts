@@ -1,12 +1,11 @@
-export interface IProductQuery{
-    page:number,
-    limit:number,
-    sort:string,
-    subCategoryId:number,
-    brandId:number,
-    keyword:string,
-};
-
+export interface IProductQuery {
+  page: number;
+  limit: number;
+  sort: string;
+  subCategoryId: number;
+  brandId: number;
+  keyword: string;
+}
 export class initProductQuery implements IProductQuery {
     constructor(
         public page:number = 1,
@@ -17,4 +16,5 @@ export class initProductQuery implements IProductQuery {
         public keyword:string = '',
     ){}
 };
+
 
