@@ -35,6 +35,9 @@ import { FailedPaymentComponent } from './components/payment/failed-payment/fail
 import { MainWishlistComponent } from './components/wishlist/main-wishlist/main-wishlist.component';
 import { authGuard } from './guards/auth.guard';
 import { MainSubcategoryComponent } from './components/default/subcategory/main-subcategory/main-subcategory.component';
+import { AboutComponent } from './components/about/about.component';
+import { ContactUsComponent } from './components/contact-us/contact-us.component';
+
 
 const routes: Routes = [
   {
@@ -51,6 +54,8 @@ const routes: Routes = [
       { path: 'settings', component: UserSettingsComponent  ,canActivate:[authGuard]},
       { path: 'payment/success', component: SuccessPaymentComponent  ,canActivate:[authGuard]},
       { path: 'payment/failed', component: FailedPaymentComponent  ,canActivate:[authGuard]},
+      { path: 'about', component: AboutComponent },
+      { path: 'contact-us', component: ContactUsComponent },
     ]
   },
   {

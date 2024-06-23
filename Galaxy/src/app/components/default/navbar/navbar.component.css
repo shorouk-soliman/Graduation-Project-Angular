@@ -1,44 +1,50 @@
-.cart-container{
+/* التنسيقات الموجودة سابقاً */
+.cart-container {
     /* background-color: rebeccapurple; */
     position: relative;
-    }
-    
-    .cart-count{
-        background-color: rgb(223, 66, 66);
-        position: absolute;
-        top: 0;
-        left: 75%;
-        padding: 0.1rem 0.5rem;
-        /* width: 1.3rem; */
-        text-align: center;
-        /* height: 1.3rem;   */
-        border-radius: 0.1rem;
-        /* aspect-ratio: 1/1; */
-        color: white;
-        font-size: 0.7rem;
-        padding-top: 0.1rem ;
-}
-
-.wishlist-container{
+  }
+  
+  .cart-count {
+    background-color: rgb(223, 66, 66);
+    position: absolute;
+    top: 0;
+    left: 75%;
+    padding: 0.1rem 0.5rem;
+    /* width: 1.3rem; */
+    text-align: center;
+    /* height: 1.3rem;   */
+    border-radius: 0.1rem;
+    /* aspect-ratio: 1/1; */
+    color: white;
+    font-size: 0.7rem;
+    padding-top: 0.1rem;
+  }
+  
+  .wishlist-container {
     /* background-color: rebeccapurple; */
     position: relative;
-    }
-    
-    .wishlist-count{
-        background-color: rgb(223, 66, 66);
-        position: absolute;
-        top: 0;
-        left: 75%;
-        padding: 0.1rem 0.5rem;
-        /* width: 1.3rem; */
-        text-align: center;
-        /* height: 1.3rem;   */
-        border-radius: 0.1rem;
-        /* aspect-ratio: 1/1; */
-        color: white;
-        font-size: 0.7rem;
-        padding-top: 0.1rem ;
-}
-
-
-
+  }
+  
+  .wishlist-count {
+    background-color: rgb(223, 66, 66);
+    position: absolute;
+    top: 0;
+    left: 75%;
+    padding: 0.1rem 0.5rem;
+    /* width: 1.3rem; */
+    text-align: center;
+    /* height: 1.3rem;   */
+    border-radius: 0.1rem;
+    /* aspect-ratio: 1/1; */
+    color: white;
+    font-size: 0.7rem;
+    padding-top: 0.1rem;
+  }
+  
+  /* التنسيقات المضافة لعناصر التنقل */
+  .nav-custom-style {
+    font-family: 'Roboto', sans-serif; /* قم بتحديث نوع الخط إذا كان مختلفاً */
+    font-size: 1.25rem; /* قم بتحديث حجم الخط ليناسب حجم خط Galaxy */
+    color: #000; /* قم بتحديث اللون إذا كان مختلفاً */
+  }
+  

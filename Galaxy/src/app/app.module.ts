@@ -78,6 +78,8 @@ import { UserService } from './services/user.service';
 import { CategoriesSubsCardsComponent } from './components/default/home/categories-subs-cards/categories-subs-cards.component';
 import { ConfirmComponent } from './components/Helpers/confirm/confirm.component';
 import { ErrorCardComponent } from './components/error-card/error-card.component';
+import { AboutComponent } from './components/about/about.component';
+import { ContactUsComponent } from './components/contact-us/contact-us.component';
 // import { ErrorInterceptorService } from './interceptors/error-interceptor';
 
 
@@ -149,6 +151,8 @@ import { ErrorCardComponent } from './components/error-card/error-card.component
     CategoriesSubsCardsComponent,
     ConfirmComponent,
     ErrorCardComponent,
+    AboutComponent,
+    ContactUsComponent,
   ],
   imports: [
     BrowserModule,
