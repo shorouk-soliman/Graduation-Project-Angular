@@ -1,0 +1,11 @@
+<div class="confirm-message-container">
+  <div class="confirm-message-title">
+    <i class="bi bi-exclamation-triangle-fill text-warning"></i> {{ data.title }}
+  </div>
+  <div class="confirm-message-content">
+    {{ data.message }}  </div>
+  <div class="confirm-message-buttons">
+    <button class="btn btn-success confirm-button"(click)="confirm()">Confirm <i class="bi bi-check-circle-fill"></i></button>
+    <button class="btn btn-danger cancel-button" (click)="closeDialog()">Cancel <i class="bi bi-x-circle-fill"></i></button>
+  </div>
+</div>

@@ -1,38 +1,35 @@
-<h1 class="text-center mt-5">Add new Brand</h1>
-
-
-<form (submit)="AddImageAndBrand()" [formGroup]="myForm" class="col-6 mx-auto">
-    <input formControlName="Name" class="form-control my-2" placeholder="brand name" type="text">
-    <!-- Display error message if "required" validation fails -->
-    <div [class.d-none]="!NameError()?.['required']" class="text-danger">
-        Name is required
+<div class="container-fluid mt-5">
+  <div class="row justify-content-center">
+    <div class="md-4">
+      <h2 class="text-center mb-4">Add New Brand</h2>
     </div>
-
-    <!-- Display error message if "minlength" or "maxlength" validation fails -->
-    <div [class.d-none]="!(NameError()?.['minlength'] || NameError()?.['maxlength']) || !NameError()"
-        class="text-danger">
-        Name must be more than 2 chars and less than 150
+    <div class="col-md-6">
+      <form [formGroup]="myForm" (ngSubmit)="confirmAddBrand()" class="row g-3 border rounded p-4 shadow-sm" enctype="multipart/form-data" #addForm="ngForm">
+        <div class="notification d-flex align-items-center justify-content-center text-center w-100 col-md-6" *ngIf="notificationMessage">
+          <i class="fas fa-exclamation-circle notification-icon"></i>
+          <span class="notification-text">{{ notificationMessage }}</span>
+        </div>
+        <div class="col-12">
+          <div class="text-center mb-3">
+            <label for="image" class="form-label bold-label">Brand Image</label>
+            <input type="file" id="image" formControlName="image" (change)="onFileSelected($event)" class="form-control" accept="image/*">
+            <div class="form-text text-danger" *ngIf="myForm.get('image')?.invalid && (myForm.get('image')?.touched || myForm.get('image')?.dirty)">
+              <div *ngIf="myForm.get('image')?.errors?.['required']">Brand image is required</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12">
+          <label for="name" class="form-label bold-label">Brand Name</label>
+          <input type="text" formControlName="Name" id="name" class="form-control" placeholder="Enter brand name">
+          <div class="form-text text-danger" *ngIf="myForm.get('Name')?.invalid && (myForm.get('Name')?.touched || myForm.get('Name')?.dirty)">
+            <div *ngIf="myForm.get('Name')?.errors?.['required']">Brand name is required</div>
+            <div *ngIf="myForm.get('Name')?.errors?.['minlength'] || myForm.get('Name')?.errors?.['maxlength']">Brand name must be between 2 and 150 characters</div>
+          </div>
+        </div>
+        <div class="col-md-12 mb-3 text-center">
+          <button class="btn btn-primary" type="submit" style="background-color: #198754; border-color: #198754;" [disabled]="!myForm.valid">Add Brand</button>
+        </div>
+      </form>
     </div>
-
-    <!-- Display success message when the form is valid -->
-    <div [class.d-none]="NameError()" class="text-success">
-        Name is valid
-    </div>
-
-
-
-    <input formControlName="image" (change)="onFileSelected($event)" class="form-control my-2" placeholder="brand image" type="file">
-
-    <!-- Display error message if "required" validation fails -->
-    <div [class.d-none]="!ImageError()?.['required']" class="text-danger">
-        image is required
-    </div>
-
-    <!-- Display success message when the form is valid -->
-    <div [class.d-none]="ImageError()" class="text-success">
-        image is valid
-    </div>
-
-
-    <button [disabled]="!myForm.valid" type="submit" class="btn btn-success w-50 mx-auto mt-3">Add</button>
-</form>
+  </div>
+</div>

@@ -5,12 +5,13 @@
   <mat-sidenav-content>
     <mat-toolbar color="basic">
       <div fxLayoutAlign=" center">
-      <button mat-icon-button (click)="sidenav.toggle()">
-      </button>
-      <i class="fa fa-strikethrough" aria-hidden="true"></i>
-        <span style="font-size: larger; " class="px-4">Admin</span>
-    </div>
-      </mat-toolbar>
+        <button mat-icon-button (click)="sidenav.toggle()" class="bi bi-house">
+          <!-- <mat-icon>menu</mat-icon> -->
+        </button>
+        <span style="font-size: larger; " class="px-4">Hello, {{user.firstName}} in Admin Dashboard</span>
+      </div>
+
+    </mat-toolbar>
       <div class="cardBox">
         <div class="card">
           <div>

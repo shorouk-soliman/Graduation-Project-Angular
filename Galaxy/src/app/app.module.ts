@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { AppRoutingModule } from './app-routing.module';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 import { AppComponent } from './app.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -82,7 +84,7 @@ import { CategoriesSubsCardsComponent } from './components/default/home/categori
 import { ConfirmComponent } from './components/Helpers/confirm/confirm.component';
 import { ErrorCardComponent } from './components/error-card/error-card.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { ConfirmMessageComponent } from './components/shared-componentes/confirm-message/confirm-message.component';
 // import { ErrorInterceptorService } from './interceptors/error-interceptor';
 
 
@@ -154,6 +156,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     CategoriesSubsCardsComponent,
     ConfirmComponent,
     ErrorCardComponent,
+    ConfirmMessageComponent,
   ],
   imports: [
     BrowserModule,
@@ -166,7 +169,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatSidenavModule,
     MatToolbarModule,
     MatIconModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatDialogModule,
+    MatButtonModule,
   ],
   providers: [
     UnitService,

@@ -14,7 +14,7 @@
 /* Style for the button */
 .btn-primary {
   color:#5a486a;
-  background-color:#9f8ab2;
+  background-color:#bc9ad8;
   border-color: #CDCFF2;
   font-size: 16px;
   font-weight: 500;
@@ -27,8 +27,8 @@
   border-color: #CDCFF2;
 }
 .image-container {
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   overflow: hidden;
   align-items: center;
@@ -53,6 +53,12 @@
     width: 60px;
     height: 60px;
   }
+  .container {
+    max-width: 720px;
+  }
+  .panel .panel-body .table tbody tr td {
+    padding: 2px 50px;
+}
 }
 .form-select {
   width: 80%;
@@ -62,14 +68,17 @@
 .demo{ font-family: 'Noto Sans', sans-serif; }
 .container
 {
-  margin-top: 82px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 0 0px;
+  max-width: 80%;
 }
 .bg-primary {
   --bs-bg-opacity: 1;
   background-color: #ffffff !important;
 }
 .panel{
-    background: linear-gradient(to right, #AA93C0,#AA93C0);
+    background: linear-gradient(to right, #e1cef3,#a689bf);
     padding: 0;
     border-radius: 10px;
     border: none;
@@ -126,12 +135,12 @@
     font-size: 15px;
     font-weight: 500;
 }
-.panel .panel-body{ padding: 0; }
+.panel .panel-body{ padding: 0;  }
 .panel .panel-body .table thead tr th{
-    color: #fff;
-    background-color: rgba(255, 255, 255, 0.2);
-    font-size: 16px;
-    font-weight: 500;
+    color: #5a486a;
+    background-color:#ce9cf6;
+    font-size: 20x;
+    font-weight:bold;
     text-transform: uppercase;
     padding: 12px;
     border: none;
@@ -149,12 +158,12 @@ tbody tr
 .panel .panel-body .table tbody tr td {
     color: #544065;
     font-size: 20px;
-    padding: 10px 139px;
+    padding: 5px 100px;
     vertical-align: middle;
     border: none;
 }
 .panel .panel-body .table tbody tr td:hover{
-  background-color: #7e6693;
+  background-color: #a589bd;
   color: #fff;
 }
 .panel .panel-body .table tbody tr:nth-child(even){ background-color: rgba(255,255,255,0.05); }

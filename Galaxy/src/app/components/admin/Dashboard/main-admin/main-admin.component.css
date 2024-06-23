@@ -16,7 +16,7 @@ mat-sidenav {
 mat-toolbar {
   display: flex;
   justify-content: space-between;
-  margin-top: 0;
+  margin-top: 20px;
 }
 
 /*  tool bar */
@@ -266,7 +266,9 @@ mat-toolbar {
 .recentCustomers table tr td {
   padding: 12px 10px;
 }
-
+.px-4 {
+  color:  #5a486a;
+ }
 .recentCustomers table tr td h4 {
   font-size: 16px;
   font-weight: 500;
