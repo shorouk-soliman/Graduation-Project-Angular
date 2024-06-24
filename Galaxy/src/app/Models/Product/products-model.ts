@@ -1,4 +1,4 @@
-export interface IProducts{    
+export interface IProducts{
     id: number,
     name: string,
     desctiption: string,
@@ -13,6 +13,7 @@ export interface IProducts{
     variantGroupId: number
     inCart: boolean,
     inWishList: boolean,
+
 }
 
 
@@ -32,3 +33,4 @@ export const initialProduct: IProducts = {
     inCart: false,
     inWishList: false
   };
+

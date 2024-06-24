@@ -8,11 +8,11 @@ import { AuthService } from '../../../services/auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  notificationMessage: string = '';
+  notificationMessage: string | null = null;
 
   loginForm: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9]{8,}$')])
+    password: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9]{8,}$')]),
   });
 
   constructor(private authService: AuthService) { }
@@ -24,23 +24,15 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     if (this.loginForm.valid) {
-      this.authService.Login(this.loginForm.value).subscribe(
-        (token) => {
-          // Handle successful login
-          localStorage.setItem('jwt', token);
-          this.displayNotification('Login successful.', false);
+      this.authService.Login(this.loginForm.value).subscribe({
+        next: () => {
+          this.notificationMessage = 'Login successful.';
         },
-        (error) => {
-          this.displayNotification('Email or Password not found.', true);
-        }
-      );
+        error: (error: any) => {
+            this.notificationMessage = 'Invalid email or password. Please try again.';
+          } 
+      });
     }
-  }
-
-  displayNotification(message: string, isError: boolean) {
-    this.notificationMessage = message;
-    setTimeout(() => {
-      this.notificationMessage = '';
-    }, 10000);
-  }
 }
+}
+

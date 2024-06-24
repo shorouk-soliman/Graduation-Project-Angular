@@ -50,4 +50,9 @@ export class BrandService {
     return this.generic.putRequest(Url, null);
   };
 
+  UpdateBrand(brandId: number, brand: any): Observable<any> {
+    let Url: string = `Brand/UpdateBrand?id=${brandId}`;
+    return this.generic.putRequest<any>(Url, brand);
+  }
+
 };

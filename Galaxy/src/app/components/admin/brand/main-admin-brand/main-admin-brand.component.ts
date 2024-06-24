@@ -4,35 +4,40 @@ import { UnitService } from '../../../../services/unit.service';
 @Component({
   selector: 'app-main-admin-brand',
   templateUrl: './main-admin-brand.component.html',
-  styleUrl: './main-admin-brand.component.css'
+  styleUrls: ['./main-admin-brand.component.css']
 })
 export class MainAdminBrandComponent implements OnInit {
   constructor(private unit: UnitService) { }
-  brands: any;
-
+  brands: any[] = [];
+  isloading: boolean = true;
 
   ngOnInit(): void {
-    this.GetBrands()
+    this.GetBrands();
   }
 
-  DeleteBrand(brand:any){
-    this.unit.brand.DeleteBrand(brand.id).subscribe(()=>{
+  DeleteBrand(brand: any) {
+    this.unit.brand.DeleteBrand(brand.id).subscribe(() => {
       brand.isDeleted = true;
-    },error=>{
-      
-    })
-  }
-  RetriveBrand(brand:any){
-    this.unit.brand.RetriveBrand(brand.id).subscribe(()=>{
-      brand.isDeleted = false;
-    },error=>{
-      
-    })
-  }
-  GetBrands():void{
-    this.unit.brand.GetAdminBrand().subscribe((brands: any) => {
-      this.brands = brands;
+    }, error => {
+      console.error('Error deleting brand', error);
     });
   }
 
+  RetriveBrand(brand: any) {
+    this.unit.brand.RetriveBrand(brand.id).subscribe(() => {
+      brand.isDeleted = false;
+    }, error => {
+      console.error('Error retrieving brand', error);
+    });
+  }
+
+  GetBrands(): void {
+    this.unit.brand.GetAdminBrand().subscribe((brands: any) => {
+      this.brands = brands.sort((a: any, b: any) => b.id - a.id); 
+      this.isloading = false;
+    }, error => {
+      console.error('Error fetching brands', error);
+      this.isloading = false;
+    });
+  }
 }

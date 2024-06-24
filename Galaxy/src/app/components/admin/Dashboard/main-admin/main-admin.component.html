@@ -1,8 +1,59 @@
-<div class="container-fluid">
-    <div class="row">
-        <app-side-admin class="col-3"></app-side-admin>
-        <div class="col-9">
-            <router-outlet></router-outlet>
+<mat-sidenav-container>
+  <mat-sidenav mode="side" #sidenav role="navigation">
+    <app-side-admin></app-side-admin>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="basic">
+      <div fxLayoutAlign=" center">
+        <button mat-icon-button (click)="sidenav.toggle()" class="bi bi-house">
+          <!-- <mat-icon>menu</mat-icon> -->
+        </button>
+        <span style="font-size: larger; " class="px-4">Hello, {{user.firstName}} in Admin Dashboard</span>
+      </div>
+
+    </mat-toolbar>
+      <div class="cardBox">
+        <div class="card">
+          <div>
+            <div class="numbers">{{ count }}</div>
+            <div class="cardName">Daily Views</div>
+          </div>
+
+          <div class="iconBx">
+            <i class="fa-solid fa-eye"></i>
+          </div>
         </div>
-    </div>
-</div>
+
+        <div class="card">
+          <div>
+            <div class="numbers">5</div>
+            <div class="cardName">Sales</div>
+          </div>
+
+          <div class="iconBx">
+            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+          </div>
+        </div>
+
+        <div class="card">
+          <div>
+            <div class="numbers">20</div>
+            <div class="cardName">Users</div>
+          </div>
+
+          <div class="iconBx">
+            <i class="fa-sharp fa-solid fa-users"></i>
+          </div>
+        </div>
+
+        <div class="card">
+          <div>
+            <div class="numbers">${{totalSales}}</div>
+            <div class="cardName">Earning</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <router-outlet></router-outlet>
+      </div>
+      </mat-sidenav-content>

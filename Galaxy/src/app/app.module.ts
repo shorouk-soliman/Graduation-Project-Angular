@@ -2,7 +2,12 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { AppRoutingModule } from './app-routing.module';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 import { AppComponent } from './app.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
 import { LayoutComponent } from './components/default/layout/layout.component';
 import { NavbarComponent } from './components/default/navbar/navbar.component';
 import { FooterComponent } from './components/default/footer/footer.component';
@@ -78,8 +83,13 @@ import { UserService } from './services/user.service';
 import { CategoriesSubsCardsComponent } from './components/default/home/categories-subs-cards/categories-subs-cards.component';
 import { ConfirmComponent } from './components/Helpers/confirm/confirm.component';
 import { ErrorCardComponent } from './components/error-card/error-card.component';
+<<<<<<< HEAD
 import { AboutComponent } from './components/about/about.component';
 import { ContactUsComponent } from './components/contact-us/contact-us.component';
+=======
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ConfirmMessageComponent } from './components/shared-componentes/confirm-message/confirm-message.component';
+>>>>>>> 7a963aaaa807d5a4ce0d3d305860e0338aa29c23
 // import { ErrorInterceptorService } from './interceptors/error-interceptor';
 
 
@@ -151,8 +161,12 @@ import { ContactUsComponent } from './components/contact-us/contact-us.component
     CategoriesSubsCardsComponent,
     ConfirmComponent,
     ErrorCardComponent,
+<<<<<<< HEAD
     AboutComponent,
     ContactUsComponent,
+=======
+    ConfirmMessageComponent,
+>>>>>>> 7a963aaaa807d5a4ce0d3d305860e0338aa29c23
   ],
   imports: [
     BrowserModule,
@@ -161,7 +175,13 @@ import { ContactUsComponent } from './components/contact-us/contact-us.component
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    CarouselModule
+    CarouselModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatIconModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+    MatButtonModule,
   ],
   providers: [
     UnitService,

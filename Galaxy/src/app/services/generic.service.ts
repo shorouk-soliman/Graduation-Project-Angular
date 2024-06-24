@@ -27,14 +27,14 @@ export class GenericService {
         return this.http.post(Url, addObject,headers);
     };
 
-    putRequest<T>(requestUrl: string, addObject: T) {
-        let getUrl = `${this.API}${requestUrl}`;
-        return this.http.put(getUrl, addObject);
-    };
+    putRequest<T>(requestUrl: string, addObject: T): Observable<T> {
+      const url = `${this.API}${requestUrl}`;
+      return this.http.put<T>(url, addObject);
+    }
 
     deleteRequest<T>(requestUrl: string) {
         let getUrl = `${this.API}${requestUrl}`;
         return this.http.delete(getUrl);
     };
-    
+
 };

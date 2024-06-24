@@ -1,30 +1,43 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { UnitService } from '../../../services/unit.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-sign',
   templateUrl: './sign.component.html',
-  styleUrl: './sign.component.css'
+  styleUrls: ['./sign.component.css']
 })
 export class SignComponent {
-  constructor(private unit: UnitService) { }
+  notificationMessage: string | null = null;
 
+  constructor(private authService: AuthService) { }
 
   SignForm: FormGroup = new FormGroup({
-    firstName: new FormControl('',[ Validators.required,Validators.minLength(3),Validators.maxLength(25)]),
-    lastName: new FormControl('',[ Validators.required,Validators.minLength(3),Validators.maxLength(25)]),
-    email: new FormControl('',[ Validators.required,Validators.email]),
-    password: new FormControl('',[ Validators.required,Validators.minLength(8)]),
+    firstName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(25)]),
+    lastName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(25)]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9]{8,}$')]),
   });
 
-  FNameError = () => this.SignForm.get('firstName')?.errors
-  LNameError = () => this.SignForm.get('lastName')?.errors
-  EmailError = () => this.SignForm.get('email')?.errors
-  PasswordError = () => this.SignForm.get('password')?.errors
+  FNameError = () => this.SignForm.get('firstName')?.errors;
+  LNameError = () => this.SignForm.get('lastName')?.errors;
+  EmailError = () => this.SignForm.get('email')?.errors;
+  PasswordError = () => this.SignForm.get('password')?.errors;
 
-  onSubmit(){
-    this.unit.auth.Sign(this.SignForm.value);
+  onSubmit() {
+    if (this.SignForm.valid) {
+      this.authService.Sign(this.SignForm.value).subscribe({
+        next: () => {
+          this.notificationMessage = 'Registration successful.';
+        },
+        error: (error: any) => {
+          if (error.status === 400 && error.error === 'this email is already exiest') {
+            this.notificationMessage = 'Email is already in use. Please use a different email.';
+          } else {
+            this.notificationMessage = 'An error occurred. Please try again.';
+          }
+        }
+      });
+    }
   }
-
 }

@@ -9,3 +9,4 @@ export const initGeneralProducts: IGeneralProducts = {
     products:[initialProduct],
     totalPages:0
 }
+
