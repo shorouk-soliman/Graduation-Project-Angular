@@ -1,4 +1,4 @@
-<div>
+<!-- <!-- <div>
     <input placeholder="search" type="text">
     <button routerLink="add" class="btn btn-success">Add Category</button>
     <button routerLink="addbanner" class="btn btn-success">Add Category banner</button>
@@ -23,4 +23,75 @@
           </div>
 
     </div>
-</div>
+</div> -->
+
+
+
+
+
+
+
+
+
+
+
+<div class="container">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <div class="panel">
+          <div class="panel-heading bg-primary text-white">
+            <div class="row">
+              <div class="col-12 col-sm-6">
+                <h4 class="title">Recent Categories</h4>
+              </div>
+              <div class="col-12 col-sm-6 text-right">
+              
+                <button routerLink="add" class="btn btn-success ml-2">
+                  <i class="bi bi-plus-lg"></i> Add New Category
+                </button>
+                <button routerLink="addbanner" class="btn btn-success ml-2">
+                  <i class="bi bi-plus-lg"></i> Add Category Banner
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="panel-body table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Image</th>
+                  <th>Name</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let category of categories " class="categoryDiv">
+                  <td>
+                    <div class="image-container">
+                      <img class="card-img product-image" [src]="category.image" [alt]="category.name">
+                    </div>
+                  </td>
+                  <td><b>{{ category.name }}</b></td>
+                  <td>
+                    <div class="action-buttons">
+                      <button routerLink="update/{{category.id}}" class="btn btn-warning px-3" title="Update Category">
+                        <i class="bi bi-pencil-fill"></i>
+                      </button>
+                      <button [class.d-none]="category.isDeleted" (click)="Deletecategory(category)" class="btn btn-danger px-3" title="Delete Category">
+                        <i class="bi bi-trash-fill"></i>
+                      </button>
+                      <button [class.d-none]="!category.isDeleted" (click)="RetrieveCategory(category)" class="btn btn-success px-3" title="Retrieve Category">
+                        <i class="bi bi-recycle"></i>
+                      </button>
+                      
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+   -->
