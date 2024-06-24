@@ -83,13 +83,10 @@ import { UserService } from './services/user.service';
 import { CategoriesSubsCardsComponent } from './components/default/home/categories-subs-cards/categories-subs-cards.component';
 import { ConfirmComponent } from './components/Helpers/confirm/confirm.component';
 import { ErrorCardComponent } from './components/error-card/error-card.component';
-<<<<<<< HEAD
 import { AboutComponent } from './components/about/about.component';
 import { ContactUsComponent } from './components/contact-us/contact-us.component';
-=======
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ConfirmMessageComponent } from './components/shared-componentes/confirm-message/confirm-message.component';
->>>>>>> 7a963aaaa807d5a4ce0d3d305860e0338aa29c23
 // import { ErrorInterceptorService } from './interceptors/error-interceptor';
 
 
@@ -161,12 +158,9 @@ import { ConfirmMessageComponent } from './components/shared-componentes/confirm
     CategoriesSubsCardsComponent,
     ConfirmComponent,
     ErrorCardComponent,
-<<<<<<< HEAD
     AboutComponent,
     ContactUsComponent,
-=======
     ConfirmMessageComponent,
->>>>>>> 7a963aaaa807d5a4ce0d3d305860e0338aa29c23
   ],
   imports: [
     BrowserModule,
