@@ -1,37 +1,54 @@
 <div class="container mt-5">
-    <h2 class="display-4 text-center">Contact Us</h2>
-    <div class="row mt-4">
-      <div class="col-md-6">
-        <form>
-          <div class="mb-3">
-            <label for="name" class="form-label">Name</label>
-            <input type="text" class="form-control" id="name" required>
+  <div class="row mt-4">
+    <div class="col-md-6 mb-4">
+      <form (ngSubmit)="onSubmit(contactForm)" #contactForm="ngForm" novalidate>
+        <div class="mb-3">
+          <label for="name" class="form-label">Name</label>
+          <input type="text" class="form-control" id="name" name="name" ngModel required>
+          <div *ngIf="contactForm.submitted && !contactForm.controls['name']?.valid" class="text-danger">
+            Name is required.
           </div>
-          <div class="mb-3">
-            <label for="email" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="email" required>
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email address</label>
+          <input type="email" class="form-control" id="email" name="email" ngModel required email>
+          <div *ngIf="contactForm.submitted && !contactForm.controls['email']?.valid" class="text-danger">
+            Valid email is required.
           </div>
-          <div class="mb-3">
-            <label for="message" class="form-label">Message</label>
-            <textarea class="form-control" id="message" rows="5" required></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="message" class="form-label">Message</label>
+          <textarea class="form-control" id="message" name="message" rows="5" ngModel required></textarea>
+          <div *ngIf="contactForm.submitted && !contactForm.controls['message']?.valid" class="text-danger">
+            Message is required.
           </div>
-          <button type="submit" class="btn btn-primary">Send Message</button>
-        </form>
-      </div>
-      <div class="col-md-6">
+        </div>
+        <button type="submit" class="btn btn-primary">Send Message</button>
+      </form>
+    </div>
+    <div class="col-md-1"></div> 
+    <div class="col-md-5">
+     
+      <div class="p-4 border rounded shadow-sm downward-moved">
         <h5>Our Address</h5>
-        <p>1234 Street Name, City, Country</p>
+        <p>1234 street, Nasr city, Egypt</p>
         <h5>Email</h5>
-        <p>contact&#64;galaxy.com</p> <!-- تم تعديل هذه السطر -->
+        <p>contact&#64;galaxy.com</p>
         <h5>Phone</h5>
         <p>(123) 456-7890</p>
         <h5>Follow Us</h5>
         <p>
-          <a href="#" class="me-3"><i class="bi bi-facebook"></i></a>
-          <a href="#" class="me-3"><i class="bi bi-twitter"></i></a>
-          <a href="#"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="me-3"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#" class="me-3"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#"><i class="fa-brands fa-linkedin"></i></a>
         </p>
       </div>
     </div>
   </div>
-  
+  <div *ngIf="submissionError" class="alert alert-danger mt-4">
+    Please fill out all the fields.
+  </div>
+  <div *ngIf="submissionSuccess" class="alert alert-success mt-4">
+    Your message has been sent successfully!
+  </div>
+</div>
