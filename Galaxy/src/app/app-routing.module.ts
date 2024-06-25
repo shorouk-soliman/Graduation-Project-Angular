@@ -38,6 +38,7 @@ import { MainSubcategoryComponent } from './components/default/subcategory/main-
 import { AboutComponent } from './components/about/about.component';
 import { ContactUsComponent } from './components/contact-us/contact-us.component';
 import {UpdateAdminProductVarComponent} from './components/admin/product/update-admin-product-var/update-admin-product-var.component'
+import { UpdateCategoryAdminComponent } from './components/admin/category/update-category-admin/update-category-admin.component';
 
 
 const routes: Routes = [
@@ -74,6 +75,7 @@ const routes: Routes = [
       { path: 'brand/update/:id', component: UpdateAdminBrandComponent },
       { path: 'category', component: MainCategoryAdminComponent },
       { path: 'category/add', component: AddCategoryAdminComponent },
+      { path: 'category/update/:id', component: UpdateCategoryAdminComponent },
       { path: 'category/addbanner', component: AddCagtegoryBannerAdminComponent },
       { path: 'subcategory', component: MainAdminSubcategoryComponent },
       { path: 'subcategory/add', component: AddAdminSubcategoryComponent },

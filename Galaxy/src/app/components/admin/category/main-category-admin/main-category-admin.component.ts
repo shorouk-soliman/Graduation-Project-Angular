@@ -22,13 +22,14 @@ export class MainCategoryAdminComponent {
       
     })
   }
-  Retrivecategory(category:any){
-    this.unit.category.RetriveCategory(category.id).subscribe(()=>{
+  RetrieveCategory(category: any) {
+    this.unit.category.RetrieveCategory(category.id).subscribe(() => {
       category.isDeleted = false;
-    },error=>{
-      
-    })
+    }, error => {
+      console.error('Error retrieving brand', error);
+    });
   }
+  
   GetCategory():void{
     this.unit.category.GetAdminCategories().subscribe((category: any) => {
       this.categories = category;

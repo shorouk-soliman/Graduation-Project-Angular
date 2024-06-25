@@ -18,15 +18,11 @@ export class MainAdminSubcategoryComponent {
   DeleteSubcategory(subcategory:any){
     this.unit.subcategory.DeleteSubCategory(subcategory.id).subscribe(()=>{
       subcategory.isDeleted = true;
-    },error=>{
-      
     })
   }
   RetriveSubCategory(subcategory:any){
     this.unit.subcategory.RetriveSubCategory(subcategory.id).subscribe(()=>{
       subcategory.isDeleted = false;
-    },error=>{
-      
     })
   }
   GetSubCategory():void{

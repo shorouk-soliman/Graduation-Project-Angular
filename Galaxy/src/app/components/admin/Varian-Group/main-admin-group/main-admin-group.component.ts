@@ -20,11 +20,14 @@ export class MainAdminGroupComponent {
       category.isDeleted = true;
     })
   }
-  Retrivecategory(category:any){
-    this.unit.category.RetriveCategory(category.id).subscribe(()=>{
+  RetrieveCategory(category: any) {
+    this.unit.category.RetrieveCategory(category.id).subscribe(() => {
       category.isDeleted = false;
-    })
+    }, error => {
+      console.error('Error retrieving brand', error);
+    });
   }
+  
 
   
   GetAllgroups():void{
