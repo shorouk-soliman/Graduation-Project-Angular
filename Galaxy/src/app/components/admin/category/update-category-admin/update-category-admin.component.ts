@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UnitService } from '../../../../services/unit.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog'; 
-import { HttpErrorResponse } from '@angular/common/http'; 
+import { MatDialog } from '@angular/material/dialog';
+import { HttpErrorResponse } from '@angular/common/http';
 import { ConfirmMessageComponent } from '../../../shared-componentes/confirm-message/confirm-message.component';
 
 @Component({
@@ -36,10 +36,10 @@ export class UpdateCategoryAdminComponent implements OnInit {
   getCategory(): void {
     this.unit.category.GetOneCategory(this.categoryId).subscribe(
       (res: any) => {
-        this.categoryForm = res;
+        this.category = res;
         this.categoryForm.patchValue({
-          Name: this.category.name,
-          image: this.category.image
+          Name: res.name,
+          image: res.image
         });
       },
       (error: any) => {
@@ -74,7 +74,7 @@ export class UpdateCategoryAdminComponent implements OnInit {
             this.UpdateCategoryAndImage(formDataImage);
           }
         },
-        (error:any) => {
+        (error: any) => {
           console.error('Error fetching admin Categories:', error);
           this.notificationMessage = 'Failed to update Category. Please try again later.';
         }
@@ -110,6 +110,10 @@ export class UpdateCategoryAdminComponent implements OnInit {
       () => {
         console.log("Category edited successfully");
         this.router.navigateByUrl('/admin/category');
+      },
+      (error: any) => {
+        console.error('Error updating category:', error);
+        this.notificationMessage = 'Failed to update Category. Please try again later.';
       }
     );
   }

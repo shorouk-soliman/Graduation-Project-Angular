@@ -1,27 +1,60 @@
-<div>
-    <input placeholder="search" type="text">
-    <button routerLink="add" class="btn btn-success">Add Sub Category</button>
-    <button routerLink="addbanner" class="btn btn-success">Add sub Category banner</button>
 
-</div>
-
-<div class="container-fluid">
+  
+  <div class="container">
     <div class="row">
-
-        <div *ngFor="let subcategory of subcategories" class="card" style="width: 18rem;">
-            <img class="card-img-top" [src]="subcategory.image" alt="Card image cap">
-            <div class="card-body">
-              <h5 class="card-title">{{subcategory.name}}</h5>
-              <div class="d-flex justify-content-evenly">
-
-                  <button routerLink="update/{{subcategory.id}}" class="btn btn-warning col-5">Update</button>
-
-                  <button [class.d-none]="subcategory.isDeleted" (click)="DeleteSubcategory(subcategory)" class="btn btn-danger col-5">Delete</button>
-                  <button [class.d-none]="!subcategory.isDeleted" (click)="RetriveSubCategory(subcategory)" class="btn btn-success col-5">Retrive</button>
-
-                </div>
+      <div class="col-md-12 text-center">
+        <div class="panel">
+          <div class="panel-heading bg-primary text-white">
+            <div class="row">
+              <div class="col-12 col-sm-6">
+                <h4 class="title">Recent subCategories</h4>
+              </div>
+              <div class="col-12 col-sm-6 text-right">
+                <button routerLink="add" class="btn btn-success ml-2">
+                  <i class="bi bi-plus-lg"></i> Add New subCategory
+                </button>
+                <button routerLink="addbanner" class="btn btn-success ml-2">
+                  <i class="bi bi-plus-lg"></i> Add subCategory Banner
+                </button>
+              </div>
             </div>
           </div>
-
+          <div class="panel-body table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Image</th>
+                  <th>Name</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let subcategory of subcategories" class="categoryDiv">
+                  <td>
+                    <div class="image-container">
+                      <img class="card-img product-image" [src]="subcategory.image" [alt]="subcategory.name">
+                    </div>
+                  </td>
+                  <td><b>{{ subcategory.name }}</b></td>
+                  <td>
+                    <div class="action-buttons">
+                      <button routerLink="update/{{subcategory.id}}" class="btn btn-warning px-3" title="Update Category">
+                        <i class="bi bi-pencil-fill"></i>
+                      </button>
+                      <button [class.d-none]="subcategory.isDeleted" (click)="DeleteSubcategory(subcategory)" class="btn btn-danger px-3" title="Delete subcategory">
+                        <i class="bi bi-trash-fill"></i>
+                      </button>
+                      <button [class.d-none]="!subcategory.isDeleted" (click)="RetriveSubCategory(subcategory)" class="btn btn-success px-3" title="Retrieve subcategory">
+                        <i class="bi bi-recycle"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>        
+        </div>
+      </div>
     </div>
-</div>
+  </div>
+  

@@ -46,12 +46,12 @@ export class SubcategoryService {
   };
 
   DeleteSubCategory(subcategoryId: number): Observable<any> {
-    let Url: string = `category/DeleteCategory?id=${subcategoryId}`;
+    let Url: string = `SubCategory/SoftDelete?id=${subcategoryId}`;
     return this.generic.deleteRequest<any>(Url);
   };
 
   RetriveSubCategory(subcategoryId: number): Observable<any> {
-    let Url: string = `Category/RetrieveDeletedCategory?id=${subcategoryId}`;
+    let Url: string = `SubCategory/Retrive?id=${subcategoryId}`;
     return this.generic.putRequest<any>(Url, null);
   };
 

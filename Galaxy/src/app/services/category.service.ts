@@ -58,7 +58,7 @@ export class CategoryService {
   }
 
   DeleteCategory(categoryId: number): Observable<any> {
-    let Url: string = `Category/DeleteCategory?id=${categoryId}`;
+    let Url: string = `Category/SoftDeleteCategory?id=${categoryId}`;
     return this.generic.deleteRequest<any>(Url);
   }
 
