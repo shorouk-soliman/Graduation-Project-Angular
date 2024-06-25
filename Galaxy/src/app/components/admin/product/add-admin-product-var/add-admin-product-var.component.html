@@ -4,7 +4,7 @@
       <h2 class="text-center mb-4">Add Variant Product</h2>
     </div>
     <div class="col-md-6">
-      <form (submit)="AddImagesAndProduct()" [formGroup]="myForm" class="row g-3 border rounded p-4 shadow-sm" enctype="multipart/form-data">
+      <form (submit)="AddImagesAndProduct()" (ngSubmit)="confirmAddProduct()" [formGroup]="myForm" class="row g-3 border rounded p-4 shadow-sm" enctype="multipart/form-data">
         <!-- Product Image -->
         <div class="col-6 mb-3">
           <label for="image" class="form-label bold-label">Product Image</label>
@@ -115,15 +115,12 @@
 
         <!-- Attribute Values -->
         <div *ngFor="let attributewithvalue of attributeWithValues" class="col-6 mb-3">
-          <label  class="form-label bold-label">{{attributewithvalue.attribute.name}}</label>
-          <select (change)="onValuesChange($event,attributewithvalue.values)"  class="form-select">
-            <option [value]="0">Select Value Group</option>
+          <label class="form-label bold-label">{{ attributewithvalue.attribute.name }}</label>
+          <select (change)="onValuesChange($event, attributewithvalue.values)" class="form-select" multiple>
             <option [value]="value.id" *ngFor="let value of attributewithvalue.values">{{ value.name }}</option>
           </select>
-          <div  [class.d-none]="!valuesError()" class="form-text text-danger">
-            All values are required
-          </div>
         </div>
+
 
         <!-- Submit Button -->
 <div class="col-md-12 mb-3 text-center">

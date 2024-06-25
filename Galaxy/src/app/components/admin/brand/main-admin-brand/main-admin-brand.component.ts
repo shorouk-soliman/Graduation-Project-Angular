@@ -33,7 +33,7 @@ export class MainAdminBrandComponent implements OnInit {
 
   GetBrands(): void {
     this.unit.brand.GetAdminBrand().subscribe((brands: any) => {
-      this.brands = brands.sort((a: any, b: any) => b.id - a.id); 
+      this.brands = brands.sort((a: any, b: any) => b.id - a.id);
       this.isloading = false;
     }, error => {
       console.error('Error fetching brands', error);

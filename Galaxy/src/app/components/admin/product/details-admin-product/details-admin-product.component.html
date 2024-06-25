@@ -1,70 +1,52 @@
-<div class="modal-header justify-content-end">
-  <button type="button" class="btn-close" aria-label="Close" (click)="closeDialog()"></button>
-</div>
+<div class="container-fluid">
+  <div class="row view-container mt-3">
 
-<div class="container  mb-2">
-  <div class="row custom-row">
     <!-- Images Section -->
-    <div class="col-md-6 d-flex side p-1 flex-column-reverse flex-lg-row p-2">
+    <div class="col-12 col-lg-6 d-flex side p-1 flex-column-reverse flex-lg-row p-4">
 
-      <!-- Side Images -->
       <div class="d-flex flex-lg-column side-images col-12 col-lg-2 px-1">
-        <!-- Main Product Image -->
+
         <div class="slide-image-container m-1">
-          <img (click)="SetMainImage(product.image)" [src]="product.image" class="img-fluid">
+          <img (click)="SetMainImage(product.image)" [src]="product.image">
         </div>
 
-        <!-- Additional Product Images -->
         <div class="slide-image-container m-1" *ngFor="let item of product.productImages">
-          <img (click)="SetMainImage(item.imageURL)" [src]="item.imageURL" class="img-fluid">
+          <img (click)="SetMainImage(item.imageURL)" [src]="item.imageURL">
         </div>
       </div>
 
-      <!-- Main Product Image Display -->
       <div class="col-10 mx-auto product-image">
-        <img [src]="mainImage" class="img-fluid">
+        <img [src]="mainImage" />
       </div>
 
-      <!-- Product Details -->
-      <div class="col-md-12 ">
-        <!-- Category Name -->
-        <div class="text-muted">{{ product?.category?.name }}</div>
-        <!-- Product Name -->
-        <h1>{{ product?.name }}</h1>
-        <!-- Product Description -->
-        <div class="fs-6">{{ product?.desctiption }}</div>
-        <!-- Brand Image -->
-        <div class="brand-image col-2 mt-2">
-          <img [title]="product?.brand?.name" [src]="product?.brand?.image">
-        </div>
-
-        <!-- Product Price -->
-        <div class="fs-5">Price: {{ product.price | currency }}</div>
-        <!-- Product Discount -->
-        <div class="fs-5" *ngIf="product.discount !== 0">{{ product.discount | currency }}</div>
-
-        <!-- Product Versions -->
-        <div  class="mt-3"       [class.d-none]="product.versions.length == 0 "
-        >
-          <div class="fs-5">Versions:</div>
-          <ul class="list-unstyled">
-            <li *ngFor="let version of product.versions">
-              <div *ngFor="let attribute of version.attributes">
-                <div class="fs-6 mt-2 mb-1">{{ attribute.name }}</div>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div class="col-sm-5">
-        <!-- Action Buttons -->
-        <div class="action-buttons">
-          <button routerLink="/update/{{ product.id }}" class="btn btn-warning px-3" title="Update product">
-            <i class="bi bi-pencil-fill"></i> Edit
-          </button>
-        </div>
-        </div>
-      </div>
     </div>
-  </div>
 
+    <!-- Details Section -->
+    <div class="col-12 col-lg-6 side p-1">
+
+      <div class="text-muted">{{ product.category.name }}</div>
+      <div class="brand-image col-2 mt-2">
+        <img [title]="product.brand.name" [src]="product.brand.image">
+      </div>
+
+      <h5>{{ product.name }}</h5>
+      <div class="fs-6">{{ product.desctiption }}</div>
+
+
+      <!-- Rating -->
+      <div [class.d-none]="product.rate === 0" class="d-flex">
+        <div class="me-2 fw-bold">{{ product.rate.toFixed(1) }}</div>
+        <app-stars [Stars]="product.rate"></app-stars>
+      </div>
+
+      <app-product-price [product]="product"></app-product-price>
+      <app-product-admin-versions
+        [class.d-none]="product.versions.length === 0"
+        [versions]="product.versions"
+        [productId]="data.productId">
+      </app-product-admin-versions>
+
+    </div>
+
+  </div>
 </div>

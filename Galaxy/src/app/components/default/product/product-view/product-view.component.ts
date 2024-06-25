@@ -34,7 +34,7 @@ export class ProductViewComponent implements OnInit, OnChanges {
 
   Changevalues(event:any){
     this.onChangeValues.emit(event);
-  };  
+  };
 
   ngOnChanges(changes: SimpleChanges): void {
     this.mainImage = this.product.image;

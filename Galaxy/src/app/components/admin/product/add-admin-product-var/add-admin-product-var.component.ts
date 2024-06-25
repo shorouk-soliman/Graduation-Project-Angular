@@ -2,6 +2,9 @@ import { Component, OnDestroy } from '@angular/core';
 import { UnitService } from '../../../../services/unit.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmMessageComponent } from '../../../shared-componentes/confirm-message/confirm-message.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-admin-product-var',
@@ -9,7 +12,7 @@ import { Subscription } from 'rxjs';
   styleUrl: './add-admin-product-var.component.css'
 })
 export class AddAdminProductVarComponent implements OnDestroy {
-  constructor(private unit: UnitService) { }
+  constructor(private unit: UnitService, public dialog: MatDialog, private router: Router) { }
   private subscriptions: Subscription = new Subscription();
   selectedFile: File | null = null;
   selectedFilesList: File[] = [];
@@ -69,6 +72,16 @@ export class AddAdminProductVarComponent implements OnDestroy {
       this.selectedvaluesList.push(SelectedValue);
     }
 
+  }
+  confirmAddProduct(): void {
+    const dialogRef = this.dialog.open(ConfirmMessageComponent, {
+      data: { message: 'Are you sure you want to add this product?' },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.AddImagesAndProduct();
+      }
+    });
   }
 
   myForm: FormGroup = new FormGroup({
@@ -131,9 +144,10 @@ export class AddAdminProductVarComponent implements OnDestroy {
   }
 
   AddSimpleProduct(insert: any) {
+    const selectedValues = this.attributeWithValues.flatMap((attributewithvalue: any) => attributewithvalue.selectedValues || []);
     insert = {...insert, values:this.selectedvaluesList}
     this.unit.product.AddVarProduct(insert).subscribe(() => {
-      alert('Variant Product Added Succssefully')
+      this.router.navigateByUrl('/admin/product');
     }, error => {
       alert(error.error)
     })

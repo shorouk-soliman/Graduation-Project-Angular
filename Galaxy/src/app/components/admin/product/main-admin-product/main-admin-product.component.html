@@ -41,13 +41,13 @@
                     <button routerLink="update/{{product.id}}" class="btn btn-warning px-3" title="Update product">
                       <i class="bi bi-pencil-fill"></i>
                     </button>
-                    <button [class.d-none]="isDeleted" (click)="DeleteProduct(product.id)" class="btn btn-danger px-3" title="Delete product">
+                    <button [class.d-none]="product.isDeleted" (click)="DeleteProduct(product)" class="btn btn-danger px-3" title="Delete product">
                       <i class="bi bi-trash-fill"></i>
                     </button>
-                    <button [class.d-none]="!isDeleted" (click)="RetrieveProduct(product.id)" class="btn btn-success px-3" title="Retrieve product">
+                    <button [class.d-none]="!product.isDeleted" (click)="RetrieveProduct(product)" class="btn btn-success px-3" title="Retrieve product">
                       <i class="bi bi-recycle"></i>
                     </button>
-                    <button class="btn btn-info" (click)="openProductDetailsDialog(product)" title="Details of product">
+                    <button class="btn btn-info" (click)="openProductDetailsDialog(product.id)" title="Details of product">
                       <i class="bi bi-info-circle-fill"></i>
                     </button>
                   </div>

@@ -4,7 +4,7 @@
     <div style="width: 16rem;"  *ngFor="let product of products">
 
 
-      <div class="card my-1">
+      <div class="card my-1" *ngIf="!product.isDeleted">
         <img loading="lazy" class="card-img-top le-image" routerLink="/product/{{product?.id}}" [src]="product?.image" [alt]="product?.name">
         <button [class.d-none]="product.discount === 0" class="discount-btn btn btn-dark col-4">Save {{product.discount}}%</button>
         <div class="card-body p-2">
@@ -18,9 +18,9 @@
               class="me-1 btn me-2" [class.d-none]="product.rate === 0">{{product.rate.toFixed(1)}}</span>
             <div class="w-content"><app-stars [class.d-none]="product.rate === 0" [Stars]="product.rate"></app-stars></div>
             </div>
-            
-            
-            
+
+
+
           <!-- Price -->
           <div>
             <div [class.d-none]="product?.discount !== 0" class="fs-5 my-1" style="font-weight: 600;">{{product.price | currency}}</div>

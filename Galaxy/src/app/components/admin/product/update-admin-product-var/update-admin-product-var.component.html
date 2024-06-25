@@ -10,89 +10,76 @@
           <label for="image" class="form-label bold-label">Product Image</label>
           <input type="file" id="image" formControlName="image" class="form-control">
           <img *ngIf="productDetails?.image" [src]="productDetails.image" alt="Product Image" class="img-fluid mt-2" style="max-height: 150px;">
-          <!-- Display errors if necessary -->
         </div>
 
         <!-- Additional Product Images -->
         <div class="col-6 mb-3">
           <label for="productImages" class="form-label bold-label">Additional Product Images</label>
           <input type="file" id="productImages" formControlName="productImages" multiple class="form-control">
-          <!-- Display errors if necessary -->
+          <img *ngFor="let img of productDetails?.productImages" [src]="img.imageURL" alt="Product Image" class="img-fluid mt-2" style="max-height: 150px;">
         </div>
 
         <!-- Product Name -->
         <div class="col-12 mb-3">
           <label for="name" class="form-label bold-label">Product Name</label>
           <input type="text" id="name" formControlName="name" class="form-control" placeholder="Enter product name">
-          <!-- Display errors if necessary -->
         </div>
 
         <!-- Product Description -->
         <div class="col-12 mb-3">
           <label for="description" class="form-label bold-label">Product Description</label>
           <textarea id="description" formControlName="description" class="form-control" rows="3" placeholder="Enter product description"></textarea>
-          <!-- Display errors if necessary -->
         </div>
 
         <!-- Product Quantity -->
         <div class="col-4 mb-3">
           <label for="quantity" class="form-label bold-label">Quantity</label>
           <input type="number" id="quantity" formControlName="quantity" class="form-control">
-          <!-- Display errors if necessary -->
         </div>
 
         <!-- Product Price -->
         <div class="col-4 mb-3">
           <label for="price" class="form-label bold-label">Price</label>
           <input type="number" id="price" formControlName="price" class="form-control">
-          <!-- Display errors if necessary -->
         </div>
 
         <!-- Product Discount -->
         <div class="col-4 mb-3">
           <label for="discount" class="form-label bold-label">Discount</label>
           <input type="number" id="discount" formControlName="discount" class="form-control">
-          <!-- Display errors if necessary -->
         </div>
 
         <!-- Brand -->
         <div class="col-6 mb-3">
           <label for="brandId" class="form-label bold-label">Brand</label>
           <select id="brandId" formControlName="brandId" class="form-select">
-            <!-- <option [value]="0">Select brand</option> -->
-            <option [value]="brand.id" *ngFor="let brand of brands" >{{ brand.name }}</option>
+            <option *ngFor="let brand of brands" [value]="brand.id">{{ brand.name }}</option>
           </select>
-          <!-- Display errors if necessary -->
         </div>
 
         <!-- Sub Category -->
         <div class="col-6 mb-3">
           <label for="subCategoryId" class="form-label bold-label">Sub Category</label>
           <select id="subCategoryId" formControlName="subCategoryId" class="form-select">
-            <!-- <option [value]="0">Select sub category</option> -->
-            <option [value]="subcategory.id" *ngFor="let subcategory of subcategories" >{{ subcategory.name }}</option>
+            <option *ngFor="let subcategory of subcategories" [value]="subcategory.id">{{ subcategory.name }}</option>
           </select>
-          <!-- Display errors if necessary -->
         </div>
 
         <!-- Variant Group -->
         <div class="col-12 mb-3">
           <label for="varGroupId" class="form-label bold-label">Variant Group</label>
-          <select id="varGroupId" formControlName="varGroupId" class="form-select">
-            <!-- <option [value]="0">Select Variant Group</option> -->
-            <option [value]="group.id" *ngFor="let group of groups">{{ group.name }}</option>
+          <select id="varGroupId" formControlName="varGroupId" class="form-select" (change)="onGroupChange($event)">
+            <option *ngFor="let group of groups" [value]="group.id">{{ group.name }}</option>
           </select>
-          <!-- Display errors if necessary -->
         </div>
 
         <!-- Attribute Values -->
         <div *ngFor="let attributewithvalue of attributeWithValues" class="col-6 mb-3">
           <label class="form-label bold-label">{{ attributewithvalue.attribute.name }}</label>
-          <select formControlName="values"  class="form-select">
+          <select (change)="onValuesChange($event, attributewithvalue.attribute)" class="form-select">
             <option [value]="0">Select Value Group</option>
-            <option [value]="value.id" *ngFor="let value of attributewithvalue.values">{{ value.name }}</option>
+            <option [value]="value.id" [selected]="isSelected(attributewithvalue, value)" *ngFor="let value of attributewithvalue.values">{{ value.name }}</option>
           </select>
-          <!-- Display errors if necessary -->
         </div>
 
         <!-- Submit Button -->

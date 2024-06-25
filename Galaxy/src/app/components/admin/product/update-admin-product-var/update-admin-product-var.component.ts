@@ -3,6 +3,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { UnitService } from '../../../../services/unit.service';
+import { IProductDetails, initialProductDetails } from '../../../../Models/Product/Product-Details-model';
+import { IAttributeRead } from '../../../../Models/Attribute/Attribute-Read-model';
+import { IValueRead } from '../../../../Models/Values/values-read-model';
 
 @Component({
   selector: 'app-update-admin-product-var',
@@ -10,11 +13,12 @@ import { UnitService } from '../../../../services/unit.service';
   styleUrls: ['./update-admin-product-var.component.css']
 })
 export class UpdateAdminProductVarComponent implements OnInit, OnDestroy {
-  constructor(private unit: UnitService, private route: ActivatedRoute) { }
+  constructor(private unit: UnitService, private route: ActivatedRoute) {}
 
   private subscriptions: Subscription = new Subscription();
   productId: number = 0;
-  productDetails: any ;
+  productDetails: IProductDetails = initialProductDetails;
+  selectedValues: { [key: string]: number[] } = {}; // Initialize selected values list
 
   subcategories: any;
   brands: any;
@@ -29,7 +33,7 @@ export class UpdateAdminProductVarComponent implements OnInit, OnDestroy {
     subCategoryId: new FormControl(0, [Validators.required, Validators.min(1)]),
     quantity: new FormControl(0, [Validators.required, Validators.min(1), Validators.pattern("^[0-9]*$")]),
     brandId: new FormControl(0, [Validators.required, Validators.min(1)]),
-    varGroupId: new FormControl(0, [Validators.required, Validators.min(1)]),
+    varGroupId: new FormControl(0, [ Validators.min(1)]),
     productImages: new FormControl([]),
     price: new FormControl(1, [Validators.required, Validators.min(1)]),
   });
@@ -50,7 +54,7 @@ export class UpdateAdminProductVarComponent implements OnInit, OnDestroy {
 
   GetProductDetails(id: number) {
     if (this.productId) {
-      let productSubscription = this.unit.product.GetProductDetails(this.productId).subscribe((res: any) => {
+      let productSubscription = this.unit.product.GetProductDetails(id).subscribe((res: any) => {
         this.productDetails = res;
         this.populateForm();
       });
@@ -68,12 +72,21 @@ export class UpdateAdminProductVarComponent implements OnInit, OnDestroy {
         subCategoryId: this.productDetails.subCategoryId,
         brandId: this.productDetails.brandId,
         varGroupId: this.productDetails.variantGroupId,
-        values: this.productDetails.valuesList,
         price: this.productDetails.price,
-        image :this.productDetails.image,
+        image: this.productDetails.image,
         productImages: this.productDetails.productImages
       });
 
+      this.productDetails.versions.forEach(version => {
+        version.attributes.forEach(attribute => {
+          this.selectedValues[attribute.name] = version.values
+            .filter(value => value.attributeId === attribute.id)
+            .map(value => value.id);
+
+          const formControl = new FormControl(this.selectedValues[attribute.name], Validators.required);
+          this.myForm.addControl(attribute.name, formControl);
+        });
+      });
     }
   }
 
@@ -98,17 +111,41 @@ export class UpdateAdminProductVarComponent implements OnInit, OnDestroy {
     this.subscriptions.add(groupSubscription);
   }
 
+  onGroupChange(event: any) {
+    let id = event.target.value;
+    let groupWithAttributeSubscription = this.unit.group.GetGroupWithAttributesValues(id).subscribe((res: any) => {
+      this.attributeWithValues = res.attributeWithValues;
+    });
+    this.subscriptions.add(groupWithAttributeSubscription);
+  }
+
+  onValuesChange(event: any, attribute: IAttributeRead) {
+    const selectedOptions = event.target.options;
+    const selectedValues = [];
+
+    for (let i = 0; i < selectedOptions.length; i++) {
+      if (selectedOptions[i].selected) {
+        selectedValues.push(parseInt(selectedOptions[i].value));
+      }
+    }
+
+    // Update selected values for the attribute
+    this.selectedValues[attribute.name] = selectedValues;
+  }
+
+  isSelected(attributewithvalue: any, value: IValueRead): boolean {
+    return this.selectedValues[attributewithvalue.attribute.name]?.includes(value.id);
+  }
+
   onUpdateProduct() {
     if (!this.myForm.valid) return;
 
-    const updateData = this.myForm.value;
-    // Adjust updateData as per your API requirements, e.g., handling images, etc.
+    const updateData = { ...this.myForm.value };
 
     this.unit.product.UpdateProduct(this.productId, updateData).subscribe(() => {
       alert('Product updated successfully');
-      // Optionally, navigate to a different route or handle success scenario
     }, error => {
-      alert('Failed to update product. Please try again.'); // Handle error appropriately
+      alert('Failed to update product. Please try again.');
     });
   }
 }

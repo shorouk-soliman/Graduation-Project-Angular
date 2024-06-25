@@ -14,20 +14,19 @@ import { DetailsAdminProductComponent } from '../details-admin-product/details-a
 export class MainAdminProductComponent implements OnInit, OnDestroy {
   products: IProducts[] = [];
   query: IProductQuery = new initProductQuery();
-  isDeleted: boolean = false;
   private productsSubscription: Subscription = new Subscription();
 
   constructor(private unit: UnitService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.unit.products.fetchGeneralProducts(this.query);
+   this.unit.products.fetchGeneralProducts(this.query);
     this.GetProducts();
   }
 
-  openProductDetailsDialog(product: any): void {
+  openProductDetailsDialog(productId: number): void {
     const dialogRef = this.dialog.open(DetailsAdminProductComponent, {
-      width: '90%',
-      data: { product }
+      width: '80%',
+      data: { productId: productId }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -35,31 +34,28 @@ export class MainAdminProductComponent implements OnInit, OnDestroy {
     });
   }
 
-  DeleteProduct(productId: number): void {
-    this.unit.product.DeleteProduct(productId).subscribe(() => {
-      const productIndex = this.products.findIndex(p => p.id === productId);
-      if (productIndex !== -1) {
-        this.isDeleted = true;
-      }
-    }, (error: any) => {
-      console.error('Error deleting product', error);
-    });
+  DeleteProduct(product: any): void {
+    this.unit.product.DeleteProduct(product.id).subscribe(() => {
+      product.isDeleted = true;
+      this.GetProducts();
+        }, (error: any) => {
+        console.error('Error deleting product', error);
+      });
   }
 
-  RetrieveProduct(productId: number): void {
-    this.unit.product.RetrieveProduct(productId).subscribe(() => {
-      const productIndex = this.products.findIndex(p => p.id === productId);
-      if (productIndex !== -1) {
-        this.isDeleted = false;
-      }
-    }, (error: any) => {
+  RetrieveProduct(product: any): void {
+    this.unit.product.RetrieveProduct(product.id).subscribe(() => {
+        product.isDeleted = false;
+      }, (error: any) => {
       console.error('Error retrieving product', error);
     });
   }
 
   GetProducts(): void {
-    this.productsSubscription = this.unit.products.GetProducts().subscribe((products: any) => {
-      this.products = products.products.sort((a: any, b: any) => b.id - a.id); 
+    this.productsSubscription = this.unit.products.GetProducts().subscribe((response: any) => {
+      this.products = response.products.sort((a: IProducts, b: IProducts) => b.id - a.id);
+    }, (error: any) => {
+      console.error('Error fetching products', error);
     });
   }
 
