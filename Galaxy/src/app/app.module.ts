@@ -87,6 +87,8 @@ import { AboutComponent } from './components/about/about.component';
 import { ContactUsComponent } from './components/contact-us/contact-us.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ConfirmMessageComponent } from './components/shared-componentes/confirm-message/confirm-message.component';
+import { DetailsAdminProductComponent } from './components/admin/product/details-admin-product/details-admin-product.component';
+import { UpdateAdminProductVarComponent } from './components/admin/product/update-admin-product-var/update-admin-product-var.component';
 // import { ErrorInterceptorService } from './interceptors/error-interceptor';
 
 
@@ -161,6 +163,8 @@ import { ConfirmMessageComponent } from './components/shared-componentes/confirm
     AboutComponent,
     ContactUsComponent,
     ConfirmMessageComponent,
+    DetailsAdminProductComponent,
+    UpdateAdminProductVarComponent,
   ],
   imports: [
     BrowserModule,

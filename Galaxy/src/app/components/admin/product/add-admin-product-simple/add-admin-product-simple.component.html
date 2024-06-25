@@ -1,212 +1,96 @@
-<h1 class="text-center mt-5">Add Simple Product</h1>
-
-
-<form (submit)="AddImagesAndProduct()" [formGroup]="myForm" class="col-6 mx-auto">
-
-    <!-- name -->
-    <label>product name</label>
-    <input formControlName="name" class="form-control my-2" placeholder="product name" type="text">
-    <!-- Display error message if "required" validation fails -->
-    <div [class.d-none]="!NameError()?.['required']" class="text-danger">
-        product Name is required
+<div class="container-fluid mt-5">
+  <div class="row justify-content-center">
+    <div class="md-4">
+      <h2 class="text-center mb-4">Add Simple Product</h2>
     </div>
-
-    <!-- Display error message if "minlength" or "maxlength" validation fails -->
-    <div [class.d-none]="!(NameError()?.['minlength'] || NameError()?.['maxlength']) || !NameError()"
-        class="text-danger">
-        product Name must be more than 2 chars and less than 150
-    </div>
-
-    <!-- Display success message when the form is valid -->
-    <div [class.d-none]="NameError()" class="text-success">
-        product Name is valid
-    </div>
-
-    
-    
-
-
-    <!-- description -->
-    <label>product description</label>
-    <input formControlName="description" class="form-control my-2" placeholder="product description" type="text">
-    <!-- Display error message if "required" validation fails -->
-    <div [class.d-none]="!descriptionError()?.['required']" class="text-danger">
-        description is required
-    </div>
-
-    <!-- Display error message if "minlength" or "maxlength" validation fails -->
-    <div [class.d-none]="!(descriptionError()?.['minlength'] || descriptionError()?.['maxlength']) || !descriptionError()"
-        class="text-danger">
-        description must be more than 3 chars and less than 500
-    </div>
-
-    <!-- Display success message when the form is valid -->
-    <div [class.d-none]="descriptionError()" class="text-success">
-        description is valid
-    </div>
-
-
-
-
-    <!-- subCategoryId -->
-    <label>Sub Category</label>
-    <select formControlName="subCategoryId">
-        <option [value]="0">select category</option>
-        <option [value]="subcategory.id" *ngFor="let subcategory of subcategories">{{subcategory.name}}</option>
-    </select>
-
-    <!-- Display error message if "required" validation fails -->
-    <div [class.d-none]="!subCategoryError()" class="text-danger">
-        category is required
-    </div>
-
-    <!-- Display success message when the form is valid -->
-    <div [class.d-none]="subCategoryError()" class="text-success">
-        category is valid
-    </div>
-
-
-
-
-    <!-- image -->
-    <label>image</label>
-    <input formControlName="image" (change)="onFileSelected($event)" class="form-control my-2" placeholder="sub category image" type="file">
-
-    <!-- Display error message if "required" validation fails -->
-    <div [class.d-none]="!ImageError()?.['required']" class="text-danger">
-        image is required
-    </div>
-
-    <!-- Display success message when the form is valid -->
-    <div [class.d-none]="ImageError()" class="text-success">
-        image is valid
-    </div>
-
-
-
-
-    <!-- image -->
-    <label>product images</label>
-    <input multiple formControlName="productImages" (change)="onFilesListSelected($event)" class="form-control my-2" placeholder="product images" type="file">
-
-    <!-- Display error message if "required" validation fails -->
-    <div [class.d-none]="!productImagesError()?.['required']" class="text-danger">
-        product images is required
-    </div>
-
-    <!-- Display success message when the form is valid -->
-    <div [class.d-none]="productImagesError()" class="text-success">
-        product images is valid
-    </div>
-
-
-
-
-
-
-    <div class="d-flex">    
-
-        <div class=" flex-column col-4">
-
-            
-            <!-- quantity -->
-            <label>quantity</label>
-            <input formControlName="quantity" class="form-control my-2" placeholder="product quantity" type="number">
-            <!-- Display error message if "required" validation fails -->
-            <div [class.d-none]="!quantityError()?.['required']" class="text-danger">
-                quantity is required
-            </div>
-            
-            <!-- Display error message if "minlength" or "maxlength" validation fails -->
-            <div [class.d-none]="!(quantityError()?.['min'] || quantityError()?.['pattern']) || !quantityError()"
-            class="text-danger">
-            quantity must be integer and more than 0
+    <div class="col-md-6">
+      <form [formGroup]="myForm" (ngSubmit)="confirmAddProduct()" (submit)="AddImagesAndProduct()" class="row g-3 border rounded p-4 shadow-sm" enctype="multipart/form-data">
+        <!-- Product Image -->
+        <div class="col-6 mb-3">
+          <label for="image" class="form-label bold-label">Product Image</label>
+          <input type="file" id="image" formControlName="image" (change)="onFileSelected($event)" class="form-control">
+          <div *ngIf="myForm.get('image')?.invalid && (myForm.get('image')?.touched || myForm.get('image')?.dirty)" class="form-text text-danger">
+            <div *ngIf="myForm.get('image')?.errors?.['required']">Product image is required</div>
+          </div>
         </div>
-        
-        <!-- Display success message when the form is valid -->
-        <div [class.d-none]="quantityError()" class="text-success">
-            quantity is valid
+
+        <!-- Additional Product Images -->
+        <div class="col-6 mb-3">
+          <label for="productImages" class="form-label bold-label">Additional Product Images</label>
+          <input type="file" id="productImages" formControlName="productImages" (change)="onFilesListSelected($event)" multiple class="form-control">
+          <div *ngIf="myForm.get('productImages')?.invalid && (myForm.get('productImages')?.touched || myForm.get('productImages')?.dirty)" class="form-text text-danger">
+            <div *ngIf="myForm.get('productImages')?.errors?.['required']">Additional product images are required</div>
+          </div>
         </div>
-        
-    </div>
-        
-        
-    <div class=" flex-column">
 
-    <!-- price -->
-    <label>price</label>
-    <input formControlName="price" class="form-control my-2" placeholder="product price" type="number">
-    <!-- Display error message if "required" validation fails -->
-    <div [class.d-none]="!priceError()?.['required']" class="text-danger">
-        price is required
-    </div>
-    
-    <!-- Display error message if "minlength" or "maxlength" validation fails -->
-    <div [class.d-none]="!(priceError()?.['min'] || priceError()?.['pattern']) || !priceError()"
-    class="text-danger">
-    price must be more than 0
-</div>
+        <!-- Product Name -->
+        <div class="col-12 mb-3">
+          <label for="name" class="form-label bold-label">Product Name</label>
+          <input type="text" id="name" formControlName="name" class="form-control" placeholder="Enter product name">
+          <div *ngIf="myForm.get('name')?.invalid && (myForm.get('name')?.touched || myForm.get('name')?.dirty)" class="form-text text-danger">
+            <div *ngIf="myForm.get('name')?.errors?.['required']">Product name is required</div>
+            <div *ngIf="myForm.get('name')?.errors?.['minlength'] || myForm.get('name')?.errors?.['maxlength']">Product name must be between 3 and 150 characters</div>
+          </div>
+        </div>
 
-<!-- Display success message when the form is valid -->
-<div [class.d-none]="priceError()" class="text-success">
-    price is valid
-</div>
+        <!-- Product Description -->
+        <div class="col-12 mb-3">
+          <label for="description" class="form-label bold-label">Product Description</label>
+          <textarea id="description" formControlName="description" class="form-control" rows="3" placeholder="Enter product description"></textarea>
+          <div *ngIf="myForm.get('description')?.invalid && (myForm.get('description')?.touched || myForm.get('description')?.dirty)" class="form-text text-danger">
+            <div *ngIf="myForm.get('description')?.errors?.['required']">Description is required</div>
+            <div *ngIf="myForm.get('description')?.errors?.['minlength'] || myForm.get('description')?.errors?.['maxlength']">Description must be between 3 and 500 characters</div>
+          </div>
+        </div>
 
-</div>
-
-<div class=" flex-column">
-
-
-<!-- discount -->
-<label>discount</label>
-<input formControlName="discount" class="form-control my-2" placeholder="product discount" type="number">
-<!-- Display error message if "required" validation fails -->
-<div [class.d-none]="!discountError()?.['required']" class="text-danger">
-    discount is required
-</div>
-
-<!-- Display error message if "minlength" or "maxlength" validation fails -->
-<div [class.d-none]="!(discountError()?.['min'] || discountError()?.['max']) || !discountError()"
-class="text-danger">
-discount must be more than 0
-</div>
-
-<!-- Display success message when the form is valid -->
-<div [class.d-none]="discountError()" class="text-success">
-    discount is valid
-</div>
-
-</div>
-
-</div>
-
-
-
-
-
-
-
-
-
-    <!-- brandId -->
-    <label>brand</label>
-    <select formControlName="brandId">
-        <option [value]="0">select brand</option>
-        <option [value]="brand.id" *ngFor="let brand of brands">{{brand.name}}</option>
+        <!-- Sub Category -->
+        <div class="col-6 mb-3">
+          <label for="subCategoryId" class="form-label bold-label">Sub Category</label>
+          <select id="subCategoryId" formControlName="subCategoryId" class="form-select">
+            <option [value]="0">Select sub category</option>
+            <option *ngFor="let subcategory of subcategories" [value]="subcategory.id">{{ subcategory.name }}</option>
+          </select>
+          <div *ngIf="myForm.get('subCategoryId')?.invalid && (myForm.get('subCategoryId')?.touched || myForm.get('subCategoryId')?.dirty)" class="form-text text-danger">Sub category is required</div>
+        </div>
+   <!-- Brand -->
+   <div class="col-6 mb-3">
+    <label for="brandId" class="form-label bold-label">Brand</label>
+    <select id="brandId" formControlName="brandId" class="form-select">
+      <option [value]="0">Select brand</option>
+      <option *ngFor="let brand of brands" [value]="brand.id">{{ brand.name }}</option>
     </select>
+    <div *ngIf="myForm.get('brandId')?.invalid && (myForm.get('brandId')?.touched || myForm.get('brandId')?.dirty)" class="form-text text-danger">Brand is required</div>
+  </div>
+        <!-- Product Quantity -->
+        <div class="col-4 mb-3">
+          <label for="quantity" class="form-label bold-label">Quantity</label>
+          <input type="number" id="quantity" formControlName="quantity" class="form-control">
+          <div *ngIf="myForm.get('quantity')?.invalid && (myForm.get('quantity')?.touched || myForm.get('quantity')?.dirty)" class="form-text text-danger">
+            <div *ngIf="myForm.get('quantity')?.errors?.['required']">Quantity is required</div>
+            <div *ngIf="myForm.get('quantity')?.errors?.['min'] ||myForm.get('quantity')?.errors?.['pattern']" class="form-text text-danger">Quantity must be a positive integer</div>
+          </div>
+        </div>
 
-    <!-- Display error message if "required" validation fails -->
-    <div [class.d-none]="!brandError()" class="text-danger">
-        brand is required
+        <!-- Product Price -->
+        <div class="col-4 mb-3">
+          <label for="price" class="form-label bold-label">Price</label>
+          <input type="number" id="price" formControlName="price" class="form-control">
+        </div>
+
+        <!-- Product Discount -->
+        <div class="col-4 mb-3">
+          <label for="discount" class="form-label bold-label">Discount</label>
+          <input type="number" id="discount" formControlName="discount" class="form-control">
+        </div>
+
+
+
+        <!-- Submit Button -->
+        <div class="col-md-12 mb-3 text-center">
+          <button type="submit" class="btn btn-success" [disabled]="!myForm.valid">Add Product</button>
+        </div>
+
+      </form>
     </div>
-
-    <!-- Display success message when the form is valid -->
-    <div [class.d-none]="brandError()" class="text-success">
-        brand is valid
-    </div>
-
-
-
-
-    <button [disabled]="!myForm.valid" type="submit" class="btn btn-success w-50 mx-auto mt-3">Add</button>
-</form>
+  </div>
+</div>

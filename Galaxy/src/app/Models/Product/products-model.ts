@@ -33,4 +33,10 @@ export const initialProduct: IProducts = {
     inCart: false,
     inWishList: false
   };
+  // export const IAdminProducts :IProducts ={
+
+  //   isDeleted:false,
+
+  // }
+
 

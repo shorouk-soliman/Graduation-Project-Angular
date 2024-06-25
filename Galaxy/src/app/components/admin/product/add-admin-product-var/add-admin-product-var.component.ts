@@ -43,7 +43,7 @@ export class AddAdminProductVarComponent implements OnDestroy {
           })
         this.subscriptions.add(groupubscription);
         }
-        
+
         onGroupChange(event:any){
           let id = event.target.value;
           let groupwihattributeubscription = this.unit.group.GetGroupWithAttributesValues(id).subscribe((res:any)=>{
@@ -64,7 +64,7 @@ export class AddAdminProductVarComponent implements OnDestroy {
       this.selectedvaluesList = this.selectedvaluesList.map((value: any) => {
         return value === ExistedValue ? SelectedValue : value;
       });
-      
+
     }else{
       this.selectedvaluesList.push(SelectedValue);
     }

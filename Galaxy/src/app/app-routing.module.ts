@@ -37,6 +37,7 @@ import { authGuard } from './guards/auth.guard';
 import { MainSubcategoryComponent } from './components/default/subcategory/main-subcategory/main-subcategory.component';
 import { AboutComponent } from './components/about/about.component';
 import { ContactUsComponent } from './components/contact-us/contact-us.component';
+import {UpdateAdminProductVarComponent} from './components/admin/product/update-admin-product-var/update-admin-product-var.component'
 
 
 const routes: Routes = [
@@ -86,6 +87,7 @@ const routes: Routes = [
       { path: 'product', component: MainAdminProductComponent },
       { path: 'product/add/simple', component: AddAdminProductSimpleComponent },
       { path: 'product/add/var', component: AddAdminProductVarComponent },
+      {path: 'product/update/:id', component: UpdateAdminProductVarComponent}
     ]
   }
 ];
