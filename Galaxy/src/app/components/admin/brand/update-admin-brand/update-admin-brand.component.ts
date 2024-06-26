@@ -15,7 +15,6 @@ export class UpdateAdminBrandComponent implements OnInit {
   notificationMessage: string | null = null;
   myForm: FormGroup = new FormGroup({
     Name: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(150)]),
-    image: new FormControl(null),
   });
 
   selectedFile: File | null = null;
@@ -58,31 +57,28 @@ export class UpdateAdminBrandComponent implements OnInit {
 
     const formDataImage: FormData = new FormData();
 
-    if (this.selectedFile) {
+    if (this.selectedFile)
       formDataImage.append('image', this.selectedFile);
-    } else {
-      formDataImage.append('image', this.brand.image);
-    }
+
 
     formDataImage.append('Name', this.myForm.value.Name);
-    if (this.myForm.value.Name !== this.brand.name) {
-      this.unit.brand.GetAdminBrand().subscribe(
-        (adminBrands: any) => {
-          const exists = adminBrands.some((b: any) => b.name.toLowerCase() === this.myForm.value.Name.toLowerCase());
-          if (exists) {
-            this.notificationMessage = `Brand with name '${this.myForm.value.Name}' already exists.`;
-          } else {
-            this.UpdateBrandAndImage(formDataImage);
-          }
-        },
-        (error) => {
-          console.error('Error fetching admin brands:', error);
-          this.notificationMessage = 'Failed to update brand. Please try again later.';
+
+    this.unit.brand.GetAdminBrand().subscribe(
+      (adminBrands: any) => {
+        const exists = adminBrands.some((b: any) => b.name.toLowerCase() === this.myForm.value.Name.toLowerCase());
+        if (exists) {
+          this.notificationMessage = `Brand with name '${this.myForm.value.Name}' already exists.`;
         }
-      );
-    } else {
-      this.UpdateBrandAndImage(formDataImage);
-    }
+
+        this.UpdateBrandAndImage(formDataImage);
+        
+      },
+      (error) => {
+        console.error('Error fetching admin brands:', error);
+        this.notificationMessage = 'Failed to update brand. Please try again later.';
+      }
+    );
+    this.UpdateBrandAndImage(formDataImage);
   }
 
   UpdateBrandAndImage(formDataImage: FormData): void {
@@ -107,6 +103,7 @@ export class UpdateAdminBrandComponent implements OnInit {
   }
 
   UpdateBrand(updateData: any): void {
+
     this.unit.brand.UpdateBrand(this.brandId, updateData).subscribe(
       () => {
         console.log("Brand edited successfully");
@@ -125,7 +122,7 @@ export class UpdateAdminBrandComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.UpdateImageAndBrand();
+        this.UpdateBrand(this.myForm.value);
       }
     });
   }

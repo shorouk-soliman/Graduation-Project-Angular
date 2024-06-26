@@ -41,13 +41,4 @@ export class ProductService {
     return this.generic.putRequest<any>(url, null);
   }
 
-  GetGeneralProducts(): Observable<IGeneralProducts> {
-    const url: string = `Product/GetGeneralPagination`;
-    return this.generic.getRequest<IGeneralProducts>(url);
-  }
-
-  GetAdminProducts(): Observable<IGeneralProducts> {
-    const url: string = `Product/GetAdminPagination`;
-    return this.generic.getRequest<IGeneralProducts>(url);
-  }
 }
