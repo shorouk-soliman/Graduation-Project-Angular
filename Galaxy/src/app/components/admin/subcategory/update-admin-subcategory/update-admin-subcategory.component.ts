@@ -36,10 +36,10 @@ export class UpdateSubcategoryAdminComponent implements OnInit {
   getSubcategory(): void {
     this.unit.subcategory.GetOneSubCategory(this.subcategoryId).subscribe(
       (res: any) => {
-        this.subcategory = res;
+        this.subcategory = res.subcategory;
         this.subcategoryForm.patchValue({
-          Name: res.name,
-          image: res.image
+          Name: this.subcategory.name,
+          image:this.subcategory.image
         });
       },
       (error: any) => {

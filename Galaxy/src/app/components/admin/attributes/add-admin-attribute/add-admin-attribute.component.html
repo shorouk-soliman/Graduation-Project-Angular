@@ -1,7 +1,7 @@
 <h1 class="text-center mt-5">Add new Attribute</h1>
 
 
-<form (submit)="AddAttribute()" formGroup="myForm" class="col-6 mx-auto">
+<form (submit)="AddAttribute()" [formGroup]="myForm" class="col-6 mx-auto">
     <input formControlName="name" class="form-control my-2" placeholder="attribute name" type="text">
     <!-- Display error message if "required" validation fails -->
     <div [class.d-none]="!NameError()?.['required']" class="text-danger">

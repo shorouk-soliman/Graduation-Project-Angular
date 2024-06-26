@@ -16,20 +16,20 @@ export class MainAdminGroupComponent {
   }
 
   Deletecategory(category:any){
-    this.unit.category.DeleteCategory(category.id).subscribe(()=>{
+    this.unit.category.deleteCategory(category.id).subscribe(()=>{
       category.isDeleted = true;
     })
   }
   RetrieveCategory(category: any) {
-    this.unit.category.RetrieveCategory(category.id).subscribe(() => {
+    this.unit.category.retrieveCategory(category.id).subscribe(() => {
       category.isDeleted = false;
     }, error => {
       console.error('Error retrieving brand', error);
     });
   }
-  
 
-  
+
+
   GetAllgroups():void{
     this.unit.group.GetAllGroups().subscribe((group: any) => {
       this.groups = group;

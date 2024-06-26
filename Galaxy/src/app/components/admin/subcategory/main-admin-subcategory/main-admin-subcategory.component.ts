@@ -31,4 +31,13 @@ export class MainAdminSubcategoryComponent {
     });
   }
 
+  UpdateSubcategory(subcategory: any, updatedData: any): void {
+    this.unit.category.updateSubcategory(subcategory.id, updatedData).subscribe(() => {
+      this.GetSubCategory(); // Refresh the list after update
+    }, error => {
+      console.error('Error updating subcategory:', error);
+    });
+  }
+
+
 }

@@ -1,10 +1,7 @@
 <h1 class="text-center mt-5">Add Sub Category Banner</h1>
 
 
-<form (submit)="AddBanners()" formGroup="myForm" class="col-6 mx-auto">
-
-
-
+<form (submit)="AddBanners()" [formGroup]="myForm" class="col-6 mx-auto">
     <label>product Id</label>
     <input formControlName="productId" class="form-control my-2" placeholder="product Id" type="number">
     <!-- Display error message if "required" validation fails -->

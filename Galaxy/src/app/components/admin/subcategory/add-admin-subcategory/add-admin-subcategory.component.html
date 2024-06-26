@@ -1,7 +1,7 @@
 <h1 class="text-center mt-5">Add New Sub Category</h1>
 
 
-<form (submit)="AddImageAndSubCategory()" formGroup="myForm" class="col-6 mx-auto">
+<form (submit)="AddImageAndSubCategory()" [formGroup]="myForm" class="col-6 mx-auto">
     <input formControlName="name" class="form-control my-2" placeholder="sub category name" type="text">
     <!-- Display error message if "required" validation fails -->
     <div [class.d-none]="!NameError()?.['required']" class="text-danger">

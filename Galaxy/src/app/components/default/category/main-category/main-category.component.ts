@@ -45,7 +45,7 @@ export class MainCategoryComponent implements OnInit, OnDestroy {
 
   GetOneCategory(): void {
     let categorySubscription = this.unit.category
-      .GetOneCategory(this.categoryId).subscribe((categoryData: ICategoryDetails) => {
+      .getOneCategory(this.categoryId).subscribe((categoryData: ICategoryDetails) => {
         this.category = categoryData.category;
         this.categoryBanner = categoryData.banners;
       });
