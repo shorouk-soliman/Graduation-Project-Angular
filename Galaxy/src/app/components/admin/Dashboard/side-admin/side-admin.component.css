@@ -7,10 +7,9 @@ mat-sidenav-container {
 }
 
 mat-sidenav {
-  width: 25%;
+  width: 18%;
   margin: 0;
   padding: 0;
-  height: 100%;
 }
 
 mat-toolbar {
@@ -21,10 +20,9 @@ mat-toolbar {
 
 .navigation ul {
   position: absolute;
-  top:0px;
+  top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
 }
 .tab-buttons {
   display: flex;
@@ -54,7 +52,7 @@ mat-toolbar {
 .tab-buttons button.active::after {
   margin-top: 10px;
   width: 100%;
-  background-color:#934fe3;
+  background-color: #040116;
 }
 
 .navigation ul li {
@@ -72,7 +70,7 @@ mat-toolbar {
 }
 
 .navigation ul li:nth-child(1) {
-  margin-bottom: 11px;
+  margin-bottom: 40px;
   pointer-events: none;
 }
 
@@ -81,7 +79,7 @@ mat-toolbar {
   width: 100%;
   display: flex;
   text-decoration: none;
-  color: #5a486a;
+  color: #040116;
 }
 
 .navigation ul li:hover a,
@@ -106,7 +104,7 @@ mat-toolbar {
 .navigation ul li a .title {
   position: relative;
   display: block;
-  padding: 0 0;
+  padding: 0 10px;
   height: 60px;
   line-height: 60px;
   text-align: start;
@@ -139,8 +137,8 @@ mat-toolbar {
   right: 0;
   bottom: -50px;
   width: 50px;
-  height: 100%;
-    background-color: transparent;
+  height: 50px;
+  background-color: transparent;
   border-radius: 20%;
   box-shadow:  10px #F5F5F5;
   pointer-events: none;
@@ -194,6 +192,98 @@ mat-toolbar {
   object-fit: cover;
 }
 
+/* ======================= Cards ====================== */
+.cardBox {
+  position: relative;
+  width: 100%;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 30px;
+}
+
+.cardBox .card {
+  position: relative;
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  cursor: pointer;
+  box-shadow: 0 7px 25px rgba(225, 225, 225, 0.5);
+}
+
+.cardBox .card .numbers {
+  position: relative;
+  font-weight: 500;
+  font-size: 2.5rem;
+  color: #040116;
+}
+
+.cardBox .card .cardName {
+  color: #999;
+  font-size: 1.1rem;
+  margin-top: 20px;
+}
+
+.cardBox .card .iconBx {
+  font-size: 3.5rem;
+  color: #999;
+}
+
+.cardBox .card:hover {
+  background: #198754;
+}
+
+.cardBox .card:hover .numbers,
+.cardBox .card:hover .cardName,
+.cardBox .card:hover .iconBx {
+  color: white;
+}
+
+/* ================== Order Details List ============== */
+.details {
+  position: relative;
+  width: 100%;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  grid-gap: 30px;
+  /* margin-top: 10px; */
+}
+
+.details .recentOrders {
+  position: relative;
+  display: grid;
+  background: white;
+  padding: 20px;
+  box-shadow: 0 7px 25px rgba(194, 194, 194, 0.8);
+  border-radius: 20px;
+  grid-template-rows: 10% 90%;
+}
+
+.details .cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.cardHeader h2 {
+  font-weight: 600;
+  color: #040116;
+}
+
+.cardHeader .btn {
+  position: relative;
+  padding: 5px 10px;
+  background: #040116;
+  text-decoration: none;
+  color: white;
+  border-radius: 6px;
+}
+
 .details table {
   width: 100%;
   border-collapse: collapse;
@@ -214,7 +304,7 @@ mat-toolbar {
 }
 
 .details .recentOrders table tbody tr:hover {
-  background: #934fe3;
+  background: #040116;
   color: white;
 }
 
@@ -237,7 +327,7 @@ mat-toolbar {
 
 .status.delivered {
   padding: 2px 4px;
-  background: #934fe3;
+  background: #8de02c;
   color: white;
   border-radius: 4px;
   font-size: 14px;
@@ -246,7 +336,7 @@ mat-toolbar {
 
 .status.pending {
   padding: 2px 4px;
-  background: #6822b8;
+  background: rgb(62, 230, 104);
   color: white;
   border-radius: 4px;
   font-size: 14px;
@@ -264,7 +354,7 @@ mat-toolbar {
 
 .status.inProgress {
   padding: 2px 4px;
-  background: #1795ce;
+  background: #198754;
   color: white;
   border-radius: 4px;
   font-size: 14px;
@@ -314,7 +404,7 @@ mat-toolbar {
 }
 
 .recentCustomers table tr:hover {
-  background:#934fe3;
+  background:#198754;
   color: white;
 }
 

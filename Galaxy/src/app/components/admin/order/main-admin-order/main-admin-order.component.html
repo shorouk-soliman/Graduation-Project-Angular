@@ -6,7 +6,7 @@
         <div class="panel-heading bg-primary text-white">
           <div class="row">
             <div class="col-12 col-sm-6">
-              <h4 class="title">Orders</h4>
+              <h4 class="title">Recent Orders</h4>
             </div>
           </div>
         </div>
@@ -44,7 +44,7 @@
                             'status-delivered': order.status === 'Delivered'
                           }"
                           [(ngModel)]="order.status"
-                          [disabled]=" order.status === 'Cancelled'"
+                          [disabled]=" order.status === 'Cancelled' || order.status === 'Delivered'"
                           (change)="updateOrderStatus(order.id, order.status)">
                     <option *ngFor="let status of orderStatusOptions" [value]="status">{{ status }}</option>
                   </select>
@@ -57,4 +57,5 @@
       </div>
     </div>
   </div>
+  <br>
 </div>

@@ -94,28 +94,28 @@ mat-toolbar {
   position: relative;
   font-weight: 500;
   font-size: 2.5rem;
-  color:#AA93C0;
+  color: #040116;
 }
 
 .cardBox .card .cardName {
-  color: #999;
+  color: #040116;
   font-size: 1.1rem;
   margin-top: 20px;
 }
 
 .cardBox .card .iconBx {
   font-size: 3.5rem;
-  color: #999;
+  color:#040116;
 }
 
 .cardBox .card:hover {
-  background: #AA93C0;
+  background:rgb(220, 220, 220);
 }
 
 .cardBox .card:hover .numbers,
 .cardBox .card:hover .cardName,
 .cardBox .card:hover .iconBx {
-  color: white;
+  color: rgb(0, 0, 0);
 }
 
 /* ================== Order Details List ============== */
@@ -144,16 +144,15 @@ mat-toolbar {
   justify-content: space-between;
   align-items: flex-start;
 }
-
 .cardHeader h2 {
   font-weight: 600;
-  color: #AA93C0;
+  color: rgb(220, 220, 220);
 }
 
 .cardHeader .btn {
   position: relative;
   padding: 5px 10px;
-  background: #AA93C0;
+  background: #c7c7c8;
   text-decoration: none;
   color: white;
   border-radius: 6px;
@@ -179,7 +178,7 @@ mat-toolbar {
 }
 
 .details .recentOrders table tbody tr:hover {
-  background: #AA93C0;
+  background: #c7c7c8;
   color: white;
 }
 
@@ -202,7 +201,7 @@ mat-toolbar {
 
 .status.delivered {
   padding: 2px 4px;
-  background: #AA93C0;
+  background: rgb(220, 220, 220);
   color: white;
   border-radius: 4px;
   font-size: 14px;
@@ -211,7 +210,7 @@ mat-toolbar {
 
 .status.pending {
   padding: 2px 4px;
-  background: #AA93C0;
+  background: rgb(220, 220, 220);
   color: white;
   border-radius: 4px;
   font-size: 14px;
@@ -267,7 +266,7 @@ mat-toolbar {
   padding: 12px 10px;
 }
 .px-4 {
-  color:  #5a486a;
+  color: #040116;
  }
 .recentCustomers table tr td h4 {
   font-size: 16px;
@@ -281,7 +280,7 @@ mat-toolbar {
 }
 
 .recentCustomers table tr:hover {
-  background:#198754;
+  background:#454545;
   color: white;
 }
 
