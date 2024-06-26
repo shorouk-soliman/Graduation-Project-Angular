@@ -40,7 +40,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 1rem;
+  /* padding: 1rem; */
 }
 
 .image-sign {
@@ -59,8 +59,11 @@
 .form-header {
   background-image: linear-gradient(270deg, #dde4e8 0%, #ced9df 100%);
   border-radius: .5rem .5rem 0 0;
+  /* background-blend-mode: lighten; */
+
   height: 1.7rem;
   display: flex;
+  /* flex-direction: row-reverse; */
   padding: 0 0.8rem;
 }
 
