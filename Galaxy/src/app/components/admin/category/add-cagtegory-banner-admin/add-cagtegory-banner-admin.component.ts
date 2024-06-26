@@ -22,7 +22,7 @@ export class AddCagtegoryBannerAdminComponent {
     })
   }
 
-  
+
   onCategoryChange(event:any){
     let categoryId = event.target.value;
     this.unit.subcategory.GetSubCategoriesbyCategoryId(categoryId).subscribe((res:any)=>{
@@ -60,7 +60,7 @@ export class AddCagtegoryBannerAdminComponent {
   }
 
   Addbanner(insert: any) {
-    this.unit.category.AddCategoryBanner(insert).subscribe(() => {
+    this.unit.category.addCategoryBanner(insert).subscribe(() => {
       alert('Category banner Added Succssefully')
     }, error => {
       alert(error.error)

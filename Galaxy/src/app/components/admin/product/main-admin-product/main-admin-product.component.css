@@ -104,6 +104,7 @@
     border: 2px solid #fff;
     border-radius: 50px;
     transition: all 0.3s ease 0s;
+    margin-bottom: 10px;
 }
 .panel .panel-heading .btn:hover{
     color: #fff;

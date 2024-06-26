@@ -21,7 +21,7 @@ export class AddSubcagtegoryBannerAdminComponent implements OnInit {
     })
   }
 
-  
+
   onCategoryChange(event:any){
     let categoryId = event.target.value;
     this.unit.subcategory.GetSubCategoriesbyCategoryId(categoryId).subscribe((res:any)=>{

@@ -16,22 +16,22 @@ export class MainCategoryAdminComponent {
   }
 
   Deletecategory(category:any){
-    this.unit.category.DeleteCategory(category.id).subscribe(()=>{
+    this.unit.category.deleteCategory(category.id).subscribe(()=>{
       category.isDeleted = true;
     },error=>{
-      
+
     })
   }
   RetrieveCategory(category: any) {
-    this.unit.category.RetrieveCategory(category.id).subscribe(() => {
+    this.unit.category.retrieveCategory(category.id).subscribe(() => {
       category.isDeleted = false;
     }, error => {
       console.error('Error retrieving brand', error);
     });
   }
-  
+
   GetCategory():void{
-    this.unit.category.GetAdminCategories().subscribe((category: any) => {
+    this.unit.category.getAdminCategories().subscribe((category: any) => {
       this.categories = category;
     });
   }

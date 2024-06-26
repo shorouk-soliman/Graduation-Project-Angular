@@ -42,7 +42,7 @@ export class AddCategoryAdminComponent {
   }
 
   AddCategory(insert: any) {
-    this.unit.category.AddCategory(insert).subscribe(() => {
+    this.unit.category.addCategory(insert).subscribe(() => {
       alert('category Added Succssefully')
     }, error => {
       alert(error.error)

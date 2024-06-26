@@ -2,22 +2,19 @@
 
 
 <form (submit)="AddBanners()" [formGroup]="myForm" class="col-6 mx-auto">
-
-
-
     <label>product Id</label>
     <input formControlName="productId" class="form-control my-2" placeholder="product Id" type="number">
     <!-- Display error message if "required" validation fails -->
     <div [class.d-none]="!productError()?.['required']" class="text-danger">
         productId is required
     </div>
-    
+
     <!-- Display error message if "minlength" or "maxlength" validation fails -->
     <div [class.d-none]="!productError()?.['min']|| !productError()"
     class="text-danger">
     productId must be more than 0
     </div>
-    
+
     <!-- Display success message when the form is valid -->
     <div [class.d-none]="productError()" class="text-success">
         discount is valid

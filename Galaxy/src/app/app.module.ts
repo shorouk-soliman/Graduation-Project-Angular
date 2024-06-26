@@ -51,7 +51,7 @@ import { UpdateCategoryAdminComponent } from './components/admin/category/update
 import { MainCategoryAdminComponent } from './components/admin/category/main-category-admin/main-category-admin.component';
 import { MainAdminSubcategoryComponent } from './components/admin/subcategory/main-admin-subcategory/main-admin-subcategory.component';
 import { AddAdminSubcategoryComponent } from './components/admin/subcategory/add-admin-subcategory/add-admin-subcategory.component';
-import { UpdateAdminSubcategoryComponent } from './components/admin/subcategory/update-admin-subcategory/update-admin-subcategory.component';
+// import { UpdateAdminSubcategoryComponent } from './components/admin/subcategory/update-admin-subcategory/update-admin-subcategory.component';
 import { MainAdminGroupComponent } from './components/admin/Varian-Group/main-admin-group/main-admin-group.component';
 import { AddAdminGroupComponent } from './components/admin/Varian-Group/add-admin-group/add-admin-group.component';
 import { AddAdminAttributeComponent } from './components/admin/attributes/add-admin-attribute/add-admin-attribute.component';
@@ -91,6 +91,7 @@ import { DetailsAdminProductComponent } from './components/admin/product/details
 import { UpdateAdminProductVarComponent } from './components/admin/product/update-admin-product-var/update-admin-product-var.component';
 import { ProductAdminVersionsComponent } from './components/admin/product/product-admin-versions/product-admin-versions.component';
 import { MainAdminOrderComponent } from './components/admin/order/main-admin-order/main-admin-order.component';
+import { MainAdminUserComponent } from './components/admin/users/main-admin-user/main-admin-user.component';
 // import { ErrorInterceptorService } from './interceptors/error-interceptor';
 
 
@@ -136,7 +137,7 @@ import { MainAdminOrderComponent } from './components/admin/order/main-admin-ord
     UpdateCategoryAdminComponent,
     MainAdminSubcategoryComponent,
     AddAdminSubcategoryComponent,
-    UpdateAdminSubcategoryComponent,
+    // UpdateAdminSubcategoryComponent,
     MainAdminGroupComponent,
     AddAdminGroupComponent,
     AddAdminAttributeComponent,
@@ -169,6 +170,7 @@ import { MainAdminOrderComponent } from './components/admin/order/main-admin-ord
     UpdateAdminProductVarComponent,
     ProductAdminVersionsComponent,
     MainAdminOrderComponent,
+    MainAdminUserComponent,
   ],
   imports: [
     BrowserModule,

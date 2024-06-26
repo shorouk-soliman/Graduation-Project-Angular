@@ -100,7 +100,6 @@
     line-height: 40px;
     margin: 0;
 }
-
 .panel .panel-heading .btn{
     color: rgba(255,255,255,0.5);
     background: transparent;
@@ -109,8 +108,6 @@
     border: 2px solid #fff;
     border-radius: 50px;
     transition: all 0.3s ease 0s;
-    margin-bottom: 10px;
-
 }
 .panel .panel-heading .btn:hover{
     color: #fff;
@@ -154,7 +151,7 @@ tbody tr
 }
 .panel .panel-body .table tbody tr td{
     color:#2c4962;
-    font-size: 21px;
+    font-size: 15px;
     padding: 10px 12px;
     vertical-align: middle;
     border: none;

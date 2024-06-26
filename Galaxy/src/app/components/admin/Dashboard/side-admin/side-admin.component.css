@@ -70,7 +70,6 @@ mat-toolbar {
 }
 
 .navigation ul li:nth-child(1) {
-  margin-bottom: 40px;
   pointer-events: none;
 }
 
@@ -121,7 +120,7 @@ mat-toolbar {
   content: "";
   position: absolute;
   right: 0;
-  top: -50px;
+  top: -100px;
   width: 50px;
   height: 50px;
   background-color: transparent;

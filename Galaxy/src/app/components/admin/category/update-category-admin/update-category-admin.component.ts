@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { UnitService } from '../../../../services/unit.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ConfirmMessageComponent } from '../../../shared-componentes/confirm-message/confirm-message.component';
+import { UnitService } from '../../../../services/unit.service';
 
 @Component({
   selector: 'app-update-category-admin',
@@ -13,14 +13,15 @@ import { ConfirmMessageComponent } from '../../../shared-componentes/confirm-mes
 })
 export class UpdateCategoryAdminComponent implements OnInit {
   notificationMessage: string | null = null;
-  categoryForm: FormGroup = new FormGroup({
-    Name: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(150)]),
+  categoryForm :FormGroup= new FormGroup({
+    name: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(150)]),
+    description: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(500)]),
     image: new FormControl(null),
   });
+
   selectedFile: File | null = null;
   categoryId: any;
   category: any;
-
   constructor(
     private unit: UnitService,
     private route: ActivatedRoute,
@@ -28,18 +29,21 @@ export class UpdateCategoryAdminComponent implements OnInit {
     public dialog: MatDialog,
   ) {}
 
+
+
   ngOnInit(): void {
     this.categoryId = this.route.snapshot.paramMap.get('id');
     this.getCategory();
   }
 
   getCategory(): void {
-    this.unit.category.GetOneCategory(this.categoryId).subscribe(
+    this.unit.category.getOneCategory(this.categoryId).subscribe(
       (res: any) => {
-        this.category = res;
+        this.category = res.category;
         this.categoryForm.patchValue({
-          Name: res.name,
-          image: res.image
+          name: this.category.name,
+          description: this.category.description,
+          image: this.category.image
         });
       },
       (error: any) => {
@@ -55,23 +59,27 @@ export class UpdateCategoryAdminComponent implements OnInit {
   UpdateImageAndCategory(): void {
     if (!this.categoryForm.valid) return;
 
-    const formDataImage: FormData = new FormData();
-
+    const formData: FormData = new FormData();
     if (this.selectedFile) {
-      formDataImage.append('image', this.selectedFile);
+      formData.append('image', this.selectedFile);
     } else {
-      formDataImage.append('image', this.category.image);
+      formData.append('image', this.category.image);
     }
 
-    formDataImage.append('Name', this.categoryForm.value.Name);
-    if (this.categoryForm.value.Name !== this.category.name) {
-      this.unit.category.GetAdminCategories().subscribe(
+    formData.append('name', this.categoryForm.value.name);
+
+    formData.append('description', this.categoryForm.value.description);
+
+    console.log("Form data before validation:", formData);
+
+    if (this.categoryForm.value.name !== this.category.name) {
+      this.unit.category.getAdminCategories().subscribe(
         (adminCategories: any) => {
-          const exists = adminCategories.some((b: any) => b.name.toLowerCase() === this.categoryForm.value.Name.toLowerCase());
+          const exists = adminCategories.some((cat: any) => cat.name.toLowerCase() === this.categoryForm.value.name.toLowerCase());
           if (exists) {
-            this.notificationMessage = `Category with name '${this.categoryForm.value.Name}' already exists.`;
+            this.notificationMessage = `Category with name '${this.categoryForm.value.name}' already exists.`;
           } else {
-            this.UpdateCategoryAndImage(formDataImage);
+            this.UpdateCategoryAndImage(formData);
           }
         },
         (error: any) => {
@@ -80,40 +88,42 @@ export class UpdateCategoryAdminComponent implements OnInit {
         }
       );
     } else {
-      this.UpdateCategoryAndImage(formDataImage);
+      this.UpdateCategoryAndImage(formData);
     }
   }
 
-  UpdateCategoryAndImage(formDataImage: FormData): void {
-    this.unit.image.ConvertImage(formDataImage).subscribe(
-      (res: any) => {
-        const updateData = { ...this.categoryForm.value, image: res };
-        this.UpdateCategory(updateData);
+  UpdateCategoryAndImage(formData: FormData): void {
+
+      this.unit.image.ConvertImage(formData).subscribe(
+        (res: any) => {
+          const updateData={...this.categoryForm.value, image:res}
+          this.UpdateCategory(updateData);
+        },
+        (error) => {
+          if (error instanceof HttpErrorResponse && error.status === 400) {
+            if (error.error && error.error.errors && error.error.errors.image) {
+              alert(error.error.errors.image[0]);
+            } else {
+              alert('Unexpected error occurred.');
+            }
+          } else {
+            console.error('Error converting image:', error);
+            alert('Failed to update brand. Please try again later.');
+          }
+        }
+      );
+    }
+
+
+  UpdateCategory(updateData: FormData): void {
+    this.unit.category.updateCategory(this.categoryId, updateData).subscribe(
+      () => {
+        console.log("Category updated successfully:");
+          this.router.navigateByUrl('/admin/category');
+
       },
       (error) => {
-        if (error instanceof HttpErrorResponse && error.status === 400) {
-          if (error.error && error.error.errors && error.error.errors.image) {
-            alert(error.error.errors.image[0]);
-          } else {
-            alert('Unexpected error occurred.');
-          }
-        } else {
-          console.error('Error converting image:', error);
-          alert('Failed to update Category. Please try again later.');
-        }
-      }
-    );
-  }
-
-  UpdateCategory(updateData: any): void {
-    this.unit.category.UpdateCategory(this.categoryId, updateData).subscribe(
-      () => {
-        console.log("Category edited successfully");
-        this.router.navigateByUrl('/admin/category');
-      },
-      (error: any) => {
-        console.error('Error updating category:', error);
-        this.notificationMessage = 'Failed to update Category. Please try again later.';
+        alert(error.error);
       }
     );
   }
@@ -131,13 +141,18 @@ export class UpdateCategoryAdminComponent implements OnInit {
   }
 
   cancelUpdate(): void {
-    this.categoryForm.patchValue({
-      Name: this.category.name,
-      image: this.category.image
-    });
     this.router.navigateByUrl('/admin/category');
   }
 
-  getNameErrors = () => this.categoryForm.get('Name')?.errors;
-  getImageErrors = () => this.categoryForm.get('image')?.errors;
+  getNameErrors() {
+    return this.categoryForm.get('name')?.errors;
+  }
+
+  getDescriptionErrors() {
+    return this.categoryForm.get('description')?.errors;
+  }
+
+  getImageErrors() {
+    return this.categoryForm.get('image')?.errors;
+  }
 }
