@@ -1,7 +1,7 @@
 <h1 class="text-center mt-5">Add Sub Category Banner</h1>
 
 
-<form (submit)="AddBanners()" [formGroup]="myForm" class="col-6 mx-auto">
+<form (submit)="AddBanners()" formGroup="myForm" class="col-6 mx-auto">
 
 
 
@@ -11,13 +11,13 @@
     <div [class.d-none]="!productError()?.['required']" class="text-danger">
         productId is required
     </div>
-    
+
     <!-- Display error message if "minlength" or "maxlength" validation fails -->
     <div [class.d-none]="!productError()?.['min']|| !productError()"
     class="text-danger">
     productId must be more than 0
     </div>
-    
+
     <!-- Display success message when the form is valid -->
     <div [class.d-none]="productError()" class="text-success">
         discount is valid

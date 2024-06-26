@@ -1,1 +1,34 @@
-<p>update-admin-subcategory works!</p>
+<div class="container-fluid mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-4">
+      <h2 class="text-center mb-4">Update Subcategory</h2>
+    </div>
+    <div class="col-md-6">
+      <form formGroup="subcategoryForm" (ngSubmit)="confirmUpdateSubcategory()" class="row g-3 border rounded p-4 shadow-sm" enctype="multipart/form-data">
+        <div class="notification d-flex align-items-center justify-content-center text-center w-100 col-md-6" *ngIf="notificationMessage">
+          <i class="fas fa-exclamation-circle notification-icon"></i>
+          <span class="notification-text">{{ notificationMessage }}</span>
+        </div>
+        <div class="col-12 text-center">
+          <img [src]="subcategory?.image" class="rounded-circle img-thumbnail mb-3" alt="Subcategory Image" style="width:150px; height: 150px;">
+          <input type="file" id="image" formControlName="image" (change)="onFileSelected($event)" class="form-control" accept="image/*">
+          <div class="form-text text-danger" *ngIf="getImageErrors()?.['invalid'] && (subcategoryForm.get('image')?.touched || subcategoryForm.get('image')?.dirty)">
+            <div *ngIf="getImageErrors()?.['required']">Subcategory image is required</div>
+          </div>
+        </div>
+        <div class="col-12">
+          <label for="name" class="form-label bold-label">Subcategory Name</label>
+          <input type="text" formControlName="Name" id="name" class="form-control" placeholder="Enter subcategory name">
+          <div class="form-text text-danger" *ngIf="getNameErrors()?.['invalid'] && (subcategoryForm.get('Name')?.touched || subcategoryForm.get('Name')?.dirty)">
+            <div *ngIf="getNameErrors()?.['required']">Subcategory name is required</div>
+            <div *ngIf="getNameErrors()?.['minlength'] || getNameErrors()?.['maxlength']">Subcategory name must be between 2 and 150 characters</div>
+          </div>
+        </div>
+        <div class="col-md-12 mb-3 text-center">
+          <button class="btn btn-primary" type="submit" style="background-color: #198754; border-color: #198754;" [disabled]="!subcategoryForm.valid">Update Subcategory</button>
+          <button class="btn btn-secondary ms-2" type="button" style="background-color: #a60808; border-color: #f11d1d;" (click)="cancelUpdate()">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

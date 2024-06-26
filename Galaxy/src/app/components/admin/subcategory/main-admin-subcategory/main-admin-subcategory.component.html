@@ -1,5 +1,5 @@
 
-  
+
   <div class="container">
     <div class="row">
       <div class="col-md-12 text-center">
@@ -38,7 +38,7 @@
                   <td><b>{{ subcategory.name }}</b></td>
                   <td>
                     <div class="action-buttons">
-                      <button routerLink="update/{{subcategory.id}}" class="btn btn-warning px-3" title="Update Category">
+                      <button routerLink="update/{subcategory.id}" class="btn btn-warning px-3" title="Update Category">
                         <i class="bi bi-pencil-fill"></i>
                       </button>
                       <button [class.d-none]="subcategory.isDeleted" (click)="DeleteSubcategory(subcategory)" class="btn btn-danger px-3" title="Delete subcategory">
@@ -52,9 +52,9 @@
                 </tr>
               </tbody>
             </table>
-          </div>        
+          </div>
         </div>
       </div>
     </div>
   </div>
-  
+
