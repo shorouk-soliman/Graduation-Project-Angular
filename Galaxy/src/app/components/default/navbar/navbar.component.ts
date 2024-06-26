@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UnitService } from '../../../services/unit.service';
 import { ICartItem } from '../../../Models/Cart-Items/Cart-item-model';
 import { IUserRead, initUserRead } from '../../../Models/User/user-read';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -10,7 +11,7 @@ import { IUserRead, initUserRead } from '../../../Models/User/user-read';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private unit: UnitService) { }
+  constructor(private unit: UnitService,private router: Router) { }
   cart: ICartItem[] = [];
   user: IUserRead = initUserRead;
 
@@ -46,6 +47,8 @@ export class NavbarComponent implements OnInit {
 
   logoutFunction(): void {
     this.unit.auth.LogoutFunction();
+    this.router.navigateByUrl('/User/login');
+
   };
 
   GetCartItemsCount(): number {

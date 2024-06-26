@@ -1,9 +1,8 @@
-<div class="contanier" *ngFor="let order of orders">
-
-    <div class="card col-11 col-md-10 col-lg-8 col-xl-6 mx-auto  my-5">
+<div class="contanier row" *ngFor="let order of orders">
+    <div class="card col-6 col-md-6 col-lg-8 col-xl-6 mx-auto my-5">
         <div class="card-header">order details</div>
         <div class="card-body">
-            <div><span class="text-muted">ID: </span> <span class="fw-bold">{{order.id}}</span></div>
+            <!-- <div><span class="text-muted">ID: </span> <span class="fw-bold">{{order.id}}</span></div> -->
             <div><span class="text-muted">Order date </span> <span class="fw-bold">{{order.shippingDate | date:'fullDate'}}</span>
             <div><span class="text-muted">Order deliver date </span> <span class="fw-bold">{{order.deliverDate | date:'fullDate'}}</span></div>
             <div><span class="text-muted">shipping address </span> <span class="fw-bold">{{order.shippingAddress}}</span></div>
@@ -11,9 +10,9 @@
 
             <div><span class="text-muted">Order status </span> <button class="btn"
                     style="background-color: rgb(232, 231, 230);" [class.text-danger]="order.status === 'Cancelled'"
-                    [class.text-success]="order.status === 'Deliverd'"
+                    [class.text-success]="order.status === 'Delivered'"
                     [class.text-warning]="order.status === 'Pending'">{{order.status}}</button></div>
-                    
+
             <ng-container *ngIf="order.status === 'Pending'">
                         <br><button class="btn bg-danger text-white" (click)="CancelOrders(order.id)">cancel this order</button>
             </ng-container>

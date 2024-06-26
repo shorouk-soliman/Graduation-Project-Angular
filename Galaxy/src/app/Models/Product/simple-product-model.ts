@@ -7,7 +7,8 @@ export interface ISimpleProduct{
     subCategoryId: number,
     discount: number,
     brandId: number,
-    productImages: string[]
+    productImages: string[],
+    isDeleted :boolean
 }
 
 export const initSimpleProduct = {
@@ -19,5 +20,6 @@ export const initSimpleProduct = {
     subCategoryId: 0,
     discount: 0,
     brandId: 0,
-    productImages: []
+    productImages: [],
+    isDeleted : false
 }

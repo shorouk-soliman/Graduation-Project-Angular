@@ -13,6 +13,7 @@ export interface IProducts{
     variantGroupId: number
     inCart: boolean,
     inWishList: boolean,
+    isDeleted: boolean
 
 }
 
@@ -31,12 +32,9 @@ export const initialProduct: IProducts = {
     brandId: 0,
     variantGroupId: 0,
     inCart: false,
-    inWishList: false
+    inWishList: false,
+    isDeleted :false
   };
-  // export const IAdminProducts :IProducts ={
 
-  //   isDeleted:false,
-
-  // }
 
 

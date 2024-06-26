@@ -3,7 +3,7 @@ import { ICategoryRead, initCategoryRead } from "../Category/category-read";
 import { IVersion } from "../Version/version-read-model";
 import { IProductImages } from "./product-images-model";
 
-export interface IProductDetails{    
+export interface IProductDetails{
     id: number,
     name: string,
     desctiption: string,
@@ -21,7 +21,9 @@ export interface IProductDetails{
     brand:IBrandRead,
     category:ICategoryRead,
     productImages:IProductImages[],
-    versions:IVersion[]
+    versions:IVersion[],
+    isDeleted : boolean
+
 };
 
 
@@ -43,5 +45,6 @@ export const initialProductDetails: IProductDetails = {
     brand:initBrandRead,
     category:initCategoryRead,
     productImages:[],
-    versions:[]
+    versions:[],
+    isDeleted :false
   };

@@ -38,7 +38,7 @@ export class ProductService {
 
   RetrieveProduct(productId: number): Observable<any> {
     const url: string = `Product/RetreiveDeletedProduct?id=${productId}`;
-    return this.generic.putRequest<any>(url, {});
+    return this.generic.putRequest<any>(url, null);
   }
 
   GetGeneralProducts(): Observable<IGeneralProducts> {

@@ -1,7 +1,8 @@
-<div style="cursor: pointer;" class="btn btn-dark" routerLink="/profile">back to profile</div>
-<form [class.d-none]="FormVisability()" [formGroup]="UpdateForm" (submit)="onSubmit()" class="form-floating sign-form col-12 col-md-8 col-lg-6 mx-auto mt-5">
 
+<div style="cursor: pointer;" class="btn btn-dark" routerLink="/profile" title="Back to Profile"> <i class="bi bi-arrow-left me-2"></i> </div>
+<form [class.d-none]="FormVisability()" [formGroup]="UpdateForm" (submit)="onSubmit()" class="form-floating sign-form col-12 col-md-8 col-lg-6 mx-auto">
     <div class="fs-3 text-center fw-bold form-title">Update Your Info</div>
+    <br>
     <div>
 
         <div class="form-floating mb-3">
@@ -34,7 +35,7 @@
 
         <button [disabled]="!UpdateForm.valid" type="submit"
             class="btn btn-success rounded-pill py-2 mt-3 col-12">Update</button>
-    </div>  
+    </div>
 </form>
 
 <app-user-password-settings (ToggleForm)="ToggleFromMainFunc()" [class.d-none]="!FormVisability()"></app-user-password-settings>

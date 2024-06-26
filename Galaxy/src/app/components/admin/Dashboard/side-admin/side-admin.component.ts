@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, interval } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { UnitService } from '../../../../services/unit.service';
 
 @Component({
   selector: 'app-side-admin',
@@ -13,7 +14,7 @@ export class SideAdminComponent implements OnInit {
   timer$!: Observable<number>;
   totalSales = 0;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,private unit: UnitService) {}
 
   ngOnInit(): void {
     this.timer$ = interval(2000);
@@ -22,8 +23,8 @@ export class SideAdminComponent implements OnInit {
     });
   }
 
-  logout() {
-    localStorage.removeItem('token');
+  logoutFunction(): void {
+    this.unit.auth.LogoutFunction();
     this.router.navigateByUrl('/User/login');
-  }
+  };
 }

@@ -10,7 +10,9 @@ export interface IVarProduct{
     productImages: string[],
     exiestImagesProductId:number,
     values:number[],
-    varGroupId:number
+    varGroupId:number,
+    isDeleted :boolean
+
 }
 
 export const initVarProduct = {
@@ -22,5 +24,6 @@ export const initVarProduct = {
     subCategoryId: 0,
     discount: 0,
     brandId: 0,
-    productImages: []
+    productImages: [],
+    isDeleted :false
 }

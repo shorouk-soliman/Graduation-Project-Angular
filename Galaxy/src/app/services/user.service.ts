@@ -40,5 +40,11 @@ export class UserService {
     let Url: string = `User/UpdatePassword`
     return this.generic.putRequest<IUserPasswordUpdate>(Url, password);
   };
+  getAllUsers(): Observable<any> {
+    return this.generic.getRequest<any>(`User/GetAllUsers`);
+  }
 
+  getUserById(id: string): Observable<IUserRead> {
+    return this.generic.getRequest<IUserRead>(`User/GetUserById/${id}`);
+  }
 };
