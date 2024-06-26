@@ -91,6 +91,7 @@ import { DetailsAdminProductComponent } from './components/admin/product/details
 import { UpdateAdminProductVarComponent } from './components/admin/product/update-admin-product-var/update-admin-product-var.component';
 import { ProductAdminVersionsComponent } from './components/admin/product/product-admin-versions/product-admin-versions.component';
 import { MainAdminOrderComponent } from './components/admin/order/main-admin-order/main-admin-order.component';
+import { MainAdminUserComponent } from './components/admin/users/main-admin-user/main-admin-user.component';
 // import { ErrorInterceptorService } from './interceptors/error-interceptor';
 
 
@@ -169,6 +170,7 @@ import { MainAdminOrderComponent } from './components/admin/order/main-admin-ord
     UpdateAdminProductVarComponent,
     ProductAdminVersionsComponent,
     MainAdminOrderComponent,
+    MainAdminUserComponent,
   ],
   imports: [
     BrowserModule,

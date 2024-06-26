@@ -1,0 +1,51 @@
+
+  
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <div class="panel">
+          <div class="panel-heading bg-primary text-white">
+            <div class="row">
+              <div class="col-12 col-sm-6">
+                <h4 class="title">Recent Users</h4>
+              </div>
+              <div class="col-12 col-sm-6 text-right">
+                <button routerLink="add" class="btn btn-success ml-2">
+                  <i class="bi bi-plus-lg"></i> Add New users
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="panel-body table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Image</th>
+                  <th>Name</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let user of users" class="categoryDiv">
+                  <td>
+                    <div class="image-container">
+                      <img class="card-img product-image" [src]="user.image" [alt]="user.firstName">
+                    </div>
+                  </td>
+                  <td><b>{{ user.firstName }} {{user.lastName}}</b></td>
+                  <td>
+                    <div class="action-buttons">
+                      <button (click)="DeleteUser(user.id)" class="btn btn-danger px-3" title="Delete user">
+                        <i class="bi bi-trash-fill"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>        
+        </div>
+      </div>
+    </div>
+  </div>
+  

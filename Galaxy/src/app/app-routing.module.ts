@@ -41,6 +41,7 @@ import {UpdateAdminProductVarComponent} from './components/admin/product/update-
 import { UpdateCategoryAdminComponent } from './components/admin/category/update-category-admin/update-category-admin.component';
 import { UpdateSubcategoryAdminComponent } from './components/admin/subcategory/update-admin-subcategory/update-admin-subcategory.component';
 import {MainAdminOrderComponent} from './components/admin/order/main-admin-order/main-admin-order.component'
+import { MainAdminUserComponent } from './components/admin/users/main-admin-user/main-admin-user.component';
 
 const routes: Routes = [
   {
@@ -92,7 +93,8 @@ const routes: Routes = [
       { path: 'product/add/simple', component: AddAdminProductSimpleComponent },
       { path: 'product/add/var', component: AddAdminProductVarComponent },
       {path: 'product/update/:id', component: UpdateAdminProductVarComponent},
-      {path: 'order', component: MainAdminOrderComponent}
+      {path: 'order', component: MainAdminOrderComponent},
+      {path: 'users', component: MainAdminUserComponent}
     ]
   }
 ];
