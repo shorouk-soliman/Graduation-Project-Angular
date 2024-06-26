@@ -25,6 +25,8 @@ export class DetailsAdminProductComponent implements OnInit {
         (product: IProductDetails) => {
           this.product = product;
           this.mainImage = this.product.image;
+          // this.product.rate = 4;
+          console.log(this.product);
         },
         (error) => {
           console.error('Error fetching product details:', error);
