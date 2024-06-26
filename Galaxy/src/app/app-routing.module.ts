@@ -40,7 +40,7 @@ import { ContactUsComponent } from './components/contact-us/contact-us.component
 import {UpdateAdminProductVarComponent} from './components/admin/product/update-admin-product-var/update-admin-product-var.component'
 import { UpdateCategoryAdminComponent } from './components/admin/category/update-category-admin/update-category-admin.component';
 import { UpdateAdminSubcategoryComponent } from './components/admin/subcategory/update-admin-subcategory/update-admin-subcategory.component';
-
+import {MainAdminOrderComponent} from './components/admin/order/main-admin-order/main-admin-order.component'
 
 const routes: Routes = [
   {
@@ -91,7 +91,8 @@ const routes: Routes = [
       { path: 'product', component: MainAdminProductComponent },
       { path: 'product/add/simple', component: AddAdminProductSimpleComponent },
       { path: 'product/add/var', component: AddAdminProductVarComponent },
-      {path: 'product/update/:id', component: UpdateAdminProductVarComponent}
+      {path: 'product/update/:id', component: UpdateAdminProductVarComponent},
+      {path: 'order', component: MainAdminOrderComponent}
     ]
   }
 ];

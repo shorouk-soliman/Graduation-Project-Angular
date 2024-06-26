@@ -37,7 +37,7 @@
       <div [class.d-none]="product.rate === 0" class="d-flex">
         <div class="me-2 fw-bold">{{ product.rate.toFixed(1) }}</div>
         <app-stars [Stars]="product.rate"></app-stars>
-      </div>
+        </div>
 
       <app-product-price [product]="product"></app-product-price>
       <app-product-admin-versions

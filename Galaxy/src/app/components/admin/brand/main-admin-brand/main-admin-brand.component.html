@@ -40,10 +40,10 @@
                     <button routerLink="update/{{brand.id}}" class="btn btn-warning px-3" title="Update Brand">
                       <i class="bi bi-pencil-fill"></i>
                     </button>
-                    <button [class.d-none]="brand.isDeleted" (click)="DeleteBrand(brand)" class="btn btn-danger px-3" title="Delete Brand">
+                    <button [class.d-none]="brand.isDeleted" (click)="deleteBrand(brand)" class="btn btn-danger px-3" title="Delete Brand">
                       <i class="bi bi-trash-fill"></i>
                     </button>
-                    <button [class.d-none]="!brand.isDeleted" (click)="RetriveBrand(brand)" class="btn btn-success px-3" title="Retrieve Brand">
+                    <button [class.d-none]="!brand.isDeleted" (click)="retrieveBrand(brand)" class="btn btn-success px-3" title="Retrieve Brand">
                       <i class="bi bi-recycle"></i>
                     </button>
                   </div>

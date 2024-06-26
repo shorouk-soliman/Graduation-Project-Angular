@@ -33,7 +33,7 @@
   <li>
     <a routerLink="/admin/category" routerLinkActive="active">
       <span class="icon">
-        <mat-icon>shopping_cart</mat-icon>
+        <mat-icon>category</mat-icon>
       </span>
       <span class="title">Categories</span>
     </a>
@@ -41,9 +41,17 @@
   <li>
     <a routerLink="/admin/subcategory" routerLinkActive="active">
       <span class="icon">
-        <mat-icon>category</mat-icon>
+        <mat-icon>check_box</mat-icon>
       </span>
       <span class="title">Sub Categories</span>
+    </a>
+  </li>
+  <li>
+    <a routerLink="/admin/order" routerLinkActive="active">
+      <span class="icon">
+        <mat-icon>shopping_cart </mat-icon>
+      </span>
+      <span class="title">Orders</span>
     </a>
   </li>
   <!-- <li>
@@ -71,14 +79,14 @@
     </a>
   </li> -->
   <li>
-    <a routerLink="">
+    <a routerLink="/settings">
       <span class="icon">
         <mat-icon>settings</mat-icon>
       </span>
       <span class="title">Settings</span>
     </a>
   </li>
-  <li (click)="logout()">
+  <li (click)="logoutFunction()">
     <a href="#">
       <span class="icon">
         <mat-icon>logout</mat-icon>

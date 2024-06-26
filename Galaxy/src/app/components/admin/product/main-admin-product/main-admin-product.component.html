@@ -38,6 +38,9 @@
                 <td><b>{{ product.quantity }}</b></td>
                 <td>
                   <div class="action-buttons">
+                    <button class="btn btn-info" (click)="openProductDetailsDialog(product.id)" title="Details of product">
+                      <i class="bi bi-info-circle-fill"></i>
+                    </button>
                     <button routerLink="update/{{product.id}}" class="btn btn-warning px-3" title="Update product">
                       <i class="bi bi-pencil-fill"></i>
                     </button>
@@ -47,9 +50,7 @@
                     <button [class.d-none]="!product.isDeleted" (click)="RetrieveProduct(product)" class="btn btn-success px-3" title="Retrieve product">
                       <i class="bi bi-recycle"></i>
                     </button>
-                    <button class="btn btn-info" (click)="openProductDetailsDialog(product.id)" title="Details of product">
-                      <i class="bi bi-info-circle-fill"></i>
-                    </button>
+
                   </div>
                 </td>
               </tr>

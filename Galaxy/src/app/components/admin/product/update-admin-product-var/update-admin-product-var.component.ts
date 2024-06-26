@@ -1,11 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { UnitService } from '../../../../services/unit.service';
 import { IProductDetails, initialProductDetails } from '../../../../Models/Product/Product-Details-model';
 import { IAttributeRead } from '../../../../Models/Attribute/Attribute-Read-model';
 import { IValueRead } from '../../../../Models/Values/values-read-model';
+import { ConfirmMessageComponent } from '../../../shared-componentes/confirm-message/confirm-message.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-update-admin-product-var',
@@ -13,7 +15,8 @@ import { IValueRead } from '../../../../Models/Values/values-read-model';
   styleUrls: ['./update-admin-product-var.component.css']
 })
 export class UpdateAdminProductVarComponent implements OnInit, OnDestroy {
-  constructor(private unit: UnitService, private route: ActivatedRoute) {}
+  constructor(private unit: UnitService, private route: ActivatedRoute,private router: Router,
+    public dialog: MatDialog) {}
 
   private subscriptions: Subscription = new Subscription();
   productId: number = 0;
@@ -148,4 +151,17 @@ export class UpdateAdminProductVarComponent implements OnInit, OnDestroy {
       alert('Failed to update product. Please try again.');
     });
   }
+
+  confirmUpdateProduct(): void {
+    const dialogRef = this.dialog.open(ConfirmMessageComponent, {
+      data: { message: 'Are you sure you want to update this Product?' },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.onUpdateProduct();
+      }
+    });
+  }
+
 }
