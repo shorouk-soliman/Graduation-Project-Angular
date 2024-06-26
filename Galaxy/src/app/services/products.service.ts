@@ -34,6 +34,11 @@ export class ProductsService {
 
   }
 
+  fetchAdminProducts(productQuery:IProductQuery): Observable<IProducts[]> {
+    let Url: string = `Product/GetAdminPagination`;
+    return this.generic.postRequest<IProductQuery>(Url,productQuery)
+  }
+
   UpdateProductsWlCart(products: IProducts[], cartItems: ICartItem[], wishListProducts: IProducts[]): IProducts[] {
     products = this.ChangeProductsInCart(products, cartItems);
     products = this.ChangeProductsInWishList(products, wishListProducts);

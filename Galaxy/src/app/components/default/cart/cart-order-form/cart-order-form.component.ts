@@ -15,7 +15,7 @@ export class CartOrderFormComponent implements OnInit {
   @Input() cartItems: ICartItem[] = [];
 
   myForm: FormGroup = this.unit.formbuilder.group({
-    address: ['', [Validators.required, Validators.pattern('^(?=.*[a-zA-Z])[a-zA-Z0-9]{6,}$')]]
+    address: ['', [Validators.required, Validators.pattern('^(?! )[a-zA-Z0-9 ]{6,}$')]]
   });
 
   ngOnInit() {

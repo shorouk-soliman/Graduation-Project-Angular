@@ -116,7 +116,7 @@
         <!-- Attribute Values -->
         <div *ngFor="let attributewithvalue of attributeWithValues" class="col-6 mb-3">
           <label class="form-label bold-label">{{ attributewithvalue.attribute.name }}</label>
-          <select (change)="onValuesChange($event, attributewithvalue.values)" class="form-select" multiple>
+          <select (change)="onValuesChange($event, attributewithvalue.values)" class="form-select">
             <option [value]="value.id" *ngFor="let value of attributewithvalue.values">{{ value.name }}</option>
           </select>
         </div>

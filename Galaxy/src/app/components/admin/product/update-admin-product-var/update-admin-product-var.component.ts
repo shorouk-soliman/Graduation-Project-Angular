@@ -59,6 +59,7 @@ export class UpdateAdminProductVarComponent implements OnInit, OnDestroy {
     if (this.productId) {
       let productSubscription = this.unit.product.GetProductDetails(id).subscribe((res: any) => {
         this.productDetails = res;
+        console.log('products',res)
         this.populateForm();
       });
       this.subscriptions.add(productSubscription);
@@ -72,8 +73,8 @@ export class UpdateAdminProductVarComponent implements OnInit, OnDestroy {
         description: this.productDetails.desctiption,
         discount: this.productDetails.discount,
         quantity: this.productDetails.quantity,
-        subCategoryId: this.productDetails.subCategoryId,
-        brandId: this.productDetails.brandId,
+        subCategoryId: this.productDetails.category.id,
+        brandId: this.productDetails.brand.id,
         varGroupId: this.productDetails.variantGroupId,
         price: this.productDetails.price,
         image: this.productDetails.image,

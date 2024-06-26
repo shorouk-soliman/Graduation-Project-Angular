@@ -20,7 +20,7 @@ export class MainAdminProductComponent implements OnInit, OnDestroy {
   constructor(private unit: UnitService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
-   this.unit.products.fetchGeneralProducts(this.query);
+  //  this.unit.products.fetchAdminProducts(this.query);
     this.GetProducts();
   }
 
@@ -65,7 +65,7 @@ DeleteProduct(product: any): void {
 });
 }
   GetProducts(): void {
-    this.productsSubscription = this.unit.products.GetProducts().subscribe((response: any) => {
+    this.productsSubscription = this.unit.products.fetchAdminProducts(this.query).subscribe((response: any) => {
       this.products = response.products.sort((a: IProducts, b: IProducts) => b.id - a.id);
     }, (error: any) => {
       console.error('Error fetching products', error);
