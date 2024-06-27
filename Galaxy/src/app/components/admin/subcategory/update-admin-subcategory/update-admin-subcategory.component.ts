@@ -24,7 +24,7 @@ export class UpdateSubcategoryAdminComponent implements OnInit {
 
   selectedFile: File | null = null;
   subcategoryId: any;
-  subcategory: ISubCategoryRead = initSubCategoryRead;
+  subcategory: any;
 
   constructor(
     private unit: UnitService,
@@ -40,7 +40,7 @@ export class UpdateSubcategoryAdminComponent implements OnInit {
 
   getSubcategory(): void {
     this.unit.subcategory.GetOneSubCategory(this.subcategoryId).subscribe(
-      (res: ISubcategoryDetails) => {
+      (res: any) => {
         this.subcategory = res.subcategory;
         this.subcategoryForm.patchValue({
           Name: this.subcategory.name,
@@ -138,15 +138,10 @@ export class UpdateSubcategoryAdminComponent implements OnInit {
   }
 
   cancelUpdate(): void {
-    this.subcategoryForm.patchValue({
-      Name: this.subcategory.name,
-      image: this.subcategory.image,
-      description: this.subcategory.description
-    });
     this.router.navigateByUrl('/admin/subcategory');
   }
 
   getNameErrors = () => this.subcategoryForm.get('Name')?.errors;
-  getImageErrors = () => this.subcategoryForm.get('image')?.errors;
   getdescriptionErrors = () => this.subcategoryForm.get('description')?.errors;
+  getImageErrors = () => this.subcategoryForm.get('image')?.errors;
 }

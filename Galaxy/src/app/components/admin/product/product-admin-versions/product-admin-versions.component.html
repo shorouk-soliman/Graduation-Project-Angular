@@ -6,7 +6,7 @@
       <div *ngFor="let attribute of attributes" class=" d-flex align-items-center">
         <ng-container *ngFor="let value of attribute.values" class="d-flex">
           <div *ngIf="attribute.name === 'color'" class="color-circle col-md-4 " [style.background-color]="value.name"></div>
-          <div *ngIf="attribute.name !== 'color'" class="badge bg-secondary col-md-8">
+          <div *ngIf="attribute.name !== 'color'" class="badge bg-secondary col-md-4">
             {{ value.name }}
           </div>
         </ng-container>
