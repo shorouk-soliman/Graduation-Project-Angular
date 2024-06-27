@@ -66,7 +66,8 @@ export class AddAdminBrandComponent implements OnInit {
 
   confirmAddBrand(): void {
     const dialogRef = this.dialog.open(ConfirmMessageComponent, {
-      data: { message: 'Are you sure you want to add this brand?' },
+      data: { title : 'Add Brand',
+         message: 'Are you sure you want to add this brand?' },
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {

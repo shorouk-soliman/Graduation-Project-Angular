@@ -255,6 +255,8 @@ tbody tr
   border-color: #fd0000;
   border-radius: 10px;
   border-width: 2px;
+  display: disable;
+
 }
 
 .form-select.status-pending-delivery {
@@ -267,6 +269,8 @@ tbody tr
   border-color: #0bea0b;
   border-radius: 10px;
   border-width: 2px;
+  display: disable;
+
 }
 .form-select
 {
