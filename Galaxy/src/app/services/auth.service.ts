@@ -9,6 +9,9 @@ import { catchError, map } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import * as jwtDecode from 'jwt-decode';
+import { BrandService } from './brand.service';
+import { WishlistService } from './wishlist.service';
+import { CategoryService } from './category.service';
 
 @Injectable()
 export class AuthService {
@@ -17,6 +20,10 @@ export class AuthService {
     private generic: GenericService,
      private cartservice: CartService,
       private userService: UserService,
+      private brandservice: BrandService,
+      private wishlistservice: WishlistService,
+      private categoryservice: CategoryService,
+      private userservice: UserService,
       private router: Router,
     ) { }
 
@@ -26,8 +33,8 @@ export class AuthService {
     return this.generic.postRequest<ISign>(signUrl, signData, { responseType: 'text' }).pipe(
       map((token: string) => {
         localStorage.setItem('jwt', token);
-        this.cartservice.AddLocalCart();
-        this.userService.FetchUser();
+        this.RefreshAll();
+
         if(this.isAdmin()){
           this.router.navigateByUrl('/admin');
         }else{
@@ -47,7 +54,8 @@ export class AuthService {
     return this.generic.postRequest<ILogin>(loginUrl, loginData, { responseType: 'text' }).pipe(
       map((token: string) => {
         localStorage.setItem('jwt', token);
-        this.userService.FetchUser();
+        this.RefreshAll();
+
         if(this.isAdmin()){
           this.router.navigateByUrl('/admin');
         }else{
@@ -64,6 +72,7 @@ export class AuthService {
   LogoutFunction() {
     localStorage.clear();
     this.cartservice.clearCart();
+    this.RefreshAll();
     this.generic.router.navigateByUrl('/');
   }
 
@@ -82,4 +91,12 @@ export class AuthService {
     return role === 'Admin';
   }
 
+  RefreshAll():void{
+    this.cartservice.CreateLocalCart();
+    this.cartservice.FetchCart();
+    this.brandservice.FetchGeneralBrands();
+    this.categoryservice.fetchGeneralCategories()
+    this.wishlistservice.fetchWishList();
+    this.userService.FetchUser();
+  }
 }
