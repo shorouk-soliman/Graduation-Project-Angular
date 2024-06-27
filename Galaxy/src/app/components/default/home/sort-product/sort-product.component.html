@@ -1,32 +1,36 @@
-<div class="container-fluid">
-    <div class="row flex-row-reverse justify-content-center">
+<div class="">
+  <div class="row flex-row-reverse w-100">
 
-        <div class="col-12 col-md-4 col-lg-3">
-            <form class="d-flex mt-4">
-              <input #keywordInput (keyup)="OnClearKeyword(keywordInput.value)" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button (click)="OnChangeKeyword(keywordInput.value)" [disabled]="keywordInput.value.length <= 0" class="btn btn-outline-dark" type="submit">Search</button>
-            </form>
-        </div>
-
-        <div class="col-12 col-md-4 col-lg-2">
-            <label>Sort</label>
-            <select class="form-select" [(ngModel)]="sort" (change)="OnChangeSort($event)">
-                <option value="default">High Rating</option>
-                <option value="Low">Price: Low to High</option>
-                <option value="High">Price: High to Low</option>
-                <option value="Discount">Discount</option>
-                <option value="New">New</option>
-            </select>
-        </div>
-
-        <div class="col-12 col-md-4 col-lg-2">
-            <label>Display</label>
-            <select class="form-select" [(ngModel)]="limit" (change)="OnChangeLimit($event)">
-                <option value=5>5 per page</option>
-                <option value=30>30 per page</option>
-                <option value=60>60 per page</option>
-            </select>
-        </div>
-
+    <!-- Search Form -->
+    <div class="col-md-4 mt-2">
+      <form class="d-flex mt-4" (submit)="OnChangeKeyword(keywordInput.value)">
+        <label class="form-label">  </label>
+        <input #keywordInput (keyup)="OnClearKeyword(keywordInput.value)" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button [disabled]="keywordInput.value.length <= 0" class="btn btn-outline-dark" type="submit">Search</button>
+      </form>
     </div>
+
+    <!-- Sort Dropdown -->
+    <div class="col-md-4 ">
+      <label for="sortSelect" class="form-label">Sort</label>
+      <select id="sortSelect" class="form-select" [(ngModel)]="sort" (change)="OnChangeSort($event)">
+        <option value="default">High Rating</option>
+        <option value="Low">Price: Low to High</option>
+        <option value="High">Price: High to Low</option>
+        <option value="Discount">Discount</option>
+        <option value="New">New</option>
+      </select>
+    </div>
+
+    <!-- Display Dropdown -->
+    <div class="col-md-4">
+      <label for="limitSelect" class="form-label">Display</label>
+      <select id="limitSelect" class="form-select" [(ngModel)]="limit" (change)="OnChangeLimit($event)">
+        <option value=5>5 per page</option>
+        <option value=30>30 per page</option>
+        <option value=60>60 per page</option>
+      </select>
+    </div>
+
+  </div>
 </div>
