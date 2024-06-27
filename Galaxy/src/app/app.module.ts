@@ -94,6 +94,7 @@ import { MainAdminOrderComponent } from './components/admin/order/main-admin-ord
 import { MainAdminUserComponent } from './components/admin/users/main-admin-user/main-admin-user.component';
 import { SpinnerComponent } from './components/shared-componentes/spinner/spinner.component';
 import { SpinnerOverlayComponent } from './components/shared-componentes/spinner-overlay/spinner-overlay.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 // import { ErrorInterceptorService } from './interceptors/error-interceptor';
 // import { LoadingButtonComponent } from '@coreui/angular';
 
@@ -176,6 +177,7 @@ import { SpinnerOverlayComponent } from './components/shared-componentes/spinner
     MainAdminUserComponent,
     SpinnerComponent,
     SpinnerOverlayComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,

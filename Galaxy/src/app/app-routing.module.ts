@@ -42,6 +42,7 @@ import { UpdateCategoryAdminComponent } from './components/admin/category/update
 import { UpdateSubcategoryAdminComponent } from './components/admin/subcategory/update-admin-subcategory/update-admin-subcategory.component';
 import {MainAdminOrderComponent} from './components/admin/order/main-admin-order/main-admin-order.component'
 import { MainAdminUserComponent } from './components/admin/users/main-admin-user/main-admin-user.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   {
@@ -61,7 +62,7 @@ const routes: Routes = [
       { path: 'about', component: AboutComponent },
       { path: 'contact-us', component: ContactUsComponent },
       { path: '', redirectTo: '/home', pathMatch: 'full' },
-
+      { path: '**', component: PageNotFoundComponent }
     ]
   },
   {
