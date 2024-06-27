@@ -55,7 +55,6 @@ export class MainAdminOrderComponent implements OnInit {
   }
 
   updateOrderStatus(orderId: number, newStatus: string): void {
-    if (newStatus === 'Cancelled') {
       const dialogRef = this.dialog.open(ConfirmMessageComponent, {
         data: {
           title: 'Confirm Order Cancellation',
@@ -80,7 +79,7 @@ export class MainAdminOrderComponent implements OnInit {
           return;
         }
       });
-    }
+    
     const order = this.orders.find(order => order.id === orderId);
     if (!order) return;
 
