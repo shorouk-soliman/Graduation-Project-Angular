@@ -6,10 +6,14 @@
     <br>
     <div class="row justify-content-center">
       <div class="col-12 col-md-12 col-lg-12">
-        <div *ngIf="notificationMessage" class="notification d-flex align-items-center justify-content-center text-center w-100">
-          <i class="fas fa-exclamation-circle notification-icon"></i>
-          <span class="notification-text">{{ notificationMessage }}</span>
-        </div>
+        <div *ngIf="notificationMessage" 
+        [ngClass]="{'notification': true, 'notification-cancelled': notificationMessage === 'it is cancelled'}" 
+        class="text-center d-flex align-items-center justify-content-center text-center w-100">
+     <i class="fas fa-exclamation-circle notification-icon"></i>
+     <span class="notification-text text-center">{{ notificationMessage }}</span>
+   </div>
+   
+        
         <div class="text-center">
           <div class="form-floating mb-3">
             <input [class.is-invalid]="FNameError()" type="text" class="form-control is-valid" id="floatingFirstname" formControlName="firstname" placeholder="First Name">

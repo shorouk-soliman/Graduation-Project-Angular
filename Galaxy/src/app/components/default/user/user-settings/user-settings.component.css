@@ -1,19 +1,55 @@
-.form-floating {
-    margin-bottom: 1rem;
-}
-
-.form-title {
-    margin-bottom: 1.5rem;
-}
-
-.text-primary.pointer {
-    cursor: pointer;
+.mt-5 {
+  margin-top: 1rem !important;
+  margin-bottom: 3rem !important;
 }
 
 .notification {
-    margin-bottom: 1rem;
+  display: flex;
+  justify-content: center !important;
+  align-items: center !important;
+  background-color: red !important; 
+  color: #ffffff !important;
+  padding: 0.4rem 3rem !important; 
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-right: 19rem;
+  position: relative;
+  bottom: 10px;
+  width: 35rem !important;
 }
 
-.btn-success {
-    width: 100%;
+.notification-cancelled {
+  background-color: #dc3545 !important; 
+}
+
+.notification-icon {
+  margin-right: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.notification-text {
+  font-size: 1rem;
+}
+
+textarea.ng-invalid.ng-touched, select.ng-invalid.ng-touched, input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+.form-text {
+  color: red;
+}
+
+.color-circles {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.bold-label {
+  color: #5a486a;
+  font-size: 1rem;
+}
+
+.text-center.mb-4 {
+  color: #5a486a;
 }

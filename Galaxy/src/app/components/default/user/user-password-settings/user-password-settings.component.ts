@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UnitService } from '../../../../services/unit.service';
 import { ConfirmMessageComponent } from '../../../shared-componentes/confirm-message/confirm-message.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-password-settings',
@@ -12,7 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class UserPasswordSettingsComponent {
   notificationMessage: string | null = null;
 
-  constructor(private unit: UnitService, public dialog: MatDialog) {}
+  constructor(private unit: UnitService, public dialog: MatDialog, private router: Router) {}
 
   @Output() ToggleForm: EventEmitter<any> = new EventEmitter<any>();
   @Output() refreshUser: EventEmitter<any> = new EventEmitter<any>();
@@ -48,5 +49,9 @@ export class UserPasswordSettingsComponent {
         this.notificationMessage = "cancelled";
       }
     });
+  }
+// going to user-setting 
+  navigateToUserSettings() {
+    this.router.navigate(['/settings']);
   }
 }
