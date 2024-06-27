@@ -52,7 +52,7 @@
 
       <app-product-versions
       [class.d-none]="product.versions.length == 0 "
-       (onChangeValue)="Changevalues($event)" 
+       (onChangeValue)="Changevalues($event)"
        [versions]="product.versions"
         [productId]="product.id">
       </app-product-versions>
@@ -87,12 +87,12 @@
         </select>
 
 
-        <button (click)="RemoveFromCart(product)" [class.d-none]="!product.inCart" class="btn btn-danger col-8">removefrom cart</button>
+        <button (click)="RemoveFromCart(product)" [class.d-none]="!product.inCart" class="btn btn-danger col-8">remove from cart</button>
 
         <button (click)="AddToCart(product)" [class.d-none]="product.inCart" class="btn btn-success col-8">Add To Cart</button>
 
 
-        
+
       </div>
 
     </div>
