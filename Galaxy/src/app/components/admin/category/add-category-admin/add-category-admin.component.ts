@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UnitService } from '../../../../services/unit.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-category-admin',
@@ -8,7 +9,7 @@ import { UnitService } from '../../../../services/unit.service';
   styleUrl: './add-category-admin.component.css'
 })
 export class AddCategoryAdminComponent {
-  constructor(private unit: UnitService) { }
+  constructor(private unit: UnitService,private router:Router) { }
   selectedFile: File | null = null;
 
 
@@ -44,6 +45,7 @@ export class AddCategoryAdminComponent {
   AddCategory(insert: any) {
     this.unit.category.addCategory(insert).subscribe(() => {
       alert('category Added Succssefully')
+      this.router.navigateByUrl('/admin/category');
     }, error => {
       alert(error.error)
     })

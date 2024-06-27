@@ -56,7 +56,7 @@ export class SubcategoryService {
   };
   
   updateSubcategory(subcategoryId: number, updateData: any): Observable<any> {
-    const url = `Subcategory/UpdateSubcategory?id=${subcategoryId}`;
+    const url = `SubCategory/Update?Id=${subcategoryId}`;
     return this.generic.putRequest<any>(url, updateData);
   }
 
