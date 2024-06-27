@@ -23,7 +23,7 @@ export class MainAdminProductComponent implements OnInit, OnDestroy {
   //  this.unit.products.fetchAdminProducts(this.query);
     this.GetProducts();
   }
-
+ 
   openProductDetailsDialog(productId: number): void {
     const dialogRef = this.dialog.open(DetailsAdminProductComponent, {
       width: '80%',

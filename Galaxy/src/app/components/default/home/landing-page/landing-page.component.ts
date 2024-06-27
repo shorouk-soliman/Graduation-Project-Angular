@@ -16,6 +16,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
   query: IProductQuery = new initProductQuery();
 
   constructor(private unit: UnitService) { }
+  
 
   ngOnInit() {
     console.log(this.isloading);

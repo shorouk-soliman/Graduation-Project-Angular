@@ -43,6 +43,14 @@ import { UpdateSubcategoryAdminComponent } from './components/admin/subcategory/
 import {MainAdminOrderComponent} from './components/admin/order/main-admin-order/main-admin-order.component'
 import { MainAdminUserComponent } from './components/admin/users/main-admin-user/main-admin-user.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { ProductViewComponent } from './components/default/product/product-view/product-view.component';
+import { ProductItemComponent } from './components/default/product-item/product-item.component';
+import { producerAccessed } from '@angular/core/primitives/signals';
+import { ProductService } from './services/product.service';
+import { ProductVersionsComponent } from './components/default/product/product-versions/product-versions.component';
+import { SortProductComponent } from './components/default/home/sort-product/sort-product.component';
+import { CategoriesSubsCardsComponent } from './components/default/home/categories-subs-cards/categories-subs-cards.component';
+
 
 const routes: Routes = [
   {
@@ -62,6 +70,8 @@ const routes: Routes = [
       { path: 'about', component: AboutComponent },
       { path: 'contact-us', component: ContactUsComponent },
       { path: '', redirectTo: '/home', pathMatch: 'full' },
+      { path: 'product', component: SortProductComponent },
+
       // { path: '**', component: PageNotFoundComponent }
     ]
   },

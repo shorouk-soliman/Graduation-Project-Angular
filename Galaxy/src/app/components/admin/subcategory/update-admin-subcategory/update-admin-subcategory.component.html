@@ -1,6 +1,6 @@
 <div class="container-fluid mt-5">
   <div class="row justify-content-center">
-    <div class="col-md-4">
+    <div class="md-4">
       <h2 class="text-center mb-4">Update Subcategory</h2>
     </div>
     <div class="col-md-6">
@@ -37,7 +37,7 @@
             <div *ngIf="getdescriptionErrors()?.['minlength'] || getdescriptionErrors()?.['maxlength']">Subcategory description must be between 2 and 150 characters</div>
           </div>
         </div>
-        
+
         <div class="col-md-12 mb-3 text-center">
           <button class="btn btn-primary" type="submit" style="background-color: #198754; border-color: #198754;" [disabled]="!subcategoryForm.valid">Update Subcategory</button>
           <button class="btn btn-secondary ms-2" type="button" style="background-color: #a60808; border-color: #f11d1d;" (click)="cancelUpdate()">Cancel</button>
