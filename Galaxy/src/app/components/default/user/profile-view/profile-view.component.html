@@ -5,7 +5,7 @@
 <div class="profile-photo">
   <input type="file" #fileInput (change)="onFileSelected($event)" style="display: none;">
   <label></label>
-  <img class="rounded-circle pfp" (click)="fileInput.click()" [src]="user.image || 'path/to/default/image.jpg'" alt="Profile Photo">
+  <img class="rounded-circle pfp" (click)="fileInput.click()" [src]="(user.image === '' || null ? defaultImage : user.image)  "  alt="Profile Photo">
 </div>
 
 <h5 class="text-center fs-3 my-3">{{user.firstName +' '+ user.lastName}}</h5>

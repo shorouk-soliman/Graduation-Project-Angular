@@ -15,9 +15,17 @@
 }
 
 .profile-photo img{
-    width:100%;
-    height:100%;
+    width:10rem;
+    height:10rem;
     object-fit: cover;
+    cursor: pointer;
+}
+.profile-photo input{
+    width:10rem;
+    height:10rem;
+    background-color: rebeccapurple;
+    object-fit: cover;
+    cursor: pointer;
 }
 
 .pfp::after {

@@ -51,7 +51,6 @@ import { UpdateCategoryAdminComponent } from './components/admin/category/update
 import { MainCategoryAdminComponent } from './components/admin/category/main-category-admin/main-category-admin.component';
 import { MainAdminSubcategoryComponent } from './components/admin/subcategory/main-admin-subcategory/main-admin-subcategory.component';
 import { AddAdminSubcategoryComponent } from './components/admin/subcategory/add-admin-subcategory/add-admin-subcategory.component';
-// import { UpdateAdminSubcategoryComponent } from './components/admin/subcategory/update-admin-subcategory/update-admin-subcategory.component';
 import { MainAdminGroupComponent } from './components/admin/Varian-Group/main-admin-group/main-admin-group.component';
 import { AddAdminGroupComponent } from './components/admin/Varian-Group/add-admin-group/add-admin-group.component';
 import { AddAdminAttributeComponent } from './components/admin/attributes/add-admin-attribute/add-admin-attribute.component';
@@ -95,6 +94,7 @@ import { MainAdminUserComponent } from './components/admin/users/main-admin-user
 import { SpinnerComponent } from './components/shared-componentes/spinner/spinner.component';
 import { SpinnerOverlayComponent } from './components/shared-componentes/spinner-overlay/spinner-overlay.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { UpdateSubcategoryAdminComponent } from './components/admin/subcategory/update-admin-subcategory/update-admin-subcategory.component';
 // import { ErrorInterceptorService } from './interceptors/error-interceptor';
 // import { LoadingButtonComponent } from '@coreui/angular';
 
@@ -141,7 +141,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     UpdateCategoryAdminComponent,
     MainAdminSubcategoryComponent,
     AddAdminSubcategoryComponent,
-    // UpdateAdminSubcategoryComponent,
+    UpdateSubcategoryAdminComponent,
     MainAdminGroupComponent,
     AddAdminGroupComponent,
     AddAdminAttributeComponent,
