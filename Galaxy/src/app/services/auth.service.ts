@@ -8,6 +8,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import * as jwtDecode from 'jwt-decode';
 
 @Injectable()
 export class AuthService {
@@ -27,7 +28,11 @@ export class AuthService {
         localStorage.setItem('jwt', token);
         this.cartservice.AddLocalCart();
         this.userService.FetchUser();
-        this.router.navigateByUrl('/');
+        if(this.isAdmin()){
+          this.router.navigateByUrl('/admin');
+        }else{
+          this.router.navigateByUrl('/');
+        }
         return token;
       }),
       catchError((error: HttpErrorResponse) => {
@@ -43,7 +48,11 @@ export class AuthService {
       map((token: string) => {
         localStorage.setItem('jwt', token);
         this.userService.FetchUser();
-        this.generic.router.navigateByUrl('/');
+        if(this.isAdmin()){
+          this.router.navigateByUrl('/admin');
+        }else{
+          this.router.navigateByUrl('/');
+        }
         return token;
       }),
       catchError((error: HttpErrorResponse) => {
@@ -59,6 +68,18 @@ export class AuthService {
   }
 
   isAuthunicated(): boolean {
-    return this.generic.IsLogged();
+    let token = localStorage.getItem('jwt');
+    if(token === null || undefined) return false;
+
+    return true;
   }
+
+  isAdmin(): boolean {
+    let token = localStorage.getItem('jwt');
+    let decodedtoken: any = jwtDecode.jwtDecode(token!)
+    let role = decodedtoken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
+
+    return role === 'Admin';
+  }
+
 }

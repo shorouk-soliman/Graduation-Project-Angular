@@ -43,6 +43,7 @@ import { UpdateSubcategoryAdminComponent } from './components/admin/subcategory/
 import {MainAdminOrderComponent} from './components/admin/order/main-admin-order/main-admin-order.component'
 import { MainAdminUserComponent } from './components/admin/users/main-admin-user/main-admin-user.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { adminGuard } from './guards/admin.guard';
 
 const routes: Routes = [
   {
@@ -62,7 +63,6 @@ const routes: Routes = [
       { path: 'about', component: AboutComponent },
       { path: 'contact-us', component: ContactUsComponent },
       { path: '', redirectTo: '/home', pathMatch: 'full' },
-      // { path: '**', component: PageNotFoundComponent }
     ]
   },
   {
@@ -73,7 +73,7 @@ const routes: Routes = [
     ]
   },
   {
-    path:'admin',component:MainAdminComponent  ,canActivate:[authGuard],
+    path:'admin',component:MainAdminComponent  ,canActivate:[adminGuard],
     children:[
       { path: 'brand', component: MainAdminBrandComponent },
       { path: 'brand/add', component: AddAdminBrandComponent },
@@ -98,7 +98,7 @@ const routes: Routes = [
       {path: 'product/update/:id', component: UpdateAdminProductVarComponent},
       {path: 'order', component: MainAdminOrderComponent},
       {path: 'users', component: MainAdminUserComponent},
-      { path: 'settings', component: UserSettingsComponent  ,canActivate:[authGuard]},
+      { path: 'settings', component: UserSettingsComponent},
 
     ]
   }

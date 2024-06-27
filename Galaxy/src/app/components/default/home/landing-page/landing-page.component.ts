@@ -3,6 +3,7 @@ import { UnitService } from '../../../../services/unit.service';
 import { Subscription } from 'rxjs';
 import { IGeneralProducts, initGeneralProducts } from '../../../../Models/Product/general-product-model';
 import { IProductQuery, initProductQuery } from '../../../../Models/Product/product-query-model';
+import * as jwtDecode from 'jwt-decode';
 
 @Component({
   selector: 'app-landing-page',
