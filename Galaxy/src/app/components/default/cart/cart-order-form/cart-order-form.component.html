@@ -27,3 +27,33 @@
     </div>
   </form>
   </div>
+  
+  <!-- <div class="card text-center col-12 col-md-4 p-0 myorder mt-5 w-100">
+    <h5 class="card-title pt-1 pb-0 pt-lg-4 pb-lg-0">Order Summary</h5>
+    <hr>
+    <form [formGroup]="myForm" (submit)="PlaceOrder(0)">
+      <div class="card-body">
+        <input formControlName="address" placeholder="Shipping Address" class="py-2 px-3 w-100">
+        <div class="text-danger mt-2" [class.d-none]="!myForm.controls['address']!.errors">
+          <div [class.d-none]="!myForm.controls['address']!.errors?.['required']">
+            Shipping Address is required.
+          </div>
+          <div [class.d-none]="!myForm.controls['address']!.errors?.['pattern']">
+            Shipping Address must be at least 6 characters long.
+          </div>
+        </div>
+        <div class="text-danger" [class.d-none]="!isStripeOptionValid()">
+          Total price must be less than $999,999 and more than $0.50.
+        </div>
+        <h5 class="card-title pt-lg-3">Total Price</h5>
+        <h4 class="card-title pt-0 pb-lg-0">{{ GetTotalPrice() | currency }}</h4>
+      </div>
+      <div class="card-footer text-muted">
+        <button style="border: none;" [disabled]="myForm.invalid || isStripeOptionValid()"
+          type="submit" class="btn btn-dark text-white w-100 p-2" [loading]="loading[0]" (loadingChange)="onChange($event, 0)" cLoadingButton>
+          <span *ngIf="!loading">Place Order</span>
+          <span *ngIf="loading">Submitting...</span>
+        </button>
+      </div>
+    </form>
+  </div> -->

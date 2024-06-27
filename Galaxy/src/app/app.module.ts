@@ -92,7 +92,10 @@ import { UpdateAdminProductVarComponent } from './components/admin/product/updat
 import { ProductAdminVersionsComponent } from './components/admin/product/product-admin-versions/product-admin-versions.component';
 import { MainAdminOrderComponent } from './components/admin/order/main-admin-order/main-admin-order.component';
 import { MainAdminUserComponent } from './components/admin/users/main-admin-user/main-admin-user.component';
+import { SpinnerComponent } from './components/shared-componentes/spinner/spinner.component';
+import { SpinnerOverlayComponent } from './components/shared-componentes/spinner-overlay/spinner-overlay.component';
 // import { ErrorInterceptorService } from './interceptors/error-interceptor';
+// import { LoadingButtonComponent } from '@coreui/angular';
 
 
 @NgModule({
@@ -171,6 +174,8 @@ import { MainAdminUserComponent } from './components/admin/users/main-admin-user
     ProductAdminVersionsComponent,
     MainAdminOrderComponent,
     MainAdminUserComponent,
+    SpinnerComponent,
+    SpinnerOverlayComponent,
   ],
   imports: [
     BrowserModule,

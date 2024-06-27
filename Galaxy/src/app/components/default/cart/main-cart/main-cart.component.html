@@ -1,7 +1,8 @@
+<br>
 @if (cart.length !== 0) {
 
 <div class="container">
-  <h1 class="text-center">Your Shopping Cart</h1>
+  <h1 class="text-center">Shopping Cart</h1>
   <div class="row">
     <div class="col-sm-12 col-lg-7 col-xl-8 "><app-cart-item [cartItems]="cart"></app-cart-item></div>
     <div class="col-sm-12 col-lg-5 col-xl-4"><app-cart-order-form [cartItems]="cart"></app-cart-order-form></div>

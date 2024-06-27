@@ -1,16 +1,18 @@
 .nav-custom-style {
-  font-family: 'Roboto', sans-serif; /* Update font family if needed */
-  font-size: 1.25rem; /* Update font size to match Galaxy */
-  color: #000; /* Update color if needed */
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  color: #000;
 }
 
 .cart-container {
   position: relative;
 }
-.nav-link:hover{
-text-decoration: underline;
+
+.nav-link:hover {
+  text-decoration: underline;
 }
-.cart-count ,.wishlist-count {
+
+.cart-count, .wishlist-count {
   background-color: rgb(223, 66, 66);
   position: absolute;
   top: 0;
@@ -26,7 +28,6 @@ text-decoration: underline;
   position: relative;
 }
 
-/* Additional styling for better navbar presentation */
 .navbar {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -50,4 +51,10 @@ text-decoration: underline;
 
 .navbar-nav .nav-item .dropdown-menu {
   background-color: #f8f9fa;
+}
+
+.nav-link.active {
+  text-decoration: underline;
+  font-weight: bold;
+  margin-top:2px ;
 }

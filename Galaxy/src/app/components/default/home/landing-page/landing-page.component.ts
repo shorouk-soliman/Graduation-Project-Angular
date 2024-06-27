@@ -10,39 +10,48 @@ import { IProductQuery, initProductQuery } from '../../../../Models/Product/prod
   styleUrls: ['./landing-page.component.css']
 })
 export class LandingPageComponent implements OnInit, OnDestroy {
+  isloading :boolean = false;
   private subscription: Subscription = new Subscription();
   constructor(private unit:UnitService) { }
 
   products:IGeneralProducts = initGeneralProducts;
   query:IProductQuery = new initProductQuery();
-  
+
   ngOnInit() {
+    console.log(this.isloading);
     this.FetchGeneralProducts();
     this.GetGeneralProducts();
   };
-  
+
   FetchGeneralProducts():void{
+    this.isloading= true;
     this.unit?.products?.fetchGeneralProducts(this.query);
+    console.log(this.isloading);
+
   };
 
   GetGeneralProducts() : void{
+    this.isloading= true;
     const productsSubscription = this.unit.products.GetProducts().subscribe((productsData:IGeneralProducts)=>{
+      console.log(this.isloading);
       this.products = productsData;
+      this.isloading = false;
     });
     this.subscription.add(productsSubscription);
+    console.log(this.isloading);
   };
 
-  OnSortChange(sort:string):void{    
+  OnSortChange(sort:string):void{
     this.query.sort = sort;
     this.FetchGeneralProducts();
   };
-  
+
   OnLimitChange(limit:number):void{
     this.query.limit = limit;
     this.query.page = 1;
     this.FetchGeneralProducts();
   };
-  
+
   OnPageChange(page:number):void{
     this.query.page = page;
     this.FetchGeneralProducts();

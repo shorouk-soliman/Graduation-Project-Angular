@@ -60,6 +60,8 @@ const routes: Routes = [
       { path: 'payment/failed', component: FailedPaymentComponent  ,canActivate:[authGuard]},
       { path: 'about', component: AboutComponent },
       { path: 'contact-us', component: ContactUsComponent },
+      { path: '', redirectTo: '/home', pathMatch: 'full' },
+
     ]
   },
   {
@@ -97,6 +99,7 @@ const routes: Routes = [
       {path: 'users', component: MainAdminUserComponent}
     ]
   }
+
 ];
 
 @NgModule({

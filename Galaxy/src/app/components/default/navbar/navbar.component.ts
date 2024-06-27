@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UnitService } from '../../../services/unit.service';
 import { ICartItem } from '../../../Models/Cart-Items/Cart-item-model';
 import { IUserRead, initUserRead } from '../../../Models/User/user-read';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -18,7 +18,7 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
     this.GetCart();
     this.getUser();
-  };
+}
 
   getUser():void {
     this.unit.user.GetUser().subscribe((user: IUserRead) => {
