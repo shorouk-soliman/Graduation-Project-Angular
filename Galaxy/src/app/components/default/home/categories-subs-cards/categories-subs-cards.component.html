@@ -1,16 +1,12 @@
 <div class="container-fluid">
     <div class="row">
-
             @for (categorySub of categoriesSubs | slice:0:4; track categoriesSubs ){
             <div class="col-12 col-sm-6 col-md-4 col-lg-3 CategorySubs-Card">
-
                 <div class="inner-card p-0">
-
-                    <div  
+                    <div
                     style="cursor: pointer;"
                     [routerLink]="'category/'+categorySub.category.id"
                     class="fs-4 text-center category-title">{{categorySub.category.name}}</div>
-                    
                     <div class="row p-2 ">
                         @for (subCategory of categorySub.subCategories  | slice:0:4; track $index) {
                             <div class="col-6 subSection">
@@ -22,7 +18,7 @@
                             }
                     </div>
                     <!-- <div style="cursor: pointer; width: fit-content;" [routerLink]="'category/'+categorySub.category.id" class="ps-2">see more</div> -->
-                </div>    
+                </div>
             </div>
             }
 
