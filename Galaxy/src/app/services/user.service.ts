@@ -42,7 +42,7 @@ export class UserService {
   };
 
   DeleteUser(userId:string): Observable<any> {
-    let Url: string = `User/GetUserById/${userId}`
+    let Url: string = `User/DeleteUser/${userId}`
     return this.generic.deleteRequest<number>(Url);
   };
 

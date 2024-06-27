@@ -97,7 +97,9 @@ const routes: Routes = [
       { path: 'product/add/var', component: AddAdminProductVarComponent },
       {path: 'product/update/:id', component: UpdateAdminProductVarComponent},
       {path: 'order', component: MainAdminOrderComponent},
-      {path: 'users', component: MainAdminUserComponent}
+      {path: 'users', component: MainAdminUserComponent},
+      { path: 'settings', component: UserSettingsComponent  ,canActivate:[authGuard]},
+
     ]
   }
   ,

@@ -59,13 +59,14 @@ export class MainAdminOrderComponent implements OnInit {
       const dialogRef = this.dialog.open(ConfirmMessageComponent, {
         data: {
           title: 'Confirm Order Cancellation',
-          message: 'Are you sure you want to cancel this order?'
+          message: 'Are you sure you want to cancel this order?',
         }
+
       });
 
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          this.confirmCancel = true;
+          console.log(result)
           this.orderService.updateOrderStatus(orderId, newStatus).subscribe(
             () => {
               console.log(`Order ${orderId} status updated to ${newStatus}`);
@@ -76,21 +77,16 @@ export class MainAdminOrderComponent implements OnInit {
             }
           );
         } else {
-          this.confirmCancel = false;
+          return;
         }
       });
-    } else {
-      this.confirmCancel = false;
-      this.orderService.updateOrderStatus(orderId, newStatus).subscribe(
-        () => {
-          console.log(`Order ${orderId} status updated to ${newStatus}`);
-          this.loadOrders();
-        },
-        error => {
-          console.error('Error updating order status:', error);
-        }
-      );
     }
+    const order = this.orders.find(order => order.id === orderId);
+    if (!order) return;
+
+    const originalStatus = order.status;
+
+
   }
 }
 
