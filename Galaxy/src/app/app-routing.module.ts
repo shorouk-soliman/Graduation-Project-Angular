@@ -61,11 +61,8 @@ const routes: Routes = [
       { path: 'payment/failed', component: FailedPaymentComponent  ,canActivate:[authGuard]},
       { path: 'about', component: AboutComponent },
       { path: 'contact-us', component: ContactUsComponent },
-<<<<<<< Updated upstream
       { path: '', redirectTo: '/home', pathMatch: 'full' },
-      { path: '**', component: PageNotFoundComponent }
-=======
->>>>>>> Stashed changes
+      // { path: '**', component: PageNotFoundComponent }
     ]
   },
   {
@@ -102,12 +99,9 @@ const routes: Routes = [
       {path: 'order', component: MainAdminOrderComponent},
       {path: 'users', component: MainAdminUserComponent}
     ]
-<<<<<<< Updated upstream
   }
-=======
-  },
+  ,
   { path: '**', component: PageNotFoundComponent }
->>>>>>> Stashed changes
 
 ];
 

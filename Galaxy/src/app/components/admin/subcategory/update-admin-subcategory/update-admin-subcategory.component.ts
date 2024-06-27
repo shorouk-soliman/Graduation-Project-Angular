@@ -106,13 +106,13 @@ export class UpdateSubcategoryAdminComponent implements OnInit {
         } else {
           console.error('Error converting image:', error);
           alert('Failed to update Subcategory. Please try again later.');
-        } 
+        }
       }
     );
   }
 
   Updatesubcategory(updateData: any): void {
-    this.unit.category.updateSubcategory(this.subcategoryId, updateData).subscribe(
+    this.unit.subcategory.updateSubcategory(this.subcategoryId, updateData).subscribe(
       () => {
         console.log("Subcategory edited successfully");
         this.router.navigateByUrl('/admin/subcategory');

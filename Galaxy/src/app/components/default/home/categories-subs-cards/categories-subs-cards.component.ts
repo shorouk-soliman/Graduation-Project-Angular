@@ -13,7 +13,7 @@ export class CategoriesSubsCardsComponent implements OnInit {
   categoriesSubs: ICategorySubs[] = [];
 
   ngOnInit(): void {
-    this.unit.category.getSubcategoriesWithSubs().subscribe((categoriesSubs: any[]) => {
+    this.unit.category.getCategoriesWithSubs().subscribe((categoriesSubs: any[]) => {
       this.categoriesSubs = categoriesSubs;
     })
   }

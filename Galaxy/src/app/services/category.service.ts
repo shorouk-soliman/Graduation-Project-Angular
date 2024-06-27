@@ -81,59 +81,59 @@ export class CategoryService {
     return this.generic.putRequest<any>(url, updateData);
   }
 
-  // Subcategory Methods
-  getAdminSubcategories(): Observable<IAdminSubCategoryRead[]> {
-    const url = 'Subcategory/GetAllAdmin';
-    return this.generic.getRequest<IAdminSubCategoryRead[]>(url);
-  }
+  // // Subcategory Methods
+  // getAdminSubcategories(): Observable<IAdminSubCategoryRead[]> {
+  //   const url = 'Subcategory/GetAllAdmin';
+  //   return this.generic.getRequest<IAdminSubCategoryRead[]>(url);
+  // }
 
-  fetchGeneralSubcategories(): void {
-    const url = 'Subcategory/GetAllGeneral';
-    this.generic.getRequest<ISubcategoryProducts[]>(url).subscribe((subcategoriesSubs: ISubcategoryProducts[]) => {
-      this.subcategorySubject.next(this.getSubcategoriesOnly(subcategoriesSubs));
-      this.subcategoryWithSubsSubject.next(subcategoriesSubs);
-    });
-  }
+  // fetchGeneralSubcategories(): void {
+  //   const url = 'Subcategory/GetAllGeneral';
+  //   this.generic.getRequest<ISubcategoryProducts[]>(url).subscribe((subcategoriesSubs: ISubcategoryProducts[]) => {
+  //     this.subcategorySubject.next(this.getSubcategoriesOnly(subcategoriesSubs));
+  //     this.subcategoryWithSubsSubject.next(subcategoriesSubs);
+  //   });
+  // }
 
-  private getSubcategoriesOnly(subcategoriesSubs: ISubcategoryProducts[]): ISubCategoryRead[] {
-    return subcategoriesSubs.map(ss => ss.subcategory);
-  }
+  // private getSubcategoriesOnly(subcategoriesSubs: ISubcategoryProducts[]): ISubCategoryRead[] {
+  //   return subcategoriesSubs.map(ss => ss.subcategory);
+  // }
 
-  getGeneralSubcategories(): Observable<ISubCategoryRead[]> {
-    return this.subcategorySubject.asObservable();
-  }
+  // getGeneralSubcategories(): Observable<ISubCategoryRead[]> {
+  //   return this.subcategorySubject.asObservable();
+  // }
 
-  getSubcategoriesWithSubs(): Observable<ISubcategoryProducts[]> {
-    return this.subcategoryWithSubsSubject.asObservable();
-  }
+  // getSubcategoriesWithSubs(): Observable<ISubcategoryProducts[]> {
+  //   return this.subcategoryWithSubsSubject.asObservable();
+  // }
 
-  getOneSubcategory(subcategoryId: number): Observable<ISubcategoryDetails> {
-    const url = `Subcategory/GetOneSubcategory?id=${subcategoryId}`;
-    return this.generic.getRequest<ISubcategoryDetails>(url);
-  }
+  // getOneSubcategory(subcategoryId: number): Observable<ISubcategoryDetails> {
+  //   const url = `Subcategory/GetOneSubcategory?id=${subcategoryId}`;
+  //   return this.generic.getRequest<ISubcategoryDetails>(url);
+  // }
 
-  addSubcategory(subcategory: IAddSubcategory): Observable<any> {
-    const url = 'Subcategory/AddSubcategory';
-    return this.generic.postRequest<any>(url, subcategory);
-  }
+  // addSubcategory(subcategory: IAddSubcategory): Observable<any> {
+  //   const url = 'Subcategory/AddSubcategory';
+  //   return this.generic.postRequest<any>(url, subcategory);
+  // }
 
-  addSubcategoryBanner(banner: IAddSubCategoryBanners): Observable<any> {
-    const url = 'Subcategory/AddSubcategoryImages';
-    return this.generic.postRequest<any>(url, banner);
-  }
+  // addSubcategoryBanner(banner: IAddSubCategoryBanners): Observable<any> {
+  //   const url = 'Subcategory/AddSubcategoryImages';
+  //   return this.generic.postRequest<any>(url, banner);
+  // }
 
-  deleteSubcategory(subcategoryId: number): Observable<any> {
-    const url = `Subcategory/SoftDeleteSubcategory?id=${subcategoryId}`;
-    return this.generic.deleteRequest<any>(url);
-  }
+  // deleteSubcategory(subcategoryId: number): Observable<any> {
+  //   const url = `Subcategory/SoftDeleteSubcategory?id=${subcategoryId}`;
+  //   return this.generic.deleteRequest<any>(url);
+  // }
 
-  retrieveSubcategory(subcategoryId: number): Observable<any> {
-    const url = `Subcategory/RetrieveDeletedSubcategory?id=${subcategoryId}`;
-    return this.generic.putRequest<any>(url, null);
-  }
+  // retrieveSubcategory(subcategoryId: number): Observable<any> {
+  //   const url = `Subcategory/RetrieveDeletedSubcategory?id=${subcategoryId}`;
+  //   return this.generic.putRequest<any>(url, null);
+  // }
 
-  updateSubcategory(subcategoryId: number, updateData: any): Observable<any> {
-    const url = `Subcategory/UpdateSubcategory?id=${subcategoryId}`;
-    return this.generic.putRequest<any>(url, updateData);
-  }
+  // updateSubcategory(subcategoryId: number, updateData: any): Observable<any> {
+  //   const url = `Subcategory/UpdateSubcategory?id=${subcategoryId}`;
+  //   return this.generic.putRequest<any>(url, updateData);
+  // }
 }
