@@ -130,12 +130,13 @@ export class UpdateCategoryAdminComponent implements OnInit {
 
   confirmUpdateCategory(): void {
     const dialogRef = this.dialog.open(ConfirmMessageComponent, {
-      data: { message: 'Are you sure you want to update this category?' },
+      data: {title:"Update Category", message: 'Are you sure you want to update this category?' },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.UpdateImageAndCategory();
+        this.router.navigateByUrl('/admin/category');
       }
     });
   }

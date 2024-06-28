@@ -69,7 +69,6 @@ export class MainAdminOrderComponent implements OnInit {
           this.orderService.updateOrderStatus(orderId, newStatus).subscribe(
             () => {
               console.log(`Order ${orderId} status updated to ${newStatus}`);
-              this.loadOrders();
             },
             error => {
               console.error('Error updating order status:', error);
@@ -79,7 +78,7 @@ export class MainAdminOrderComponent implements OnInit {
           return;
         }
       });
-    
+
     const order = this.orders.find(order => order.id === orderId);
     if (!order) return;
 

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UnitService } from '../../../../services/unit.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-cagtegory-banner-admin',
@@ -8,7 +9,7 @@ import { UnitService } from '../../../../services/unit.service';
   styleUrl: './add-cagtegory-banner-admin.component.css'
 })
 export class AddCagtegoryBannerAdminComponent {
-  constructor(private unit: UnitService) { }
+  constructor(private unit: UnitService,private router:Router) { }
   selectedFile: File | null = null;
   categories:any;
   subcategories:any;
@@ -61,7 +62,9 @@ export class AddCagtegoryBannerAdminComponent {
 
   Addbanner(insert: any) {
     this.unit.category.addCategoryBanner(insert).subscribe(() => {
-      alert('Category banner Added Succssefully')
+      // alert('Category banner Added Succssefully')
+      this.router.navigateByUrl('/admin/category');
+
     }, error => {
       alert(error.error)
     })

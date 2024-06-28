@@ -36,7 +36,7 @@ export class AuthService {
         this.RefreshAll();
 
         if(this.isAdmin()){
-          this.router.navigateByUrl('/admin');
+          this.router.navigateByUrl('/admin/brand');
         }else{
           this.router.navigateByUrl('/');
         }
@@ -57,7 +57,7 @@ export class AuthService {
         this.RefreshAll();
 
         if(this.isAdmin()){
-          this.router.navigateByUrl('/admin');
+          this.router.navigateByUrl('/admin/brand');
         }else{
           this.router.navigateByUrl('/');
         }

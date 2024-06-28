@@ -44,7 +44,7 @@ export class AddCategoryAdminComponent {
 
   AddCategory(insert: any) {
     this.unit.category.addCategory(insert).subscribe(() => {
-      alert('category Added Succssefully')
+      // alert('category Added Succssefully')
       this.router.navigateByUrl('/admin/category');
     }, error => {
       alert(error.error)

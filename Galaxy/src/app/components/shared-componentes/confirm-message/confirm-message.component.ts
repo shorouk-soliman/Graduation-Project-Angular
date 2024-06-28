@@ -16,17 +16,11 @@ export class ConfirmMessageComponent implements OnInit {
     console.log(this.data);
   }
 
-closeDialog(){
+  closeDialog(): void {
+    this.dialogRef.close(false);
+  }
 
-  this.dialogRef.close(false) ;
-
-
+  confirm(): void {
+    this.dialogRef.close(true);
+  }
 }
-
-confirm(): void {
-  this.dialogRef.close(true); // Close the dialog with a true value
-}
-}
-
-
-

@@ -58,12 +58,15 @@
         </div>
 
         <!-- Sub Category -->
-        <div class="col-6 mb-3">
+        <div class="col-6 mb-3" *ngIf="productDetails.productType === '1'">
           <label for="subCategoryId" class="form-label bold-label">Sub Category</label>
-          <select id="subCategoryId" formControlName="subCategoryId" class="form-select">
+          <select id="subCategoryId" formControlName="subCategoryId" class="form-select" [disabled]="productDetails.productType === '1'">
             <option *ngFor="let subcategory of subcategories" [value]="subcategory.id">{{ subcategory.name }}</option>
           </select>
         </div>
+
+
+
 
         <!-- Variant Group
         <div class="col-12 mb-3">

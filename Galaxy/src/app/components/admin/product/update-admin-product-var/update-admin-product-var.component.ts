@@ -148,7 +148,7 @@ export class UpdateAdminProductVarComponent implements OnInit, OnDestroy {
     const updateData = { ...this.myForm.value };
 
     this.unit.product.UpdateProduct(this.productId, updateData).subscribe(() => {
-      alert('Product updated successfully');
+      // alert('Product updated successfully');
       this.router.navigateByUrl('/admin/product');
     }, error => {
       alert('Failed to update product. Please try again.');
@@ -157,7 +157,9 @@ export class UpdateAdminProductVarComponent implements OnInit, OnDestroy {
 
   confirmUpdateProduct(): void {
     const dialogRef = this.dialog.open(ConfirmMessageComponent, {
-      data: { message: 'Are you sure you want to update this Product?' },
+      data: { message: 'Are you sure you want to update this Product?',
+        title: 'Update product'
+       },
     });
 
     dialogRef.afterClosed().subscribe((result) => {

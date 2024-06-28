@@ -29,6 +29,13 @@
       {
         "list": "off"
       }
+    ],
+    "button-type": "off",
+    "axe/aria": [
+      "default",
+      {
+        "aria-command-name": "off"
+      }
     ]
   }
 }

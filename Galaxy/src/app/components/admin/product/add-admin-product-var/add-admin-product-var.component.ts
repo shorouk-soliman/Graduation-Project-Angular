@@ -75,7 +75,7 @@ export class AddAdminProductVarComponent implements OnDestroy {
   }
   confirmAddProduct(): void {
     const dialogRef = this.dialog.open(ConfirmMessageComponent, {
-      data: { message: 'Are you sure you want to add this product?' },
+      data: { message: 'Are you sure you want to add this product?',title : 'Add product' },
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
@@ -95,7 +95,7 @@ export class AddAdminProductVarComponent implements OnDestroy {
     varGroupId: new FormControl(0, [Validators.required, Validators.min(1)]),
     productImages: new FormControl([], [Validators.required, Validators.nullValidator]),
     price: new FormControl(1, [Validators.required, Validators.min(1)]),
-    
+
   });;
 
 

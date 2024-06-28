@@ -98,7 +98,7 @@
     margin: 0;
 }
 .panel .panel-heading .btn{
-    color: rgba(255,255,255,0.5);
+   color: rgba(255, 255, 255, 0.741);
     background: transparent;
     font-size: 16px;
     text-transform: capitalize;
@@ -126,7 +126,7 @@
     outline: none;
 }
 .panel .panel-heading .form-control::placeholder{
-    color: rgba(255,255,255,0.5);
+   color: rgba(255, 255, 255, 0.741);
     font-size: 15px;
     font-weight: 500;
 }
@@ -255,6 +255,8 @@ tbody tr
   border-color: #fd0000;
   border-radius: 10px;
   border-width: 2px;
+  display: disable;
+
 }
 
 .form-select.status-pending-delivery {
@@ -267,6 +269,8 @@ tbody tr
   border-color: #0bea0b;
   border-radius: 10px;
   border-width: 2px;
+  display: disable;
+
 }
 .form-select
 {

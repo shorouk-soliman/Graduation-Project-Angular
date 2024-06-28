@@ -42,5 +42,6 @@ export class DetailsAdminProductComponent implements OnInit {
   SetMainImage(image: string): void {
     this.mainImage = image;
   }
+  
 
 }

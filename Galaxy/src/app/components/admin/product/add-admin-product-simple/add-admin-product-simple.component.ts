@@ -90,7 +90,7 @@ export class AddAdminProductSimpleComponent {
   }
   confirmAddProduct(): void {
     const dialogRef = this.dialog.open(ConfirmMessageComponent, {
-      data: { message: 'Are you sure you want to add this product?' },
+      data: { message: 'Are you sure you want to add this product?',title : 'Add product' },
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
