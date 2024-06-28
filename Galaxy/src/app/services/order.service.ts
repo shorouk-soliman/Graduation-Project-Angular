@@ -10,8 +10,23 @@ import { IOrderRead } from '../Models/Order/order-read';
 export class OrderService {
 
   OrdersSubject: BehaviorSubject<IOrderHistory> = new BehaviorSubject<IOrderHistory>(initOrderHistory);
+  
+  AdminSalesOrdersCount: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  
+  UserDeleverdCount: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
   constructor(private generic: GenericService) { }
+
+  SetAdminSalesOrdersCount(num:number):void{
+    this.AdminSalesOrdersCount.next(num);
+  }
+
+  GetAdminSalesCount():Observable<number>{
+    return this.AdminSalesOrdersCount.asObservable();
+  }
+  GetUserDeleverdCount():Observable<number>{
+    return this.UserDeleverdCount.asObservable();
+  }
 
   FetchUserOrders(page: number, sort: string): void {
     let Url: string = `Order/ViewOrderHistory?page=${page}&sort=${sort}`;
@@ -38,6 +53,21 @@ export class OrderService {
       this.updatingOrdersafterCancel(orderId);
     });
   }
+
+  GetUserOrderCount(): void {
+    let Url: string = `Order/GetDeliveredCount`;
+
+    this.generic.getRequest<number>(Url).subscribe((count:number)=>{
+
+      let localCount = Number(localStorage.getItem('count'))
+      if(localCount !== null || undefined)
+        this.UserDeleverdCount.next(count - localCount);
+      
+      localStorage.setItem('count',count.toString());
+    });
+  }
+
+
 
   private updatingOrdersafterCancel(id: number): void {
     let oldOrderValue = this.OrdersSubject.getValue().orders;

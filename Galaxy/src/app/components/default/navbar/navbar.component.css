@@ -8,6 +8,10 @@
   background-color: #343a40 !important;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 0px;
+  min-height: 4rem;
+}
+.empty-space{
+  min-height: 4rem;
 }
 
 .nav-link:hover {

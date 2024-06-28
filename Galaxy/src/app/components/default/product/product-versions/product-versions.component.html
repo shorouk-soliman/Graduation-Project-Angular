@@ -13,7 +13,7 @@
           {{ value.name }}
         </button>
         <button
-          (click)="ChangeVersion(value.id, attribute.id)"
+          (click)="changeVersion(value.id, attribute.id)"
           [class.d-none]="isValueCurrent(value.id)"
           [disabled]="isValueCurrent(value.id) || !checkValueForOtherVersions(value.id, attribute.id)"
           class="btn mx-1 btn-light">

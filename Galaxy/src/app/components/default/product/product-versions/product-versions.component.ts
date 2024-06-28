@@ -1,5 +1,23 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
+
+interface IValue {
+  id: number;
+  name: string;
+  attributeId: number;
+}
+
+interface IAttribute {
+  id: number;
+  name: string;
+  values: IValue[];
+}
+
+interface IVersion {
+  productId: number;
+  attributes: IAttribute[];
+  values: IValue[];
+}
 
 @Component({
   selector: 'app-product-versions',
@@ -7,81 +25,66 @@ import { Router } from '@angular/router';
   styleUrls: ['./product-versions.component.css']
 })
 export class ProductVersionsComponent implements OnInit, OnChanges {
-  @Input() versions: any[] = [];
+  @Input() versions: IVersion[] = [];
   @Input() productId: number = 0;
   @Output() onChangeValue = new EventEmitter<number[]>();
 
-  currentValues: any[] = [];
-  attributes: any[] = [];
-  values: any[] = [];
+  currentValues: IValue[] = [];
+  attributes: IAttribute[] = [];
+  values: IValue[] = [];
 
   constructor(private router: Router) {}
 
+  isValueCurrent(valueId: number): boolean {
+    return this.currentValues.some((v: IValue) => v.id === valueId);
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
-    this.AssignAttributes();
+    this.assignAttributes();
   }
 
   ngOnInit(): void {
-    this.AssignAttributes();
+    this.assignAttributes();
   }
 
-  isValueCurrent(valueId: number): boolean {
-    return this.currentValues.some((v: any) => v.id === valueId);
-  }
-
-  ChangeVersion(valueId: number, attributeId: number): void {
-    this.currentValues = this.ChangeCurrentValueArray(valueId, attributeId);
-    const currentIds = this.currentValues.map((e: any) => e.id);
-    this.onChangeValue.emit(currentIds);
-    this.AssignAttributes();
+  changeVersion(valueId: number, attributeId: number): void {
+    this.currentValues = this.currentValues.map(value => 
+      value.attributeId === attributeId ? { ...value, id: valueId } : value
+    );
+    this.onChangeValue.emit(this.currentValues.map(value => value.id));
   }
 
   checkValueForOtherVersions(valueId: number, attributeId: number): boolean {
-    const changedArray = this.ChangeCurrentValueArray(valueId, attributeId);
-    return this.checkAnyVersionMatch(changedArray);
+    const changedValues = this.currentValues.map(value => 
+      value.attributeId === attributeId ? { ...value, id: valueId } : value
+    );
+    return this.checkAnyVersionMatch(changedValues);
   }
 
-  ChangeCurrentValueArray(valueId: number, attributeId: number): any[] {
-    return this.currentValues.map((element: any) => {
-      const e = { ...element };
-      if (e.attributeId === attributeId) {
-        e.id = valueId;
-      }
-      return e;
-    });
+  checkAnyVersionMatch(changedValues: IValue[]): boolean {
+    return this.versions.some(version => 
+      version.values.every(value => 
+        changedValues.some(changedValue => changedValue.id === value.id)
+      )
+    );
   }
 
-  checkAnyVersionMatch(changedArray: any[]): boolean {
-    return this.versions.some((element: any) => {
-      return changedArray.every(changedValue =>
-        element.values.some((value: any) => value.id === changedValue.id)
-      );
-    });
-  }
+  assignAttributes(): void {
+    const productVersion = this.versions.find(version => version.productId === this.productId);
+    this.currentValues = productVersion ? productVersion.values : [];
 
-  AssignAttributes(): void {
-    const productVersion = this.versions.find((v: any) => v.productId === this.productId);
-    this.currentValues = productVersion ? [...productVersion.values] : [];
-
-    this.attributes = [];
-    this.values = [];
-
-    this.versions.forEach((version: any) => {
-      version.attributes.forEach((attribute: any) => {
-        if (!this.attributes.some(a => a.id === attribute.id)) {
-          this.attributes.push({ ...attribute, values: [] });
-        }
-      });
-
-      version.values.forEach((value: any) => {
-        if (!this.values.some(v => v.id === value.id)) {
-          this.values.push(value);
+    this.versions.forEach(version => {
+      version.attributes.forEach(attribute => {
+        if (!this.attributes.some(attr => attr.id === attribute.id)) {
+          this.attributes.push(attribute);
         }
       });
     });
 
     this.attributes.forEach(attribute => {
-      attribute.values = this.values.filter(value => value.attributeId === attribute.id);
+      attribute.values = this.versions
+        .flatMap(version => version.attributes)
+        .find(attr => attr.id === attribute.id)?.values || [];
     });
   }
 }

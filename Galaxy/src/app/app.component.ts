@@ -15,6 +15,7 @@ export class AppComponent implements OnInit{
     this.unit.category.fetchGeneralCategories()
     this.unit.wishlist.fetchWishList();
     this.unit.user.FetchUser();
+    this.unit.order.GetUserOrderCount();
   }
   title = 'Galaxy';
 

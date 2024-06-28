@@ -1,3 +1,4 @@
+<div class="empty-space"></div>
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
   <div class="container-fluid">
     <a class="navbar-brand d-flex col-4 align-items-center" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
@@ -64,13 +65,13 @@
           </a>
         </li>
         <li class="nav-item delivery-container">
-          <a class="nav-link d-flex" routerLink="/delivery">
+          <a class="nav-link d-flex" routerLink="/order">
             <span class="icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-truck" viewBox="0 0 16 16">
                 <path d="M11 4V0H0v8a2 2 0 0 0 2 2h.34a4 4 0 1 0 7.32 0h1.72a4 4 0 1 0 7.32 0H16a1 1 0 0 0 1-1v-3a1 1 0 0 0-.293-.707l-3-3A1 1 0 0 0 13 4h-2zm1 4h-1.5a4 4 0 0 0 0-2H12v2zM1 6V1h9v4.528c-.537-.183-1.098-.289-1.684-.289H2V6h9.316c-.37 1.163-1.484 2-2.816 2H2a1 1 0 0 1-1-1zM9 14a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm8 0a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
               </svg>
             </span>
-            <div class="delivery-count">1</div>
+            <div [ngClass]="{'d-none': ordersCount === 0}" class="delivery-count">{{ordersCount}}</div>
           </a>
         </li>
       </ul>

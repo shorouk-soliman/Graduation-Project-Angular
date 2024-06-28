@@ -14,7 +14,7 @@ export class ProductViewComponent implements OnInit, OnChanges {
   @Output() onChangeValues = new EventEmitter<any>();
 
   mainImage: string = '';
-  OutQty: number = 1;
+  OutQty: number = 1; 
 
   constructor(private unit: UnitService) { }
 

@@ -12,6 +12,7 @@ import * as jwtDecode from 'jwt-decode';
 import { BrandService } from './brand.service';
 import { WishlistService } from './wishlist.service';
 import { CategoryService } from './category.service';
+import { OrderService } from './order.service';
 
 @Injectable()
 export class AuthService {
@@ -24,6 +25,7 @@ export class AuthService {
       private wishlistservice: WishlistService,
       private categoryservice: CategoryService,
       private userservice: UserService,
+      private orderservice: OrderService,
       private router: Router,
     ) { }
 
@@ -98,5 +100,6 @@ export class AuthService {
     this.categoryservice.fetchGeneralCategories()
     this.wishlistservice.fetchWishList();
     this.userService.FetchUser();
+    this.orderservice.GetUserOrderCount();
   }
 }

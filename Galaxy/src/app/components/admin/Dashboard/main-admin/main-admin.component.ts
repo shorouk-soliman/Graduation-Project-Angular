@@ -33,6 +33,7 @@ export class MainAdminComponent implements OnInit {
     this.getUser();
     this.GetAllUsers();
     this.loadOrders(); // Load orders when component initializes
+    this.GetOrderCount();
   }
 
   getUser(): void {
@@ -57,11 +58,18 @@ export class MainAdminComponent implements OnInit {
     this.orderService.getAllOrders().subscribe(
       (orders: IOrderRead[]) => {
         this.orders = orders;
-        this.OrderCounter = orders.filter(order => order.status === 'Delivered').length;
+        let deliveredCount = orders.filter(order => order.status === 'Delivered').length;
+        this.orderService.SetAdminSalesOrdersCount(deliveredCount);
       },
       error => {
         console.error('Error loading orders:', error);
       }
     );
+  }
+
+  GetOrderCount():void{
+    this.orderService.GetAdminSalesCount().subscribe((count:number)=>{
+      this.OrderCounter = count;
+    });
   }
 }

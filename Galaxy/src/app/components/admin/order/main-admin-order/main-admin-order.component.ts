@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { OrderService } from '../../../../services/order.service';
 import { IOrderRead } from '../../../..//Models/Order/order-read';
 import { UserService } from '../../../../services/user.service';
@@ -16,6 +16,7 @@ export class MainAdminOrderComponent implements OnInit {
   orders: ExtendedIOrderRead[] = [];
   orderStatusOptions: string[] = ['Cancelled', 'Pending', 'Delivered'];
   confirmCancel: boolean = false;
+  ordersCount:number = 0;
 
   constructor(
     private orderService: OrderService,
@@ -25,6 +26,7 @@ export class MainAdminOrderComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadOrders();
+    this.GetOrdersCount();
   }
 
   loadOrders(): void {
@@ -68,6 +70,9 @@ export class MainAdminOrderComponent implements OnInit {
           console.log(result)
           this.orderService.updateOrderStatus(orderId, newStatus).subscribe(
             () => {
+              if(newStatus === 'Delivered'){
+                this.orderService.SetAdminSalesOrdersCount(this.ordersCount+1);
+              }
               console.log(`Order ${orderId} status updated to ${newStatus}`);
             },
             error => {
@@ -86,7 +91,14 @@ export class MainAdminOrderComponent implements OnInit {
 
 
   }
+
+  GetOrdersCount():void{
+    this.orderService.GetAdminSalesCount().subscribe((count:number)=>{
+      this.ordersCount = count;
+    })
+  }
 }
+
 
 interface ExtendedIOrderRead extends IOrderRead {
   userName: string;

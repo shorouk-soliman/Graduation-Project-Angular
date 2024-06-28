@@ -14,11 +14,14 @@ export class NavbarComponent implements OnInit {
   constructor(private unit: UnitService,private router: Router) { }
   cart: ICartItem[] = [];
   user: IUserRead = initUserRead;
+  ordersCount:number = 0;
 
   ngOnInit() {
     this.GetCart();
     this.getUser();
+    this.OrdersCount()
 }
+
 
   getUser():void {
     this.unit.user.GetUser().subscribe((user: IUserRead) => {
@@ -28,6 +31,12 @@ export class NavbarComponent implements OnInit {
 
   WishListCount():number{
     return this.unit.wishlist.GetwishListCount();
+  };
+
+  OrdersCount():void{
+    this.unit.order.GetUserDeleverdCount().subscribe((count:number)=>{
+this.ordersCount = count;
+    });
   };
 
   FetchCart(): void {
