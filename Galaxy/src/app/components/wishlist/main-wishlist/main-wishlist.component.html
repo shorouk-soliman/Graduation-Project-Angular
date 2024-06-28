@@ -1,11 +1,18 @@
-<br>
+
 @if (wishlistproducts.length !== 0) {
 
-<div class="container">
-    <p class="fs-2 text-center">Your WishList</p>
+    <div class="image-container">
+        <img src="../../../../../assets/images/wishlist.png" />
+    </div>
+    
+    
+    <div class="mainTitle mb-3">
+        <div class="fs-3 text-center fw-bold">Your WishList</div>
+    </div>
+    
+    
+    
     <app-product-item [products]="wishlistproducts"></app-product-item>
-  </div>
-
 }@else{
 
 <div class="row flex-column justify-content-center">
@@ -13,7 +20,7 @@
   <button routerLink="/" class="btn btn-danger mx-auto my-4 col-8 col-md-6 col-lg-2">Shop Now</button>
 
   <div class="empty mt-4 col-12 col-md-8 col-lg-6 mx-auto">
-    <img src="../../../../../assets/images/emptycart.png" />
+    <img src="../../../../assets/images/emptycart.png" />
   </div>
 </div>
 

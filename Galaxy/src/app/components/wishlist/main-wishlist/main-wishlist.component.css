@@ -3,3 +3,28 @@
   height: 100%;
   object-fit: contain;
 };
+
+.image-container {
+    height: 20rem;
+    width: 100%;
+}
+
+.image-container img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.mainTitle{
+    background-color:rgb(59, 86, 96);
+    padding: 0.5rem ;
+    
+}
+.mainTitle div{
+    color: aliceblue;
+    width: fit-content;
+    padding: 0rem 3rem;
+    margin: 0 auto;
+}
+
+
