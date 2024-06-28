@@ -110,6 +110,7 @@ const routes: Routes = [
       {path: 'order', component: MainAdminOrderComponent},
       {path: 'users', component: MainAdminUserComponent},
       { path: 'settings', component: UserSettingsComponent},
+      { path: 'profile', component: MainProfileComponent ,canActivate:[authGuard]}
 
     ]
   }

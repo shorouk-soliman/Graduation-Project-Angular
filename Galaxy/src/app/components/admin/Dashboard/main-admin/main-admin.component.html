@@ -7,7 +7,7 @@
       <div fxLayoutAlign=" center">
         <button mat-icon-button (click)="sidenav.toggle()" class="bi bi-house">
         </button>
-        <span style="font-size: larger;">Welcome, {{user.firstName}} in
+        <span  style="font-size: larger;">Welcome, {{user.firstName}} in
         <span class="title" style="font-weight:bolder; font-size:x-large;">Galaxy</span><span class="icon p-2">
           <mat-icon><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-stars"
             viewBox="0 0 20 20">
@@ -62,4 +62,5 @@
       <div>
         <router-outlet></router-outlet>
       </div>
+      <app-footer></app-footer>
       </mat-sidenav-content>

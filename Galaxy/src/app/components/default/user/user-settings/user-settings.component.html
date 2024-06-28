@@ -1,9 +1,7 @@
 <br>
-<div style="cursor: pointer;" class="btn btn-dark" routerLink="/profile" title="Back to Profile">
+<div style="cursor: pointer;" class="btn btn-dark" *ngIf="!IsAdmin" routerLink="/profile" title="Back to Profile">
   <i class="bi bi-arrow-left me-2"></i>
 </div>
-
-
 <form [class.d-none]="FormVisability()" [formGroup]="UpdateForm" (submit)="confirmUpdateuser()" class="form-floating sign-form col-12 col-md-8 col-lg-6 mx-auto">
   <!-- Error Notification -->
 <div *ngIf="submissionError" class="alert alert-danger mb-4" role="alert">

@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UnitService } from '../../../../services/unit.service';
 import { ICartItem } from '../../../../Models/Cart-Items/Cart-item-model';
-
+import { ConfirmMessageComponent } from '../../../shared-componentes/confirm-message/confirm-message.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-cart-item',
   templateUrl: './cart-item.component.html',
@@ -9,7 +11,9 @@ import { ICartItem } from '../../../../Models/Cart-Items/Cart-item-model';
 })
 export class CartItemComponent implements OnInit {
 
-  constructor(private unit: UnitService) { }
+  constructor(private unit: UnitService,private route: ActivatedRoute,
+    private router: Router,
+    public dialog: MatDialog) { }
 
   @Input() cartItems: ICartItem[] = [];
 
@@ -26,11 +30,35 @@ export class CartItemComponent implements OnInit {
   };
 
   RemoveProduct(productId: number): void {
-    this.unit.cart.RemoveFromCart(productId);
+    const dialogRef = this.dialog.open(ConfirmMessageComponent, {
+      data: { message: `Are you sure you want to remove this product in your cart?`,
+    title: 'Remove product'  }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.unit.cart.RemoveFromCart(productId);
+      }
+      else{
+        return;
+      }
+    });
   };
 
   clearCart() {
-    this.unit.cart.clearCart();
+    const dialogRef = this.dialog.open(ConfirmMessageComponent, {
+      data: { message: `Are you sure you want to clear your cart?`,
+    title: 'Remove product'  }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.unit.cart.clearCart();
+          }
+          else{
+            return;
+          }
+    });
   };
 
 };

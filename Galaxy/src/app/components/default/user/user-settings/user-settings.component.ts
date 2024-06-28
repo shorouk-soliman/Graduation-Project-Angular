@@ -13,6 +13,7 @@ import { Title } from '@angular/platform-browser';
 export class UserSettingsComponent implements OnInit {
   notificationMessage: string | null = null;
   ToggleForm: boolean = false;
+  IsAdmin : boolean = false;
   oldValues: any;
   submissionSuccess: boolean = false;
   submissionError: boolean = false;
@@ -63,7 +64,10 @@ export class UserSettingsComponent implements OnInit {
       lastname: profileValues.lastName,
       email: profileValues.email,
       address: profileValues.address,
+      image : profileValues.image
     });
+   this.IsAdmin = this.unit.auth.isAdmin();
+
   }
 
   confirmUpdateuser(): void {
