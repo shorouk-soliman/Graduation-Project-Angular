@@ -52,6 +52,7 @@ export class AddCategoryAdminComponent {
           if (exists) {
             this.notificationMessage = `Category with name '${this.myForm.value.name}' already exists.`;
           }})
+          this.router.navigateByUrl('/admin/category');
     }, error => {
       this.notificationMessage = `${error.error}`    })
   }
@@ -63,7 +64,6 @@ export class AddCategoryAdminComponent {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.AddImageAndBrand();
-        this.router.navigateByUrl('/admin/category');
       }
       else{
         return;
