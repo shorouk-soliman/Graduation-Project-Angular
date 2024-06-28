@@ -10,7 +10,8 @@ import { ConfirmMessageComponent } from '../../../shared-componentes/confirm-mes
   styleUrls: ['./user-password-settings.component.css']
 })
 export class UserPasswordSettingsComponent {
-  notificationMessage: string | null = null;
+  submissionSuccess: boolean = false;
+  submissionError: boolean = false;
 
   constructor(private unit: UnitService, public dialog: MatDialog) {}
 
@@ -32,27 +33,37 @@ export class UserPasswordSettingsComponent {
   onSubmit() {
     if (!this.PasswordForm.valid) return;
 
-    this.unit.user.UpdatePassword(this.PasswordForm.value).subscribe((res) => {
-      this.notificationMessage = "Password changed successfully!";
-      this.refreshUser.emit();
-    });
+    this.unit.user.UpdatePassword(this.PasswordForm.value).subscribe(
+      () => {
+        this.submissionSuccess = true;
+        this.submissionError = false;        this.refreshUser.emit();
+        setTimeout(() => {
+        }, 5000);
+      },
+      (error) => {
+        console.error('Password change failed:', error);
+        this.submissionError = true;
+        this.submissionSuccess = false;      }
+    );
   }
 
   confirmUpdateuser(): void {
     const dialogRef = this.dialog.open(ConfirmMessageComponent, {
-      data: { message: 'Are you sure you want to change the password?' },
+      data: { message: 'Are you sure you want to change the password?' ,
+        title :'Change password'
+      },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.onSubmit();
       } else {
-        this.notificationMessage = "Password change cancelled";
-      }
+        this.submissionError = true;
+        this.submissionSuccess = false;       }
     });
   }
 
   cancelUpdate(): void {
-    this.PasswordForm.reset(); // Resetting the form fields to avoid password change
+    this.PasswordForm.reset();
   }
 }

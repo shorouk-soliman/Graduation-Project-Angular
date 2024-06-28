@@ -17,7 +17,12 @@
     background-color: #17a2b8;
     color: white !important;
 }
+.btn-danger
+{
+  width: 20% !important;
+  text-align: center !important;
 
+}
 .clickedsu {
     background-color: #28a745;
     color: white !important;

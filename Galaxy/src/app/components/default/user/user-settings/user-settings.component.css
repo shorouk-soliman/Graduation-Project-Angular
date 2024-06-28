@@ -3,53 +3,14 @@
   margin-bottom: 3rem !important;
 }
 
-.notification {
-  display: flex;
-  justify-content: center !important;
-  align-items: center !important;
-  background-color: red !important; 
-  color: #ffffff !important;
-  padding: 0.4rem 3rem !important; 
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-right: 19rem;
-  position: relative;
-  bottom: 10px;
-  width: 35rem !important;
+.alert-success {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
 }
 
-.notification-cancelled {
-  background-color: #dc3545 !important; 
-}
-
-.notification-icon {
-  margin-right: 0.5rem;
-  font-size: 1.2rem;
-}
-
-.notification-text {
-  font-size: 1rem;
-}
-
-textarea.ng-invalid.ng-touched, select.ng-invalid.ng-touched, input.ng-invalid.ng-touched {
-  border: 1px solid red;
-}
-
-.form-text {
-  color: red;
-}
-
-.color-circles {
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: 10px;
-}
-
-.bold-label {
-  color: #5a486a;
-  font-size: 1rem;
-}
-
-.text-center.mb-4 {
-  color: #5a486a;
+.alert-danger {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
 }

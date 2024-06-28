@@ -3,18 +3,20 @@ import { UnitService } from '../../../../services/unit.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ConfirmMessageComponent } from '../../../shared-componentes/confirm-message/confirm-message.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-user-settings',
   templateUrl: './user-settings.component.html',
-  styleUrls: ['./user-settings.component.css'] 
+  styleUrls: ['./user-settings.component.css']
 })
 export class UserSettingsComponent implements OnInit {
   notificationMessage: string | null = null;
   ToggleForm: boolean = false;
   oldValues: any;
-
-  @Output() formUpdated = new EventEmitter<void>(); 
+  submissionSuccess: boolean = false;
+  submissionError: boolean = false;
+  @Output() formUpdated = new EventEmitter<void>();
 
   constructor(private unit: UnitService, public dialog: MatDialog) { }
 
@@ -32,14 +34,15 @@ export class UserSettingsComponent implements OnInit {
   FNameError = () => this.UpdateForm.get('firstname')?.errors;
   LNameError = () => this.UpdateForm.get('lastname')?.errors;
   EmailError = () => this.UpdateForm.get('email')?.errors;
-  AddressError = () => this.UpdateForm.get('address')?.errors; 
+  AddressError = () => this.UpdateForm.get('address')?.errors;
 
   onSubmit() {
     if (!this.UpdateForm.valid) return;
     this.unit.user.UpdateUser(this.UpdateForm.value).subscribe(() => {
       this.unit.user.FetchUser();
-      this.notificationMessage = "updated sucessfully"; 
-      this.formUpdated.emit(); 
+      this.submissionSuccess = true;
+      this.submissionError = false;
+      this.formUpdated.emit();
     });
   }
 
@@ -65,22 +68,23 @@ export class UserSettingsComponent implements OnInit {
 
   confirmUpdateuser(): void {
     const dialogRef = this.dialog.open(ConfirmMessageComponent, {
-      data: { message: 'Are you sure you want to update your profile?' },
+      data: { message: 'Are you sure you want to update your profile?',title :'Update profile' },
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.onSubmit(); 
+        this.onSubmit();
       } else {
-        this.notificationMessage = "It is cancelled"; 
+        this.submissionError = true;
+        this.submissionSuccess = false;
         this.cancelUpdate();
       }
     });
   }
-  
+
 
   cancelUpdate(): void {
     this.UpdateForm.patchValue({
-      firstname: this.oldValues.firstName, 
+      firstname: this.oldValues.firstName,
       lastname: this.oldValues.lastName,
       email: this.oldValues.email,
       address: this.oldValues.address,

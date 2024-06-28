@@ -3,7 +3,7 @@
 </div>
 
 
-<div class="container-fluid buttons-container d-flex justify-content-center mt-5">
+<div class="container-fluid buttons-container d-flex justify-content-center mt-5 my-4">
     <div class="row justify-content-center w-100">
 
         <div [class.clickedall]="getSort() === 'all'" (click)="SetSort('all')"
@@ -21,7 +21,7 @@
 
 <div class="d-flex flex-column justify-content-center" [class.d-none]="orders.orders.length !== 0">
     <h2 class="text-center mt-3">There is no orders to show.</h2>
-    <button routerLink="/" class="btn btn-danger col-2 mt-3 mx-auto">Shop Now</button>
+    <button routerLink="/" class="btn btn-danger col-sm-8 col-2 w-50 mt-3 mx-auto" >Shop Now</button>
 </div>
 
 <app-pagination
