@@ -26,10 +26,14 @@ export class MainAdminSubcategoryComponent {
     })
   }
   GetSubCategory():void{
-    this.unit.subcategory.GetAdminSubCategories().subscribe((subcategory: any) => {
-      this.subcategories = subcategory;
-    });
-  }
+    this.subcategories=this.unit.subcategory.GetAdminSubCategories().subscribe((subcategory: any) => {
+      this.subcategories = subcategory.sort((a: any, b:any) => b.id -a.id);
+    }, (error: any) => {
+          console.error('Error fetching categories', error);
+        });
+
+    }
+
 
   UpdateSubcategory(subcategory: any, updatedData: any): void {
     this.unit.subcategory.updateSubcategory(subcategory.id, updatedData).subscribe(() => {
@@ -38,6 +42,6 @@ export class MainAdminSubcategoryComponent {
       console.error('Error updating subcategory:', error);
     });
   }
-
+ 
 
 }

@@ -11,6 +11,7 @@
 
 .nav-link:hover {
   text-decoration: underline;
+  cursor: pointer;
 }
 
 .cart-count, .wishlist-count {

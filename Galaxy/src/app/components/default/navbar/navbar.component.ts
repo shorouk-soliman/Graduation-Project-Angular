@@ -57,4 +57,14 @@ export class NavbarComponent implements OnInit {
     return count;
   };
 
+
+  scrollToTrendingProducts() {
+    const trendingSection = document.getElementById('trending-products-section');
+    if (trendingSection) {
+      trendingSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 }
+
+
+

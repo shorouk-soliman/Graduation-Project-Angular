@@ -14,8 +14,7 @@
         <a class="nav-link" routerLink="/about" routerLinkActive="active" id="about-link">About</a>
       </div>
       <div class="nav-custom-style mx-2">
-        <a class="nav-link" routerLinkActive="active" id="contact-link" routerLink="/product">Products
-        </a>
+        <a class="nav-link" routerLinkActive="active" (click)="scrollToTrendingProducts()">Products</a>
       </div>
       <div class="nav-custom-style mx-2">
         <a class="nav-link" routerLink="/contact-us" routerLinkActive="active" id="contact-link">Contact Us</a>
@@ -57,9 +56,6 @@
         </li>
         <li class="nav-item cart-container ">
           <a class="nav-link d-flex" routerLink="/cart">
-            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cart-fill" viewBox="0 0 16 16">
-              <path d="M0 1.5A.5.5 0 0 1 .5 1h1a.5.5 0 0 1 .485.379L2.89 5H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 14H4a.5.5 0 0 1-.491-.408L1.01 2.607 1.61 4h11.795l1.25-6H2.61L1.495.379A.5.5 0 0 1 1.5 0H.5a.5.5 0 0 1-.5.5v1zm11.5 10.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm-8 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>
-            </svg> -->
             <span class="icon">
               <mat-icon>shopping_cart </mat-icon>
             </span>
