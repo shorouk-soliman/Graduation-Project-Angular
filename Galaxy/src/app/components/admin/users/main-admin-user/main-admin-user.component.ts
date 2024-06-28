@@ -19,7 +19,10 @@ export class MainAdminUserComponent implements OnInit {
 
   GetAllUsers() {
     this.unit.user.getAllUsers().subscribe((users: IUserRead[]) => {
-      this.users = users;
+      this.unit.user.GetUser().subscribe((user:IUserRead)=>{
+        let usersfilter = users.filter((u:IUserRead) => u.id !== user.id);
+        this.users = usersfilter;
+      })
     }, (error: any) => {
       console.error('Error fetching users', error);
     });
