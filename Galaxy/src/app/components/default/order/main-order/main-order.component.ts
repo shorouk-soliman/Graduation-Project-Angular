@@ -25,6 +25,7 @@ export class MainOrderComponent implements OnInit {
   };
 
   FetchUserOrders(page: number): void {
+    this.page = page;
     this.unit.order.FetchUserOrders(page, this.sort);
   };
 

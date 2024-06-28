@@ -27,5 +27,6 @@
 <app-pagination
     [class.d-none]="orders.orders.length === 0"
     [TotalPages]="orders.totalPages"
+    [page]="page"
     (NavigateTo)="FetchUserOrders($event)">
 </app-pagination>
