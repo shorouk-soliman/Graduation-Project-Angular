@@ -19,6 +19,7 @@
 
 .navbar-brand,
 .nav-link {
+  
   color: white!important; 
 }
 
@@ -85,3 +86,10 @@
 .galaxy-text:hover {
   color: #ffffff; 
 }
+.dropdown-toggle:hover > b {
+  color: #f8b400 !important; 
+}
+.dropdown-toggle:hover {
+  text-decoration: none !important;
+}
+
