@@ -12,7 +12,7 @@ export class ProfileViewComponent {
   @Input() user: IUserRead = initUserRead;
 
   SelectedImage: File | null = null;
-  defaultImage:string = 'https://localhost:7173/images/default-user.jpg'
+  defaultImage:string = 'https://localhost:7173/images/default-user.png'
   onFileSelected(event: any): void {
     this.SelectedImage = event.target.files[0];
     this.ChangeImage();

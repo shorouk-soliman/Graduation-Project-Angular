@@ -71,11 +71,12 @@ export class UserSettingsComponent implements OnInit {
       if (result) {
         this.onSubmit(); 
       } else {
-        this.notificationMessage = "it is cancelled"; 
+        this.notificationMessage = "It is cancelled"; 
         this.cancelUpdate();
       }
     });
   }
+  
 
   cancelUpdate(): void {
     this.UpdateForm.patchValue({

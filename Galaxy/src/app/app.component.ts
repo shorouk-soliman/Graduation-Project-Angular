@@ -17,4 +17,9 @@ export class AppComponent implements OnInit{
     this.unit.user.FetchUser();
   }
   title = 'Galaxy';
+
+  GetLoadingStatus():boolean{
+    return this.unit.isloading;
+  }
+
 }

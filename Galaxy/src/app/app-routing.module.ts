@@ -51,6 +51,7 @@ import { ProductVersionsComponent } from './components/default/product/product-v
 import { SortProductComponent } from './components/default/home/sort-product/sort-product.component';
 import { CategoriesSubsCardsComponent } from './components/default/home/categories-subs-cards/categories-subs-cards.component';
 
+import { adminGuard } from './guards/admin.guard';
 
 const routes: Routes = [
   {
@@ -83,7 +84,7 @@ const routes: Routes = [
     ]
   },
   {
-    path:'admin',component:MainAdminComponent  ,canActivate:[authGuard],
+    path:'admin',component:MainAdminComponent  ,canActivate:[adminGuard],
     children:[
       { path: 'brand', component: MainAdminBrandComponent },
       { path: 'brand/add', component: AddAdminBrandComponent },
@@ -108,7 +109,7 @@ const routes: Routes = [
       {path: 'product/update/:id', component: UpdateAdminProductVarComponent},
       {path: 'order', component: MainAdminOrderComponent},
       {path: 'users', component: MainAdminUserComponent},
-      { path: 'settings', component: UserSettingsComponent  ,canActivate:[authGuard]},
+      { path: 'settings', component: UserSettingsComponent},
 
     ]
   }

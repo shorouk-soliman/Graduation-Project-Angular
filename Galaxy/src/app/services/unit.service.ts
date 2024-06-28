@@ -43,5 +43,6 @@ export class UnitService {
     ) { }
 
     public isAuthunicated = (): boolean => localStorage.getItem('jwt') !== null;
+    public isloading = false;
 
 }

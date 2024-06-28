@@ -5,8 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ConfirmMessageComponent } from '../../../shared-componentes/confirm-message/confirm-message.component';
-import { ISubcategoryDetails, initSubcategoryDetails } from '../../../../Models/Sub Category/subcategory-detalis';
-import { ISubCategoryRead, initSubCategoryRead } from '../../../../Models/Sub Category/subcategory-read';
+import { ICategoryAdmin } from '../../../../Models/Category/category-admin';
+
 
 @Component({
   selector: 'app-update-subcategory-admin',
@@ -19,12 +19,13 @@ export class UpdateSubcategoryAdminComponent implements OnInit {
   subcategoryForm: FormGroup = new FormGroup({
     Name: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(150)]),
     description: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(150)]),
-    image: new FormControl(null),
+    categoryId: new FormControl(0),
   });
 
   selectedFile: File | null = null;
   subcategoryId: any;
   subcategory: any;
+  categories: ICategoryAdmin[] = [];
 
   constructor(
     private unit: UnitService,
@@ -36,16 +37,26 @@ export class UpdateSubcategoryAdminComponent implements OnInit {
   ngOnInit(): void {
     this.subcategoryId = this.route.snapshot.paramMap.get('id');
     this.getSubcategory();
+    this.GetAllCategories();
   }
+
+  GetAllCategories():void{
+    this.unit.category.getAdminCategories().subscribe((categories:ICategoryAdmin[])=>{
+      this.categories = categories;
+      console.log('categoriescategories',categories)
+    });
+  }
+
 
   getSubcategory(): void {
     this.unit.subcategory.GetOneSubCategory(this.subcategoryId).subscribe(
       (res: any) => {
+        console.log('res res',res)
         this.subcategory = res.subcategory;
         this.subcategoryForm.patchValue({
           Name: this.subcategory.name,
           description: this.subcategory.description,
-          image: this.subcategory.image,
+          categoryId: this.subcategory.categoryId,
         });
       },
       (error: any) => {
@@ -58,43 +69,26 @@ export class UpdateSubcategoryAdminComponent implements OnInit {
     this.selectedFile = event.target.files[0];
   }
 
-  UpdateImageAndSubcategory(): void {
+  Update(): void {
     if (!this.subcategoryForm.valid) return;
 
-    const formDataImage: FormData = new FormData();
-
-    if (this.selectedFile) {
-      formDataImage.append('image', this.selectedFile);
-    } else {
-      formDataImage.append('image', this.subcategory.image);
-    }
-
-    formDataImage.append('Name', this.subcategoryForm.value.Name);
-    if (this.subcategoryForm.value.Name !== this.subcategory.name) {
-      this.unit.subcategory.GetAdminSubCategories().subscribe(
-        (adminSubcategories: any) => {
-          const exists = adminSubcategories.some((b: any) => b.name.toLowerCase() === this.subcategoryForm.value.Name.toLowerCase());
-          if (exists) {
-            this.notificationMessage = `Subcategory with name '${this.subcategoryForm.value.Name}' already exists.`;
-          } else {
-            this.UpdateSubcategoryAndImage(formDataImage);
-          }
-        },
-        (error: any) => {
-          console.error('Error fetching admin Subcategories:', error);
-          this.notificationMessage = 'Failed to update Subcategory. Please try again later.';
-        }
-      );
-    } else {
-      this.UpdateSubcategoryAndImage(formDataImage);
+    if(this.selectedFile === null){
+      let updatedFormValue = {...this.subcategoryForm.value , image: this.subcategory.image}
+      this.UpdatesubcategoryOnly(updatedFormValue);
+    }else{
+      this.UpdateSubcategoryWithImage();
     }
   }
 
-  UpdateSubcategoryAndImage(formDataImage: FormData): void {
-    this.unit.image.ConvertImage(formDataImage).subscribe(
-      (res: any) => {
+
+  UpdateSubcategoryWithImage(): void {
+
+    let formdataImage:FormData = new FormData();
+    formdataImage.append('image',this.selectedFile!);
+
+    this.unit.image.ConvertImage(formdataImage).subscribe((res: any) => {
         const updateData = { ...this.subcategoryForm.value, image: res };
-        this.Updatesubcategory(updateData);
+        this.UpdatesubcategoryOnly(updateData);
       },
       (error) => {
         if (error instanceof HttpErrorResponse && error.status === 400) {
@@ -111,9 +105,8 @@ export class UpdateSubcategoryAdminComponent implements OnInit {
     );
   }
 
-  Updatesubcategory(updateData: any): void {
-    this.unit.subcategory.updateSubcategory(this.subcategoryId, updateData).subscribe(
-      () => {
+  UpdatesubcategoryOnly(data:any): void {
+    this.unit.subcategory.updateSubcategory(this.subcategoryId, data).subscribe(() => {
         console.log("Subcategory edited successfully");
         this.router.navigateByUrl('/admin/subcategory');
       },
@@ -124,7 +117,6 @@ export class UpdateSubcategoryAdminComponent implements OnInit {
     );
   }
 
-
   confirmUpdateSubcategory(): void {
     const dialogRef = this.dialog.open(ConfirmMessageComponent, {
       data: { message: 'Are you sure you want to update this subcategory?' },
@@ -132,7 +124,7 @@ export class UpdateSubcategoryAdminComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.UpdateImageAndSubcategory();
+        this.Update();
       }
     });
   }

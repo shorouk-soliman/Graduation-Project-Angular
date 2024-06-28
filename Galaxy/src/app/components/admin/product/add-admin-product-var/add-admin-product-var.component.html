@@ -4,12 +4,14 @@
       <h2 class="text-center mb-4">Add Variant Product</h2>
     </div>
     <div class="col-md-6">
-      <form (submit)="AddImagesAndProduct()" (ngSubmit)="confirmAddProduct()" [formGroup]="myForm" class="row g-3 border rounded p-4 shadow-sm" enctype="multipart/form-data">
+      <form (submit)="confirmAddProduct()" [formGroup]="myForm" class="row g-3 border rounded p-4 shadow-sm"
+        enctype="multipart/form-data">
         <!-- Product Image -->
         <div class="col-6 mb-3">
           <label for="image" class="form-label bold-label">Product Image</label>
           <input type="file" id="image" formControlName="image" (change)="onFileSelected($event)" class="form-control">
-          <div *ngIf="myForm.get('image')?.invalid && (myForm.get('image')?.touched || myForm.get('image')?.dirty)" class="form-text text-danger">
+          <div *ngIf="myForm.get('image')?.invalid && (myForm.get('image')?.touched || myForm.get('image')?.dirty)"
+            class="form-text text-danger">
             <div *ngIf="myForm.get('image')?.errors?.['required']">Product image is required</div>
           </div>
         </div>
@@ -17,8 +19,11 @@
         <!-- Additional Product Images -->
         <div class="col-6 mb-3">
           <label for="productImages" class="form-label bold-label">Additional Product Images</label>
-          <input type="file" id="productImages" formControlName="productImages" (change)="onFilesListSelected($event)" multiple class="form-control">
-          <div *ngIf="myForm.get('productImages')?.invalid && (myForm.get('productImages')?.touched || myForm.get('productImages')?.dirty)" class="form-text text-danger">
+          <input type="file" id="productImages" formControlName="productImages" (change)="onFilesListSelected($event)"
+            multiple class="form-control">
+          <div
+            *ngIf="myForm.get('productImages')?.invalid && (myForm.get('productImages')?.touched || myForm.get('productImages')?.dirty)"
+            class="form-text text-danger">
             <div *ngIf="myForm.get('productImages')?.errors?.['required']">Additional product images are required</div>
           </div>
         </div>
@@ -27,19 +32,26 @@
         <div class="col-12 mb-3">
           <label for="name" class="form-label bold-label">Product Name</label>
           <input type="text" id="name" formControlName="name" class="form-control" placeholder="Enter product name">
-          <div *ngIf="myForm.get('name')?.invalid && (myForm.get('name')?.touched || myForm.get('name')?.dirty)" class="form-text text-danger">
+          <div *ngIf="myForm.get('name')?.invalid && (myForm.get('name')?.touched || myForm.get('name')?.dirty)"
+            class="form-text text-danger">
             <div *ngIf="myForm.get('name')?.errors?.['required']">Product name is required</div>
-            <div *ngIf="myForm.get('name')?.errors?.['minlength'] || myForm.get('name')?.errors?.['maxlength']">Product name must be between 3 and 150 characters</div>
+            <div *ngIf="myForm.get('name')?.errors?.['minlength'] || myForm.get('name')?.errors?.['maxlength']">Product
+              name must be between 3 and 150 characters</div>
           </div>
         </div>
 
         <!-- Product Description -->
         <div class="col-12 mb-3">
           <label for="description" class="form-label bold-label">Product Description</label>
-          <textarea id="description" formControlName="description" class="form-control" rows="3" placeholder="Enter product description"></textarea>
-          <div *ngIf="myForm.get('description')?.invalid && (myForm.get('description')?.touched || myForm.get('description')?.dirty)" class="form-text text-danger">
+          <textarea id="description" formControlName="description" class="form-control" rows="3"
+            placeholder="Enter product description"></textarea>
+          <div
+            *ngIf="myForm.get('description')?.invalid && (myForm.get('description')?.touched || myForm.get('description')?.dirty)"
+            class="form-text text-danger">
             <div *ngIf="myForm.get('description')?.errors?.['required']">Description is required</div>
-            <div *ngIf="myForm.get('description')?.errors?.['minlength'] || myForm.get('description')?.errors?.['maxlength']">Description must be between 3 and 500 characters</div>
+            <div
+              *ngIf="myForm.get('description')?.errors?.['minlength'] || myForm.get('description')?.errors?.['maxlength']">
+              Description must be between 3 and 500 characters</div>
           </div>
         </div>
 
@@ -48,9 +60,13 @@
           <div class="col-4 mb-3">
             <label for="quantity" class="form-label bold-label">Quantity</label>
             <input type="number" id="quantity" formControlName="quantity" class="form-control">
-            <div *ngIf="myForm.get('quantity')?.invalid && (myForm.get('quantity')?.touched || myForm.get('quantity')?.dirty)" class="form-text text-danger">
+            <div
+              *ngIf="myForm.get('quantity')?.invalid && (myForm.get('quantity')?.touched || myForm.get('quantity')?.dirty)"
+              class="form-text text-danger">
               <div *ngIf="myForm.get('quantity')?.errors?.['required']">Quantity is required</div>
-              <div *ngIf="myForm.get('quantity')?.errors?.['min'] || myForm.get('quantity')?.errors?.['pattern']">Quantity must be a positive integer</div>
+              <div
+                *ngIf="myForm.get('quantity')?.errors?.['min'] ||myForm.get('quantity')?.errors?.['max'] || myForm.get('quantity')?.errors?.['pattern']">
+                Quantity must be a positive integer less than 30</div>
             </div>
           </div>
 
@@ -58,9 +74,11 @@
           <div class="col-4 mb-3">
             <label for="price" class="form-label bold-label">Price</label>
             <input type="number" id="price" formControlName="price" class="form-control">
-            <div *ngIf="myForm.get('price')?.invalid && (myForm.get('price')?.touched || myForm.get('price')?.dirty)" class="form-text text-danger">
+            <div *ngIf="myForm.get('price')?.invalid && (myForm.get('price')?.touched || myForm.get('price')?.dirty)"
+              class="form-text text-danger">
               <div *ngIf="myForm.get('price')?.errors?.['required']">Price is required</div>
-              <div *ngIf="myForm.get('price')?.errors?.['min'] || myForm.get('price')?.errors?.['pattern']">Price must be a positive number</div>
+              <div *ngIf="myForm.get('price')?.errors?.['min'] || myForm.get('price')?.errors?.['pattern']">Price must
+                be a positive number</div>
             </div>
           </div>
 
@@ -68,9 +86,12 @@
           <div class="col-4 mb-3">
             <label for="discount" class="form-label bold-label">Discount</label>
             <input type="number" id="discount" formControlName="discount" class="form-control">
-            <div *ngIf="myForm.get('discount')?.invalid && (myForm.get('discount')?.touched || myForm.get('discount')?.dirty)" class="form-text text-danger">
+            <div
+              *ngIf="myForm.get('discount')?.invalid && (myForm.get('discount')?.touched || myForm.get('discount')?.dirty)"
+              class="form-text text-danger">
               <div *ngIf="myForm.get('discount')?.errors?.['required']">Discount is required</div>
-              <div *ngIf="myForm.get('discount')?.errors?.['min'] || myForm.get('discount')?.errors?.['max']">Discount must be between 0 and 100</div>
+              <div *ngIf="myForm.get('discount')?.errors?.['min'] || myForm.get('discount')?.errors?.['max']">Discount
+                must be between 0 and 100</div>
             </div>
           </div>
         </div>
@@ -83,7 +104,9 @@
               <option [value]="0">Select brand</option>
               <option *ngFor="let brand of brands" [value]="brand.id">{{ brand.name }}</option>
             </select>
-            <div *ngIf="myForm.get('brandId')?.invalid && (myForm.get('brandId')?.touched || myForm.get('brandId')?.dirty)" class="form-text text-danger">
+            <div
+              *ngIf="myForm.get('brandId')?.invalid && (myForm.get('brandId')?.touched || myForm.get('brandId')?.dirty)"
+              class="form-text text-danger">
               Brand is required
             </div>
           </div>
@@ -95,7 +118,9 @@
               <option [value]="0">Select sub category</option>
               <option *ngFor="let subcategory of subcategories" [value]="subcategory.id">{{ subcategory.name }}</option>
             </select>
-            <div *ngIf="myForm.get('subCategoryId')?.invalid && (myForm.get('subCategoryId')?.touched || myForm.get('subCategoryId')?.dirty)" class="form-text text-danger">
+            <div
+              *ngIf="myForm.get('subCategoryId')?.invalid && (myForm.get('subCategoryId')?.touched || myForm.get('subCategoryId')?.dirty)"
+              class="form-text text-danger">
               Sub category is required
             </div>
           </div>
@@ -107,7 +132,9 @@
               <option [value]="0">Select Variant Group</option>
               <option [value]="group.id" *ngFor="let group of groups">{{ group.name }}</option>
             </select>
-            <div *ngIf="myForm.get('varGroupId')?.invalid && (myForm.get('varGroupId')?.touched || myForm.get('varGroupId')?.dirty)" class="form-text text-danger">
+            <div
+              *ngIf="myForm.get('varGroupId')?.invalid && (myForm.get('varGroupId')?.touched || myForm.get('varGroupId')?.dirty)"
+              class="form-text text-danger">
               Group is required
             </div>
           </div>
@@ -117,15 +144,16 @@
         <div *ngFor="let attributewithvalue of attributeWithValues" class="col-6 mb-3">
           <label class="form-label bold-label">{{ attributewithvalue.attribute.name }}</label>
           <select (change)="onValuesChange($event, attributewithvalue.values)" class="form-select">
+            <option [value]="null">choose value</option>
             <option [value]="value.id" *ngFor="let value of attributewithvalue.values">{{ value.name }}</option>
           </select>
         </div>
 
 
         <!-- Submit Button -->
-<div class="col-md-12 mb-3 text-center">
-  <button type="submit" class="btn btn-success" [disabled]="!myForm.valid ">Add Product</button>
-</div>
+        <div class="col-md-12 mb-3 text-center">
+          <button type="submit" class="btn btn-success" [disabled]="!myForm.valid || valuesError()">Add Product</button>
+        </div>
 
       </form>
     </div>

@@ -47,8 +47,6 @@ export class NavbarComponent implements OnInit {
 
   logoutFunction(): void {
     this.unit.auth.LogoutFunction();
-    this.router.navigateByUrl('/User/login');
-
   };
 
   GetCartItemsCount(): number {

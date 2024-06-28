@@ -95,6 +95,7 @@ import { SpinnerComponent } from './components/shared-componentes/spinner/spinne
 import { SpinnerOverlayComponent } from './components/shared-componentes/spinner-overlay/spinner-overlay.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { UpdateSubcategoryAdminComponent } from './components/admin/subcategory/update-admin-subcategory/update-admin-subcategory.component';
+import { LoadingInterceptorService } from './interceptors/loading.interceptor';
 // import { ErrorInterceptorService } from './interceptors/error-interceptor';
 // import { LoadingButtonComponent } from '@coreui/angular';
 
@@ -206,7 +207,7 @@ import { UpdateSubcategoryAdminComponent } from './components/admin/subcategory/
     HttpClient,
     Location,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true },
-    // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptorService, multi: true },
   ],
   bootstrap: [AppComponent]
 })

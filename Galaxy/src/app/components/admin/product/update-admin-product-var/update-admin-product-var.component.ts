@@ -14,6 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './update-admin-product-var.component.html',
   styleUrls: ['./update-admin-product-var.component.css']
 })
+
 export class UpdateAdminProductVarComponent implements OnInit, OnDestroy {
   constructor(private unit: UnitService, private route: ActivatedRoute,private router: Router,
     public dialog: MatDialog) {}
@@ -148,6 +149,7 @@ export class UpdateAdminProductVarComponent implements OnInit, OnDestroy {
 
     this.unit.product.UpdateProduct(this.productId, updateData).subscribe(() => {
       alert('Product updated successfully');
+      this.router.navigateByUrl('/admin/product');
     }, error => {
       alert('Failed to update product. Please try again.');
     });
