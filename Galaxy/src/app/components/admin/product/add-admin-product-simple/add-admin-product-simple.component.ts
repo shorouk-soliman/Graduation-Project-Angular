@@ -96,6 +96,9 @@ export class AddAdminProductSimpleComponent {
       if (result) {
         this.AddImagesAndProduct();
       }
+      else{
+        return;
+      }
     });
   }
   AddSimpleProduct(insert: any): void {

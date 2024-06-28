@@ -58,9 +58,9 @@
         </div>
 
         <!-- Sub Category -->
-        <div class="col-6 mb-3" *ngIf="productDetails.productType === '1'">
+        <div class="col-6 mb-3" *ngIf="productDetails?.productType == '0'">
           <label for="subCategoryId" class="form-label bold-label">Sub Category</label>
-          <select id="subCategoryId" formControlName="subCategoryId" class="form-select" [disabled]="productDetails.productType === '1'">
+          <select id="subCategoryId" formControlName="subCategoryId" class="form-select">
             <option *ngFor="let subcategory of subcategories" [value]="subcategory.id">{{ subcategory.name }}</option>
           </select>
         </div>

@@ -29,10 +29,10 @@ export class MainAdminUserComponent implements OnInit {
   }
   GetAllUsers() {
     this.unit.user.getAllUsers().subscribe((users: IUserRead[]) => {
-      this.users = users;
-      this.users = users.filter(u => u.id == this.user.id);
-      this.users = users.sort((a: any, b: any) => b.id - a.id);
-
+      this.unit.user.GetUser().subscribe((user:IUserRead)=>{
+        let usersfilter = users.filter((u:IUserRead) => u.id !== user.id);
+        this.users = usersfilter;
+      })
     }, (error: any) => {
       console.error('Error fetching users', error);
     });

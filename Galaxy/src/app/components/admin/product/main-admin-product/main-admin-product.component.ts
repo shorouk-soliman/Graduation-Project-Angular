@@ -23,7 +23,7 @@ export class MainAdminProductComponent implements OnInit, OnDestroy {
   //  this.unit.products.fetchAdminProducts(this.query);
     this.GetProducts();
   }
- 
+
   openProductDetailsDialog(productId: number): void {
     const dialogRef = this.dialog.open(DetailsAdminProductComponent, {
       width: '80%',
@@ -36,7 +36,7 @@ export class MainAdminProductComponent implements OnInit, OnDestroy {
   }
 DeleteProduct(product: any): void {
   const dialogRef = this.dialog.open(ConfirmMessageComponent, {
-    data: { message: `Are you sure you want to delete ${product.name}?` }
+    data: { message: `Are you sure you want to delete ${product.name}?`, title:'Delete product' }
   });
 
   dialogRef.afterClosed().subscribe(result => {
@@ -51,7 +51,7 @@ DeleteProduct(product: any): void {
 }
   RetrieveProduct(product: any): void {
     const dialogRef = this.dialog.open(ConfirmMessageComponent, {
-      data: { message: `Are you sure you want to retrieve ${product.name}?` }
+      data: { message: `Are you sure you want to retrieve ${product.name}?`, title:'Retrive product' }
     });
 
     dialogRef.afterClosed().subscribe(result => {
