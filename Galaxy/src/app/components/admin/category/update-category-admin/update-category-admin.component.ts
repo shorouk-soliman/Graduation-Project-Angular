@@ -13,7 +13,7 @@ import { UnitService } from '../../../../services/unit.service';
 })
 export class UpdateCategoryAdminComponent implements OnInit {
   notificationMessage: string | null = null;
-  categoryForm :FormGroup= new FormGroup({
+  categoryForm: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(150)]),
     description: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(500)]),
     image: new FormControl(null),
@@ -22,14 +22,13 @@ export class UpdateCategoryAdminComponent implements OnInit {
   selectedFile: File | null = null;
   categoryId: any;
   category: any;
+
   constructor(
     private unit: UnitService,
     private route: ActivatedRoute,
     private router: Router,
     public dialog: MatDialog,
   ) {}
-
-
 
   ngOnInit(): void {
     this.categoryId = this.route.snapshot.paramMap.get('id');
@@ -67,14 +66,11 @@ export class UpdateCategoryAdminComponent implements OnInit {
     }
 
     formData.append('name', this.categoryForm.value.name);
-
     formData.append('description', this.categoryForm.value.description);
-
-    console.log("Form data before validation:", formData);
 
     if (this.categoryForm.value.name !== this.category.name) {
       this.unit.category.getAdminCategories().subscribe(
-        (adminCategories: any) => {
+        (adminCategories: any[]) => {
           const exists = adminCategories.some((cat: any) => cat.name.toLowerCase() === this.categoryForm.value.name.toLowerCase());
           if (exists) {
             this.notificationMessage = `Category with name '${this.categoryForm.value.name}' already exists.`;
@@ -93,56 +89,78 @@ export class UpdateCategoryAdminComponent implements OnInit {
   }
 
   UpdateCategoryAndImage(formData: FormData): void {
-
-      this.unit.image.ConvertImage(formData).subscribe(
-        (res: any) => {
-          const updateData={...this.categoryForm.value, image:res}
-          this.UpdateCategory(updateData);
-        },
-        (error) => {
-          if (error instanceof HttpErrorResponse && error.status === 400) {
-            if (error.error && error.error.errors && error.error.errors.image) {
-              alert(error.error.errors.image[0]);
-            } else {
-              alert('Unexpected error occurred.');
-            }
+    this.unit.image.ConvertImage(formData).subscribe(
+      (res: any) => {
+        const updateData = { ...this.categoryForm.value, image: res };
+        this.UpdateCategory(updateData);
+      },
+      (error) => {
+        if (error instanceof HttpErrorResponse && error.status === 400) {
+          if (error.error && error.error.errors && error.error.errors.image) {
+            alert(error.error.errors.image[0]);
           } else {
-            console.error('Error converting image:', error);
-            alert('Failed to update brand. Please try again later.');
-          }
+            this.notificationMessage = 'Update canceled.';
+            setTimeout(() => {
+              this.notificationMessage = null;
+            }, 3000); }// Hide the notification after 3 seconds      }
+        } else {
+          console.error('Error converting image:', error);
+          alert('Failed to update category. Please try again later.');
         }
-      );
-    }
+      }
+    );
+  }
 
-
-  UpdateCategory(updateData: FormData): void {
+  UpdateCategory(updateData: any): void {
     this.unit.category.updateCategory(this.categoryId, updateData).subscribe(
       () => {
         console.log("Category updated successfully:");
-          this.router.navigateByUrl('/admin/category');
-
+        this.router.navigateByUrl('/admin/category');
       },
       (error) => {
-        alert(error.error);
+        console.error('Error updating category:', error);
+        this.notificationMessage = 'Failed to update category. Please try again later.';
       }
     );
   }
 
   confirmUpdateCategory(): void {
     const dialogRef = this.dialog.open(ConfirmMessageComponent, {
-      data: {title:"Update Category", message: 'Are you sure you want to update this category?' },
+      data: { title: "Update Category", message: 'Are you sure you want to update this category?' },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.UpdateImageAndCategory();
-        this.router.navigateByUrl('/admin/category');
+        if (this.categoryForm.invalid) {
+          this.notificationMessage = 'Invalid form data. Please check the inputs.';
+          setTimeout(() => {
+            this.notificationMessage = null;
+          }, 3000); // Hide the notification after 3 seconds
+        } else {
+          this.UpdateImageAndCategory();
+        }
+      } else {
+        this.notificationMessage = 'Failed to update category. Please try again later.';
+        setTimeout(() => {
+          this.notificationMessage = null;
+        }, 3000); // Hide the notification after 3 seconds
       }
     });
   }
 
   cancelUpdate(): void {
-    this.router.navigateByUrl('/admin/category');
+    this.categoryForm.patchValue({
+      name: this.category.name,
+      description: this.category.description,
+      image: this.category.image
+    });
+
+    this.notificationMessage = 'Update canceled.';
+
+    // Clear any existing notifications after 3 seconds
+    setTimeout(() => {
+      this.notificationMessage = null;
+    }, 3000);
   }
 
   getNameErrors() {
