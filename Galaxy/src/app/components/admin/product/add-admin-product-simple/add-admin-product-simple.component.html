@@ -67,7 +67,7 @@
           <input type="number" id="quantity" formControlName="quantity" class="form-control">
           <div *ngIf="myForm.get('quantity')?.invalid && (myForm.get('quantity')?.touched || myForm.get('quantity')?.dirty)" class="form-text text-danger">
             <div *ngIf="myForm.get('quantity')?.errors?.['required']">Quantity is required</div>
-            <div *ngIf="myForm.get('quantity')?.errors?.['min'] ||myForm.get('quantity')?.errors?.['pattern']" class="form-text text-danger">Quantity must be a positive integer</div>
+            <div *ngIf="myForm.get('quantity')?.errors?.['min'] ||myForm.get('quantity')?.errors?.['max'] || myForm.get('quantity')?.errors?.['pattern']">Quantity must be a positive integer less than 30</div>
           </div>
         </div>
 

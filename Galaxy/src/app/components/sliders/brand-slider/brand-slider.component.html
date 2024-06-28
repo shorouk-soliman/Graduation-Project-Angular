@@ -1,4 +1,4 @@
-  
+
   <div id="brand-custom-slider" class="carousel slide" >
     <div class="carousel-inner" role="listbox">
       <div class="carousel-item" *ngFor="let chunk of chunks(items, itemsPerSlide); let i = index" [ngClass]="{ 'active': i === 0 }">
@@ -7,9 +7,9 @@
           <div class="col d-flex justify-content-center " *ngFor="let brand of chunk">
             <div class="item object-fit border-0 rrr " >
               <div class="ImageHolder mx-auto">
-                <img loading="lazy" style="cursor:pointer;" [routerLink]="'brand/'+brand.id" [src]="brand.image" [alt]="brand.name">
+                <img loading="lazy" style="cursor:pointer;"  [src]="brand.image" [alt]="brand.name">
               </div>
-
+              <!-- [routerLink]="'brand/'+brand.id" -->
         </div>
       </div>
     </div>

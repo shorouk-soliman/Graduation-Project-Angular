@@ -29,7 +29,7 @@ export class AddAdminProductSimpleComponent {
     image: new FormControl(null, [Validators.required]),
     discount: new FormControl(0, [Validators.required, Validators.min(0), Validators.max(100)]),
     subCategoryId: new FormControl(0, [Validators.required, Validators.min(1)]),
-    quantity: new FormControl(0, [Validators.required, Validators.min(1), Validators.pattern("^[0-9]*$")]),
+    quantity: new FormControl(0, [Validators.required, Validators.min(1),Validators.max(30), Validators.pattern("^[0-9]*$")]),
     brandId: new FormControl(0, [Validators.required, Validators.min(1)]),
     productImages: new FormControl([], [Validators.required]),
     price: new FormControl(1, [Validators.required, Validators.min(1)]),
@@ -90,7 +90,7 @@ export class AddAdminProductSimpleComponent {
   }
   confirmAddProduct(): void {
     const dialogRef = this.dialog.open(ConfirmMessageComponent, {
-      data: { message: 'Are you sure you want to add this product?' },
+      data: { message: 'Are you sure you want to add this product?',title : 'Add product' },
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {

@@ -38,6 +38,7 @@ export class MainProductComponent implements OnInit,OnChanges {
   GetProductDetails():void{
     this.unit.product.GetProductDetails(this.productId).subscribe((productData:IProductDetails)=>{
       this.unit.cart.GetCart().subscribe((cartItems:ICartItem[])=>{
+        console.log('fffffffproduct',productData)
         this.product = productData;
         this.product.inCart = cartItems?.some((cp:ICartItem) => cp?.productId === Number(this.productId));
         this.Qty = cartItems?.find((ci: ICartItem) => ci.productId === Number(this.productId))?.cartProductQuantity;

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OrderService } from '../../../../services/order.service';
-import { IOrderRead } from '../../../../Models/Order/order-read';
+import { IOrderRead } from '../../../..//Models/Order/order-read';
 import { UserService } from '../../../../services/user.service';
 import { IUserRead } from '../../../../Models/User/user-read';
 import { MatDialog } from '@angular/material/dialog';
@@ -15,6 +15,7 @@ export class MainAdminOrderComponent implements OnInit {
 
   orders: ExtendedIOrderRead[] = [];
   orderStatusOptions: string[] = ['Cancelled', 'Pending', 'Delivered'];
+  confirmCancel: boolean = false;
 
   constructor(
     private orderService: OrderService,
@@ -54,35 +55,39 @@ export class MainAdminOrderComponent implements OnInit {
   }
 
   updateOrderStatus(orderId: number, newStatus: string): void {
-    const order = this.orders.find(order => order.id === orderId);
-    if (!order) return;
+      const dialogRef = this.dialog.open(ConfirmMessageComponent, {
+        data: {
+          title: 'Confirm Order Cancellation',
+          message: 'Are you sure you want to cancel this order?',
+        }
+
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          console.log(result)
           this.orderService.updateOrderStatus(orderId, newStatus).subscribe(
             () => {
               console.log(`Order ${orderId} status updated to ${newStatus}`);
-              this.loadOrders();
             },
             error => {
               console.error('Error updating order status:', error);
             }
           );
+        } else {
+          return;
         }
+      });
 
-    confirmOrder(orderId: number, newStatus: string): void {
-      const dialogRef = this.dialog.open(ConfirmMessageComponent, {
-        data: { title : 'Cancel order',
-           message: 'Are you sure you want to cancel this order?' },
-      });
-      dialogRef.afterClosed().subscribe((result) => {
-        if (result) {
-          this.updateOrderStatus(orderId,newStatus);
-          const order = this.orders.find(order => order.id === orderId);
-        // if (order && (newStatus === 'Cancelled' || newStatus === 'Delivered')) {
-        //   order.disabled = true;
-        // }
-        }
-      });
-    }
+    const order = this.orders.find(order => order.id === orderId);
+    if (!order) return;
+
+    const originalStatus = order.status;
+
+
   }
+}
+
 interface ExtendedIOrderRead extends IOrderRead {
   userName: string;
 }

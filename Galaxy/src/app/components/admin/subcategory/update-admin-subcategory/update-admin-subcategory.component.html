@@ -4,6 +4,7 @@
       <h2 class="text-center mb-4">Update Subcategory</h2>
     </div>
     <div class="col-md-6">
+
       <form [formGroup]="subcategoryForm" (ngSubmit)="confirmUpdateSubcategory()" class="row g-3 border rounded p-4 shadow-sm" enctype="multipart/form-data">
         <div class="notification d-flex align-items-center justify-content-center text-center w-100 col-md-6" *ngIf="notificationMessage">
           <i class="fas fa-exclamation-circle notification-icon"></i>
@@ -37,6 +38,17 @@
             <div *ngIf="getdescriptionErrors()?.['minlength'] || getdescriptionErrors()?.['maxlength']">Subcategory description must be between 2 and 150 characters</div>
           </div>
         </div>
+
+
+        <div class="col-12">
+          <label for="categoryId" class="form-label bold-label">Cateogry</label>
+          <select type="text" formControlName="categoryId" id="categoryId" class="form-control">
+            @for (category of categories; track $index) {
+              <option [value]="category.id">{{category.name}}</option>
+            }
+          </select>
+        </div>
+
         
         <div class="col-md-12 mb-3 text-center">
           <button class="btn btn-primary" type="submit" style="background-color: #198754; border-color: #198754;" [disabled]="!subcategoryForm.valid">Update Subcategory</button>

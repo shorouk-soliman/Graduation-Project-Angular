@@ -7,11 +7,17 @@ import { UserService } from './user.service';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthService {
 
-  constructor(private generic: GenericService, private cartservice: CartService, private userService: UserService) { }
+  constructor(
+    private generic: GenericService,
+     private cartservice: CartService,
+      private userService: UserService,
+      private router: Router,
+    ) { }
 
   Sign(signData: ISign): Observable<string> {
     const signUrl: string = `User/Signup`;
@@ -21,7 +27,7 @@ export class AuthService {
         localStorage.setItem('jwt', token);
         this.cartservice.AddLocalCart();
         this.userService.FetchUser();
-        this.generic.router.navigateByUrl('/');
+        this.router.navigateByUrl('/');
         return token;
       }),
       catchError((error: HttpErrorResponse) => {

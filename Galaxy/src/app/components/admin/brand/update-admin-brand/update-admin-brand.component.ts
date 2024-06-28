@@ -71,7 +71,7 @@ export class UpdateAdminBrandComponent implements OnInit {
         }
 
         this.UpdateBrandAndImage(formDataImage);
-        
+
       },
       (error) => {
         console.error('Error fetching admin brands:', error);
@@ -92,7 +92,7 @@ export class UpdateAdminBrandComponent implements OnInit {
           if (error.error && error.error.errors && error.error.errors.image) {
             alert(error.error.errors.image[0]);
           } else {
-            alert('Unexpected error occurred.');
+            // alert('Unexpected error occurred.');
           }
         } else {
           console.error('Error converting image:', error);
@@ -117,7 +117,7 @@ export class UpdateAdminBrandComponent implements OnInit {
 
   confirmUpdateBrand(): void {
     const dialogRef = this.dialog.open(ConfirmMessageComponent, {
-      data: { message: 'Are you sure you want to update this brand?' },
+      data: { message: 'Are you sure you want to update this brand?',title : 'Update Brand', },
     });
 
     dialogRef.afterClosed().subscribe((result) => {

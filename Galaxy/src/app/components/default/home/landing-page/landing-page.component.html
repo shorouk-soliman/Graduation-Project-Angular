@@ -14,11 +14,18 @@
     </app-sort-product>
 </div>
 <div *ngIf="isloading"> <app-spinner-overlay></app-spinner-overlay></div>
-<div >
+<div>
     <app-product-item [products]="products.products"></app-product-item>
 </div>
 <app-pagination [TotalPages]="products.totalPages" [page]="query.page" (NavigateTo)="OnPageChange($event)"></app-pagination>
 <div>
     <h1 class="text-center fs-3 mb-3">Top Brands</h1>
     <app-brand-slider></app-brand-slider>
+</div>
+
+<!-- Button to scroll down -->
+<div class="scroll-to-bottom" (click)="scrollToBottom()">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v12.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 1 1 .708-.708L7.5 14.293V1.5A.5.5 0 0 1 8 1z"/>
+  </svg>
 </div>

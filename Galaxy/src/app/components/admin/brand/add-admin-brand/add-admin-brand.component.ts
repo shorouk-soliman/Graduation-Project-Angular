@@ -78,9 +78,9 @@ export class AddAdminBrandComponent implements OnInit {
 
   AddBrand(insert: any) {
     this.unit.brand.AddBrand(insert).subscribe(() => {
-      this.router.navigateByUrl('/admin/brand');
       this.myForm.reset();
       this.addForm.resetForm();
+      this.router.navigateByUrl('/admin/brand');
     }, error => {
       alert(error.error);
     });

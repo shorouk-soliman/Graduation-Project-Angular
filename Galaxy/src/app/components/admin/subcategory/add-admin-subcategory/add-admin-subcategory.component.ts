@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UnitService } from '../../../../services/unit.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-admin-subcategory',
@@ -8,7 +9,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrl: './add-admin-subcategory.component.css'
 })
 export class AddAdminSubcategoryComponent implements OnInit{
-  constructor(private unit: UnitService) { }
+  constructor(private unit: UnitService,private router:Router) { }
   selectedFile: File | null = null;
   categories:any;
   ngOnInit(): void {
@@ -55,6 +56,8 @@ export class AddAdminSubcategoryComponent implements OnInit{
   AddSubCategory(insert: any) {
     this.unit.subcategory.AddSubCategory(insert).subscribe(() => {
       alert('Sub Category Added Succssefully')
+      this.router.navigateByUrl('/admin/subcategory');
+
     }, error => {
       alert(error.error)
     })
