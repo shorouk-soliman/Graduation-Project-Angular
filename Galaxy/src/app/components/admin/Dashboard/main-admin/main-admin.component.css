@@ -138,7 +138,10 @@ mat-toolbar {
   border-radius: 20px;
   grid-template-rows: 10% 90%;
 }
-
+.title,.bi-stars
+{
+  color :#000a0f;
+}
 .details .cardHeader {
   display: flex;
   justify-content: space-between;
