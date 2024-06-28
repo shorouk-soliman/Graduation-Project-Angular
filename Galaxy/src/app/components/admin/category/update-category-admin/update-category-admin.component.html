@@ -1,6 +1,6 @@
 <div class="container-fluid mt-5">
   <div class="row justify-content-center">
-    <div class="col-md-4">
+    <div class="md-4">
       <h2 class="text-center mb-4">Update Category</h2>
     </div>
     <div class="col-md-6">
@@ -12,28 +12,27 @@
         <div class="col-12 text-center">
           <img [src]="category?.image" class="rounded-circle img-thumbnail mb-3" alt="Category Image" style="width:150px; height: 150px;">
           <input type="file" id="image" formControlName="image" (change)="onFileSelected($event)" class="form-control" accept="image/*">
-          <div class="form-text text-danger" *ngIf="getImageErrors()">
-            <div *ngIf="getImageErrors()?.['required']">Category image is required</div>
+          <div class="form-text text-danger" *ngIf="categoryForm.get('image')?.invalid && (categoryForm.get('image')?.touched || categoryForm.get('image')?.dirty)">
+            <div *ngIf="categoryForm.get('image')?.errors?.['required']">Category image is required</div>
           </div>
         </div>
         <div class="col-12">
           <label for="name" class="form-label bold-label">Category Name</label>
           <input type="text" formControlName="name" id="name" class="form-control" placeholder="Enter category name">
-          <div class="form-text text-danger" *ngIf="getNameErrors()">
-            <div *ngIf="getNameErrors()?.['required']">Category name is required</div>
-            <div *ngIf="getNameErrors()?.['minlength'] || getNameErrors()?.['maxlength']">Category name must be between 2 and 150 characters</div>
+          <div class="form-text text-danger" *ngIf="categoryForm.get('name')?.invalid && (categoryForm.get('name')?.touched || categoryForm.get('name')?.dirty)">
+            <div *ngIf="categoryForm.get('name')?.errors?.['required']">Category name is required</div>
+            <div *ngIf="categoryForm.get('name')?.errors?.['minlength'] || categoryForm.get('name')?.errors?.['maxlength']">Category name must be between 2 and 150 characters</div>
           </div>
         </div>
         <div class="col-12">
           <label for="description" class="form-label bold-label">Category Description</label>
           <textarea formControlName="description" id="description" class="form-control" rows="3" placeholder="Enter category description"></textarea>
-          <div class="form-text text-danger" *ngIf="getDescriptionErrors()">
-            <div *ngIf="getDescriptionErrors()?.['required']">Category description is required</div>
-            <div *ngIf="getDescriptionErrors()?.['minlength'] || getDescriptionErrors()?.['maxlength']">Category description must be between 2 and 500 characters</div>
+          <div class="form-text text-danger" *ngIf="categoryForm.get('description')?.invalid && (categoryForm.get('description')?.touched || categoryForm.get('description')?.dirty)">
+            <div *ngIf="categoryForm.get('description')?.errors?.['required']">Category description is required</div>
+            <div *ngIf="categoryForm.get('description')?.errors?.['minlength'] || categoryForm.get('description')?.errors?.['maxlength']">Category description must be between 2 and 500 characters</div>
           </div>
         </div>
         <div class="col-md-12 mb-3 text-center">
-
           <button class="btn btn-primary" type="submit" style="background-color: #198754; border-color: #198754;" [disabled]="!categoryForm.valid">Update Category</button>
           <button class="btn btn-secondary ms-2" type="button" style="background-color: #a60808; border-color: #f11d1d;" (click)="cancelUpdate()">Cancel</button>
         </div>

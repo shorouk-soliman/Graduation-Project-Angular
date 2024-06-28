@@ -1,57 +1,43 @@
-<h1 class="text-center mt-5">Add Category Banner</h1>
-
-
-<form (submit)="AddBanners()" [formGroup]="myForm" class="col-6 mx-auto">
-
-
-
-
-    <select (change)="onCategoryChange($event)" formControlName="categoryId">
-        <option [value]="0">select category</option>
-        <option [value]="category.id" *ngFor="let category of categories">{{category.name}}</option>
-    </select>
-
-    <!-- Display error message if "required" validation fails -->
-    <div [class.d-none]="!categoryError()" class="text-danger">
-        category is required
+<div class="container-fluid mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <h2 class="text-center mb-4">Add Category Banner</h2>
+      <form (submit)="AddBanners()" [formGroup]="myForm" class="row g-3 border rounded p-4 shadow-sm" enctype="multipart/form-data">
+        <div class="col-12">
+          <div class="text-center mb-3">
+            <label for="categoryId" class="form-label bold-label">Category</label>
+            <select (change)="onCategoryChange($event)" formControlName="categoryId" id="categoryId" class="form-control">
+              <option [value]="0">Select category</option>
+              <option [value]="category.id" *ngFor="let category of categories">{{category.name}}</option>
+            </select>
+            <div class="form-text text-danger" *ngIf="myForm.get('categoryId')?.invalid && (myForm.get('categoryId')?.touched || myForm.get('categoryId')?.dirty)">
+              <div *ngIf="myForm.get('categoryId')?.errors?.['required']">Category is required</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="text-center mb-3">
+            <label for="subcategoryId" class="form-label bold-label">Sub Category</label>
+            <select formControlName="subcategoryId" id="subcategoryId" class="form-control">
+              <option [value]="0">Select sub category</option>
+              <option [value]="subcategory.id" *ngFor="let subcategory of subcategories">{{subcategory.name}}</option>
+            </select>
+            <div class="form-text text-danger" *ngIf="myForm.get('subcategoryId')?.invalid && (myForm.get('subcategoryId')?.touched || myForm.get('subcategoryId')?.dirty)">
+              <div *ngIf="myForm.get('subcategoryId')?.errors?.['required']">Sub Category is required</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12">
+          <label for="image" class="form-label bold-label">Category Banner Image</label>
+          <input type="file" formControlName="image" (change)="onFileSelected($event)" class="form-control" accept="image/*">
+          <div class="form-text text-danger" *ngIf="myForm.get('image')?.invalid && (myForm.get('image')?.touched || myForm.get('image')?.dirty)">
+            <div *ngIf="myForm.get('image')?.errors?.['required']">Image is required</div>
+          </div>
+        </div>
+        <div class="col-md-12 mb-3 text-center">
+          <button class="btn btn-success w-50 mx-auto mt-3" type="submit" [disabled]="!myForm.valid">Add Banner</button>
+        </div>
+      </form>
     </div>
-
-    <!-- Display success message when the form is valid -->
-    <div [class.d-none]="categoryError()" class="text-success">
-        category is valid
-    </div>
-
-
-    <select formControlName="subcategoryId">
-        <option [value]="0">select sub category</option>
-        <option [value]="subcategory.id" *ngFor="let subcategory of subcategories">{{subcategory.name}}</option>
-    </select>
-
-    <!-- Display error message if "required" validation fails -->
-    <div [class.d-none]="!subcategoryError()" class="text-danger">
-        category is required
-    </div>
-
-    <!-- Display success message when the form is valid -->
-    <div [class.d-none]="subcategoryError()" class="text-success">
-        category is valid
-    </div>
-
-
-
-
-    <input formControlName="image" (change)="onFileSelected($event)" class="form-control my-2" placeholder="sub category image" type="file">
-
-    <!-- Display error message if "required" validation fails -->
-    <div [class.d-none]="!ImageError()?.['required']" class="text-danger">
-        image is required
-    </div>
-
-    <!-- Display success message when the form is valid -->
-    <div [class.d-none]="ImageError()" class="text-success">
-        image is valid
-    </div>
-
-
-    <button [disabled]="!myForm.valid" type="submit" class="btn btn-success w-50 mx-auto mt-3">Add</button>
-</form>
+  </div>
+</div>

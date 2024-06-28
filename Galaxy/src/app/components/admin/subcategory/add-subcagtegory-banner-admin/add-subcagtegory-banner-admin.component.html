@@ -1,59 +1,31 @@
-<h1 class="text-center mt-5">Add Sub Category Banner</h1>
-
-
-<form (submit)="AddBanners()" [formGroup]="myForm" class="col-6 mx-auto">
-    <label>product Id</label>
-    <input formControlName="productId" class="form-control my-2" placeholder="product Id" type="number">
-    <!-- Display error message if "required" validation fails -->
-    <div [class.d-none]="!productError()?.['required']" class="text-danger">
-        productId is required
+<div class="container-fluid mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <h2 class="text-center mb-4">Add Subcategory Banner</h2>
+      <form (submit)="AddBanners()" [formGroup]="myForm" class="row g-3 border rounded p-4 shadow-sm" enctype="multipart/form-data">
+        <div class="col-12">
+          <div class="text-center mb-3">
+            <label for="subcategoryId" class="form-label bold-label">Subcategory</label>
+            <select formControlName="subcategoryId" id="subcategoryId" class="form-control">
+              <option [value]="0">Select subcategory</option>
+              <option [value]="subcategory.id" *ngFor="let subcategory of subcategories">{{subcategory.name}}</option>
+            </select>
+            <div class="form-text text-danger" *ngIf="myForm.get('subcategoryId')?.invalid && (myForm.get('subcategoryId')?.touched || myForm.get('subcategoryId')?.dirty)">
+              <div *ngIf="myForm.get('subcategoryId')?.errors?.['required']">Subcategory is required</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12">
+          <label for="image" class="form-label bold-label">Subcategory Banner Image</label>
+          <input type="file" formControlName="image" (change)="onFileSelected($event)" class="form-control" accept="image/*">
+          <div class="form-text text-danger" *ngIf="myForm.get('image')?.invalid && (myForm.get('image')?.touched || myForm.get('image')?.dirty)">
+            <div *ngIf="myForm.get('image')?.errors?.['required']">Image is required</div>
+          </div>
+        </div>
+        <div class="col-md-12 mb-3 text-center">
+          <button class="btn btn-success w-50 mx-auto mt-3" type="submit" [disabled]="!myForm.valid">Add Subcategory Banner</button>
+        </div>
+      </form>
     </div>
-
-    <!-- Display error message if "minlength" or "maxlength" validation fails -->
-    <div [class.d-none]="!productError()?.['min']|| !productError()"
-    class="text-danger">
-    productId must be more than 0
-    </div>
-
-    <!-- Display success message when the form is valid -->
-    <div [class.d-none]="productError()" class="text-success">
-        discount is valid
-    </div>
-
-
-
-    <label>subcategory Id</label>
-
-    <select formControlName="subcategoryId">
-        <option [value]="0">select sub category</option>
-        <option [value]="subcategory.id" *ngFor="let subcategory of subcategories">{{subcategory.name}}</option>
-    </select>
-
-    <!-- Display error message if "required" validation fails -->
-    <div [class.d-none]="!subcategoryError()" class="text-danger">
-        subcategory is required
-    </div>
-
-    <!-- Display success message when the form is valid -->
-    <div [class.d-none]="subcategoryError()" class="text-success">
-        subcategory is valid
-    </div>
-
-
-
-
-    <input formControlName="imageURL" (change)="onFileSelected($event)" class="form-control my-2" placeholder="sub category image" type="file">
-
-    <!-- Display error message if "required" validation fails -->
-    <div [class.d-none]="!ImageError()?.['required']" class="text-danger">
-        image is required
-    </div>
-
-    <!-- Display success message when the form is valid -->
-    <div [class.d-none]="ImageError()" class="text-success">
-        image is valid
-    </div>
-
-
-    <button [disabled]="!myForm.valid" type="submit" class="btn btn-success w-50 mx-auto mt-3">Add</button>
-</form>
+  </div>
+</div>

@@ -12,7 +12,7 @@ export class MainCategoryAdminComponent {
 
 
   ngOnInit(): void {
-    this.GetCategory()
+    this.GetCategories()
   }
 
   Deletecategory(category:any){
@@ -30,9 +30,11 @@ export class MainCategoryAdminComponent {
     });
   }
 
-  GetCategory():void{
-    this.unit.category.getAdminCategories().subscribe((category: any) => {
-      this.categories = category;
+  GetCategories(): void {
+    this.categories = this.unit.category.getAdminCategories().subscribe((categories: any) => {
+      this.categories = categories.sort((a: any, b: any) => b.id - a.id);
+    }, (error: any) => {
+      console.error('Error fetching categories', error);
     });
   }
 
