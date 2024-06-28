@@ -4,12 +4,12 @@
 <hr>
 
 @for (product of cartItems; track $index) {
-  <div class="container-fluid w-100 bg-white my-2">
+  <div class="container-fluid w-100 bg-white my-2 mb-md-2">
     <div class="row cart-card-size-custom">
-      <div class="cartimg col-3" routerLink="products/{{product.product.id}}">
+      <div class="cartimg col-ms-3 col-3  mb-ms-2" routerLink="products/{{product.product.id}}">
         <img width="100%" style="object-fit: contain;" [src]="product?.product?.image" />
       </div>
-      <div class="col-9  d-flex flex-column justify-content-center">
+      <div class="col-9 col-ms-6 d-flex flex-column justify-content-center">
         <h5 style="word-wrap: break-word;" class="">
           {{product?.product?.name}}</h5>
         <p class="text-truncate" style="word-wrap: break-word;">{{product?.product?.desctiption}}</p>
