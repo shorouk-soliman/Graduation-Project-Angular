@@ -23,7 +23,7 @@ svg {
 
 .cardbody {
     background-color: rgb(62, 62, 62);
-    width: 97% !important;
+    width: 100% !important;
     aspect-ratio: 1/2;
     margin: 0 auto;
     padding: 0.7rem;
@@ -62,7 +62,7 @@ svg {
 }
 
 .w-content {
-    width: fit-content !important;
+    width: --fit-content !important;
 }
 
 .low {

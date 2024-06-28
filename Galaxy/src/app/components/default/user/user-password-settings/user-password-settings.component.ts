@@ -1,9 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UnitService } from '../../../../services/unit.service';
-import { ConfirmMessageComponent } from '../../../shared-componentes/confirm-message/confirm-message.component';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { ConfirmMessageComponent } from '../../../shared-componentes/confirm-message/confirm-message.component';
 
 @Component({
   selector: 'app-user-password-settings',
@@ -13,7 +12,7 @@ import { Router } from '@angular/router';
 export class UserPasswordSettingsComponent {
   notificationMessage: string | null = null;
 
-  constructor(private unit: UnitService, public dialog: MatDialog, private router: Router) {}
+  constructor(private unit: UnitService, public dialog: MatDialog) {}
 
   @Output() ToggleForm: EventEmitter<any> = new EventEmitter<any>();
   @Output() refreshUser: EventEmitter<any> = new EventEmitter<any>();
@@ -32,26 +31,28 @@ export class UserPasswordSettingsComponent {
 
   onSubmit() {
     if (!this.PasswordForm.valid) return;
+
     this.unit.user.UpdatePassword(this.PasswordForm.value).subscribe((res) => {
-      this.notificationMessage = "ok! It changed successfully";
+      this.notificationMessage = "Password changed successfully!";
       this.refreshUser.emit();
     });
   }
 
   confirmUpdateuser(): void {
     const dialogRef = this.dialog.open(ConfirmMessageComponent, {
-      data: { message: 'Are you sure you want change the password؟' },
+      data: { message: 'Are you sure you want to change the password?' },
     });
+
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.onSubmit();
       } else {
-        this.notificationMessage = "cancelled";
+        this.notificationMessage = "Password change cancelled";
       }
     });
   }
-// going to user-setting 
-  navigateToUserSettings() {
-    this.router.navigate(['/settings']);
+
+  cancelUpdate(): void {
+    this.PasswordForm.reset(); // Resetting the form fields to avoid password change
   }
 }
