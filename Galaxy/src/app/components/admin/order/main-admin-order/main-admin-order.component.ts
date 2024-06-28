@@ -14,7 +14,7 @@ import { ConfirmMessageComponent } from '../../../../components/shared-component
 export class MainAdminOrderComponent implements OnInit {
 
   orders: ExtendedIOrderRead[] = [];
-  orderStatusOptions: string[] = ['Cancelled', 'Pending', 'Delivered'];
+  orderStatusOptions: string[] = ['PendingPayment','Cancelled', 'Pending', 'Delivered'];
   confirmCancel: boolean = false;
   ordersCount:number = 0;
 
@@ -32,6 +32,7 @@ export class MainAdminOrderComponent implements OnInit {
   loadOrders(): void {
     this.orderService.getAllOrders().subscribe(
       orders => {
+        orders = orders.sort((a: any, b: any) => b.id - a.id);
         this.orders = orders.map(order => {
           return {
             ...order,
@@ -80,6 +81,7 @@ export class MainAdminOrderComponent implements OnInit {
             }
           );
         } else {
+          this.loadOrders();
           return;
         }
       });

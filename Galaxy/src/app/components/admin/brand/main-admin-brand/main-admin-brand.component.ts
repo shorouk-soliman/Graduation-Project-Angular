@@ -22,7 +22,8 @@ export class MainAdminBrandComponent implements OnInit {
 
   deleteBrand(brand: any): void {
     const dialogRef = this.dialog.open(ConfirmMessageComponent, {
-      data: { message: `Are you sure you want to delete ${brand.name}?` }
+      data: { message: `Are you sure you want to delete ${brand.name}?`,
+      title: 'Delete brand'  }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -38,7 +39,8 @@ export class MainAdminBrandComponent implements OnInit {
 
   retrieveBrand(brand: any): void {
     const dialogRef = this.dialog.open(ConfirmMessageComponent, {
-      data: { message: `Are you sure you want to retrieve ${brand.name}?` }
+      data: { message: `Are you sure you want to retrieve ${brand.name}?`,
+    title: 'Retrieve brand'  }
     });
 
     dialogRef.afterClosed().subscribe(result => {

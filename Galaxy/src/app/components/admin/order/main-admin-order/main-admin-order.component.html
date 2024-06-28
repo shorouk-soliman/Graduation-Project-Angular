@@ -26,11 +26,12 @@
                 <td>{{order.shippingAddress}}</td>
                 <td>{{order.deliverDate | date:'fullDate'}}</td>
                 <td>
-                  <select [disabled]="order.status !== 'Pending'" class="form-select"
+                  <select [disabled]="order.status === 'Cancelled' || order.status === 'Delivered'" class="form-select"
                   [(ngModel)]="order.status"
                   (change)="updateOrderStatus(order.id, order.status)"
                           [ngClass]="{
                             'status-cancelled': order.status === 'Cancelled',
+                            'status-PendingPayment': order.status === 'PendingPayment',
                             'status-pending-delivery': order.status === 'Pending',
                             'status-delivered': order.status === 'Delivered'}">
                     <option *ngFor="let status of orderStatusOptions" [value]="status">{{ status }}</option>

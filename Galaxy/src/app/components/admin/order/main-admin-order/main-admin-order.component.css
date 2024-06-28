@@ -255,10 +255,14 @@ tbody tr
   border-color: #fd0000;
   border-radius: 10px;
   border-width: 2px;
-  display: disable;
 
 }
-
+.status-PendingPayment
+{
+  border-color: #0076fd;
+  border-radius: 10px;
+  border-width: 2px;
+}
 .form-select.status-pending-delivery {
   border-color: #fdfd07;
   border-radius: 10px;
@@ -269,8 +273,6 @@ tbody tr
   border-color: #0bea0b;
   border-radius: 10px;
   border-width: 2px;
-  display: disable;
-
 }
 .form-select
 {
