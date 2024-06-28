@@ -55,3 +55,9 @@
     color: whitesmoke;
     padding:0 0 0.2rem 0.5rem;
 }
+
+.truncate {
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

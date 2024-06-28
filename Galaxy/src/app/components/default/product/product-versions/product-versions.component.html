@@ -1,26 +1,26 @@
 <br>
 
-<div class="fs-5 p-0 m-0"><b>Versions</b></div>
+<div class="fs-5 p-0 m-0">Versions</div>
 
-<div>
+<div>   
     <div *ngFor="let attribute of attributes">
-        <div class="item.attributesReadDTO.id fs-6 mt-2 mb-1"><b> {{attribute.name}}</b></div>
+        <div class="item.attributesReadDTO.id fs-6 mt-2 mb-1"> {{attribute.name}}</div>
         <div class="d-flex">
             <div *ngFor="let value of attribute.values">
 
 
-            <button  *ngIf="attribute.name === 'color'" [style.background-color]="value.name"
+            <button 
                 [class.d-none]="!isValueCurrent(value.id)"
-                [disabled]="isValueCurrent(value.id)"
-                class="btn mx-1 btn-outline-dark"
+                [disabled]="isValueCurrent(value.id)" 
+                class="btn mx-1 btn-outline-dark" 
                 [class.btn-outline-secondar]="isValueCurrent(value.id)">
                 {{value.name}}
             </button>
-            <button
+            <button 
                 (click)="ChangeVersion(value.id,attribute.id)"
                 [class.d-none]="isValueCurrent(value.id)"
-                [disabled]="isValueCurrent(value.id) || !checkValueForOtherVersions(value.id,attribute.id)"
-                class="btn mx-1 btn-light"
+                [disabled]="isValueCurrent(value.id) || !checkValueForOtherVersions(value.id,attribute.id)" 
+                class="btn mx-1 btn-light" 
                 [class.btn-outline-secondar]="isValueCurrent(value.id)">
                 {{value.name}}
             </button>
