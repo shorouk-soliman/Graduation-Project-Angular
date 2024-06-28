@@ -119,12 +119,14 @@ export class UpdateSubcategoryAdminComponent implements OnInit {
 
   confirmUpdateSubcategory(): void {
     const dialogRef = this.dialog.open(ConfirmMessageComponent, {
-      data: { message: 'Are you sure you want to update this subcategory?' },
+      data: {title:"Update subcategory",message: 'Are you sure you want to update this subcategory?' },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.Update();
+        this.router.navigateByUrl('/admin/subcategory');
+
       }
     });
   }

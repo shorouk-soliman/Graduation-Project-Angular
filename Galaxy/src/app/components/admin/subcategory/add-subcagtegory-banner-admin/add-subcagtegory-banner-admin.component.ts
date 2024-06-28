@@ -61,7 +61,7 @@ export class AddSubcagtegoryBannerAdminComponent implements OnInit {
 
   Addbanner(insert: any) {
     this.unit.subcategory.AddSubCategoryBanner(insert).subscribe(() => {
-      alert('Category banner Added Succssefully')
+      // alert('Category banner Added Succssefully')
       this.router.navigateByUrl('/admin/subcategory');
 
     }, error => {

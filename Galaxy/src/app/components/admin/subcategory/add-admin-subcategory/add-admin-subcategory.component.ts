@@ -55,7 +55,7 @@ export class AddAdminSubcategoryComponent implements OnInit{
 
   AddSubCategory(insert: any) {
     this.unit.subcategory.AddSubCategory(insert).subscribe(() => {
-      alert('Sub Category Added Succssefully')
+      // alert('Sub Category Added Succssefully')
       this.router.navigateByUrl('/admin/subcategory');
 
     }, error => {
