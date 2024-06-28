@@ -25,6 +25,6 @@ export class SideAdminComponent implements OnInit {
 
   logoutFunction(): void {
     this.unit.auth.LogoutFunction();
-    this.router.navigateByUrl('/User/login');
+    this.router.navigateByUrl('auth/login');
   };
 }

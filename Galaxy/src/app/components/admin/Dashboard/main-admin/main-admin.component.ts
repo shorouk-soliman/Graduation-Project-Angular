@@ -50,7 +50,7 @@ export class MainAdminComponent implements OnInit {
   GetAllUsers(): void {
     this.unit.user.getAllUsers().subscribe((users: IUserRead[]) => {
       this.users = users;
-      this.UsersCount = users.length;
+      this.UsersCount = users.length - 1;
     });
   }
 

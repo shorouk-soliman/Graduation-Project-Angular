@@ -76,6 +76,13 @@ export class AuthService {
     this.cartservice.clearCart();
     this.RefreshAll();
     this.generic.router.navigateByUrl('/');
+
+    // if(this.isAdmin()){
+    //   this.router.navigateByUrl('/auth/login');
+    // }else{
+    //   this.router.navigateByUrl('/');
+    // }
+
   }
 
   isAuthunicated(): boolean {

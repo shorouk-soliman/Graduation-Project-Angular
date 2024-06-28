@@ -3,7 +3,6 @@ mat-sidenav-container {
   width: 100%;
   margin: 0;
   padding: 0;
-  z-index: 12;
 }
 
 mat-sidenav {
@@ -309,6 +308,7 @@ mat-toolbar {
   .cardBox {
     grid-template-columns: repeat(2, 1fr);
   }
+
 }
 
 @media (max-width: 768px) {
@@ -323,6 +323,18 @@ mat-toolbar {
   .status.inProgress {
     white-space: nowrap;
   }
+  mat-sidenav {
+    width: 40%;
+  }
+  .cardBox .card .iconBx {
+    font-size: 3rem;
+    color:#040116;
+  }
+  .cardBox .card .cardName {
+    color: #040116;
+    font-size: 1.1rem;
+    margin-top: 20px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -333,11 +345,28 @@ mat-toolbar {
   .cardHeader h2 {
     font-size: 20px;
   }
-
+  mat-sidenav {
+    width: 60%;
+    padding: 0%;
+  }
   .user {
     min-width: 40px;
   }
-
+  .cardBox .card .iconBx {
+    font-size: 2.5rem;
+    color:#040116;
+  }
+  .cardBox .card .cardName {
+    color: #040116;
+    font-size: 1rem;
+    margin-top: 20px;
+  }
+  .cardBox .card .numbers {
+    position: relative;
+    font-weight: 500;
+    font-size: 2rem;
+    color: #040116;
+  }
 }
 
 .form {

@@ -422,7 +422,7 @@ mat-toolbar {
   }
 }
 
-@media (max-width: 460px) {
+@media (max-width: 400px) {
   .cardBox {
     grid-template-columns: repeat(1, 1fr);
   }
@@ -431,9 +431,11 @@ mat-toolbar {
     font-size: 20px;
   }
 
-  .user {
-    min-width: 40px;
-  }
+.container
+{
+  width: 100% !important;
+}
+
 
 }
 

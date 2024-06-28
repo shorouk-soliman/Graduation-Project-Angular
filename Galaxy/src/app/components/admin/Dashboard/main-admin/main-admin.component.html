@@ -1,14 +1,13 @@
 <mat-sidenav-container>
-  <mat-sidenav mode="side" #sidenav role="navigation">
+  <mat-sidenav mode="side" #sidenav role="navigation" class="">
     <app-side-admin></app-side-admin>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="basic">
       <div fxLayoutAlign=" center">
         <button mat-icon-button (click)="sidenav.toggle()" class="bi bi-house">
-          <!-- <mat-icon>menu</mat-icon> -->
         </button>
-        <span style="font-size: larger; " class="px-4">Welcome, {{user.firstName}} in
+        <span style="font-size: larger;">Welcome, {{user.firstName}} in
         <span class="title" style="font-weight:bolder; font-size:x-large;">Galaxy</span><span class="icon p-2">
           <mat-icon><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-stars"
             viewBox="0 0 20 20">
@@ -44,7 +43,7 @@
 
         <div class="card">
           <div>
-            <div class="numbers">{{UsersCount - 1}}</div>
+            <div class="numbers">{{UsersCount}}</div>
             <div class="cardName">Users</div>
           </div>
 
@@ -55,7 +54,7 @@
 
         <div class="card">
           <div>
-            <div class="numbers">$12000</div>
+            <div class="numbers">$1200</div>
             <div class="cardName">Earning</div>
           </div>
         </div>
