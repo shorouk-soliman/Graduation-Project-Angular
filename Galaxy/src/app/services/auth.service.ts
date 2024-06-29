@@ -72,16 +72,17 @@ export class AuthService {
   }
 
   LogoutFunction() {
+    let isAdmin = this.isAdmin();
     localStorage.clear();
     this.cartservice.clearCart();
     this.RefreshAll();
     this.generic.router.navigateByUrl('/');
 
-    // if(this.isAdmin()){
-    //   this.router.navigateByUrl('/auth/login');
-    // }else{
-    //   this.router.navigateByUrl('/');
-    // }
+    if(isAdmin){
+      this.router.navigateByUrl('/auth/login');
+    }else{
+      this.router.navigateByUrl('/');
+    }
 
   }
 
