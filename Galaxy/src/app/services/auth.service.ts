@@ -36,6 +36,8 @@ export class AuthService {
       map((token: string) => {
         localStorage.setItem('jwt', token);
         this.RefreshAll();
+        this.cartservice.AddLocalCart()
+
 
         if(this.isAdmin()){
           this.router.navigateByUrl('/admin/brand');
@@ -57,6 +59,7 @@ export class AuthService {
       map((token: string) => {
         localStorage.setItem('jwt', token);
         this.RefreshAll();
+        this.cartservice.AddLocalCart()
 
         if(this.isAdmin()){
           this.router.navigateByUrl('/admin/brand');

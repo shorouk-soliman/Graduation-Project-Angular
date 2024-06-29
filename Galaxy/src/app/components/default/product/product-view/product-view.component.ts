@@ -58,7 +58,6 @@ export class ProductViewComponent implements OnInit, OnChanges {
   OnProductQtyChangeOUT(event: any): void {
     let newQuantity = event.target.value;
     this.OutQty = newQuantity;
-    this.unit.cart.UpdateItemQuantity(this.product.id,+newQuantity)
   };
 
   RemoveFromCart(product: any) :void{
