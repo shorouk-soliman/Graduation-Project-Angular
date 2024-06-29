@@ -9,21 +9,25 @@
             <div *ngFor="let value of attribute.values">
 
 
-            <button 
-                [class.d-none]="!isValueCurrent(value.id)"
-                [disabled]="isValueCurrent(value.id)" 
-                class="btn mx-1 btn-outline-dark" 
-                [class.btn-outline-secondar]="isValueCurrent(value.id)">
-                {{value.name}}
-            </button>
-            <button 
-                (click)="ChangeVersion(value.id,attribute.id)"
-                [class.d-none]="isValueCurrent(value.id)"
-                [disabled]="isValueCurrent(value.id) || !checkValueForOtherVersions(value.id,attribute.id)" 
-                class="btn mx-1 btn-light" 
-                [class.btn-outline-secondar]="isValueCurrent(value.id)">
-                {{value.name}}
-            </button>
+                @if (isValueCurrent(value.id)) {
+
+                    <button 
+                        disabled
+                        class="btn mx-1 btn-outline-dark" 
+                        [class.btn-outline-secondar]="isValueCurrent(value.id)">
+                        {{value.name}}
+                    </button>
+                    
+                }@else {
+
+                     <button 
+                        (click)="ChangeVersion(value.id,attribute.id)"
+                        [disabled]="!value.checked" 
+                        class="btn mx-1 btn-light" 
+                        [class.btn-outline-secondar]="isValueCurrent(value.id)">
+                        {{value.name}}
+                    </button> 
+                }
 
 
             </div>

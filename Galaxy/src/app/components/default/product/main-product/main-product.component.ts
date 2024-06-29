@@ -38,7 +38,6 @@ export class MainProductComponent implements OnInit,OnChanges {
   GetProductDetails():void{
     this.unit.product.GetProductDetails(this.productId).subscribe((productData:IProductDetails)=>{
       this.unit.cart.GetCart().subscribe((cartItems:ICartItem[])=>{
-        console.log('fffffffproduct',productData)
         this.product = productData;
         this.product.inCart = cartItems?.some((cp:ICartItem) => cp?.productId === Number(this.productId));
         this.Qty = cartItems?.find((ci: ICartItem) => ci.productId === Number(this.productId))?.cartProductQuantity;
@@ -51,11 +50,8 @@ export class MainProductComponent implements OnInit,OnChanges {
 
 
 
-  onChangeValues(event:any){
-    this.unit.eav.GetProductIdbyValues(this.product.variantGroupId,event).subscribe((productId:number)=>{
-      /* change id pramter */
-      this.unit.generic.router.navigate(['/product',productId])
-    });
+  onChangeValues(productId:number){
+    this.unit.generic.router.navigate(['/product',productId])
   };
 
   UpdateAvgRating():void{

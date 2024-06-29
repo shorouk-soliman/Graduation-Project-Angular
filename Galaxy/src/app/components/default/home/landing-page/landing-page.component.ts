@@ -3,7 +3,6 @@ import { UnitService } from '../../../../services/unit.service';
 import { Subscription } from 'rxjs';
 import { IGeneralProducts, initGeneralProducts } from '../../../../Models/Product/general-product-model';
 import { IProductQuery, initProductQuery } from '../../../../Models/Product/product-query-model';
-// import * as jwtDecode from 'jwt-decode';
 
 @Component({
   selector: 'app-landing-page',
@@ -11,7 +10,6 @@ import { IProductQuery, initProductQuery } from '../../../../Models/Product/prod
   styleUrls: ['./landing-page.component.css']
 })
 export class LandingPageComponent implements OnInit, OnDestroy {
-  isloading: boolean = false;
   private subscription: Subscription = new Subscription();
   products: IGeneralProducts = initGeneralProducts;
   query: IProductQuery = new initProductQuery();
@@ -20,26 +18,19 @@ export class LandingPageComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    console.log(this.isloading);
     this.FetchGeneralProducts();
     this.GetGeneralProducts();
   }
 
   FetchGeneralProducts(): void {
-    this.isloading = true;
     this.unit?.products?.fetchGeneralProducts(this.query);
-    console.log(this.isloading);
   }
 
   GetGeneralProducts(): void {
-    this.isloading = true;
     const productsSubscription = this.unit.products.GetProducts().subscribe((productsData: IGeneralProducts) => {
-      console.log(this.isloading);
       this.products = productsData;
-      this.isloading = false;
     });
     this.subscription.add(productsSubscription);
-    console.log(this.isloading);
   }
 
   OnSortChange(sort: string): void {

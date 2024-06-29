@@ -8,10 +8,10 @@ import { IAttributeRead } from '../../../../Models/Attribute/Attribute-Read-mode
   templateUrl: './product-versions.component.html',
   styleUrl: './product-versions.component.css'
 })
-export class ProductVersionsComponent implements OnInit, OnChanges {
+export class ProductVersionsComponent implements OnChanges {
   @Input() versions: IVersion[] = [];
   @Input() productId: number = 0;
-  @Output() onChangeValue = new EventEmitter<number[]>();
+  @Output() onChangeValue = new EventEmitter<number>();
 
   currentValues: any;
   attributes: any[] = [];
@@ -26,22 +26,96 @@ export class ProductVersionsComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.AssignAttributes()
-
+    this.CheckAll();
   }
 
-  ngOnInit(): void {
-    this.AssignAttributes()
+
+  CheckAll():void{
+
+    let othervalues = this.values.filter(e => 
+      !this.currentValues.some((i: any) => i.id === e.id)
+    );
+    
+    othervalues.forEach(e => {
+      this.checkValueForOtherVersions(e.id,e.attributeId)
+    });
+
+    let y = this.countUncheckedValues();
+
+    if(y === othervalues.length)
+      this.convertUncheckedValues()
   }
+
+  findFirstProductByValueId(valueId: number): number {
+    for (const version of this.versions) {
+      if (version.values.some(value => value.id === valueId)) {
+        let productId = version.productId;
+        return productId;
+      }
+    }
+
+    return 0
+  }
+
+  convertUncheckedValues() {
+    this.attributes = this.attributes.map(attribute => {
+      return {
+        ...attribute,
+        values: attribute.values.map((value:any) => {
+          if (value.checked === false) {
+            return { ...value, checked: true };
+          }
+          return value;
+        })
+      };
+    });
+  }
+
+  countUncheckedValues(): number {
+    let count = 0;
+    this.attributes.forEach(attribute => {
+      attribute.values.forEach((value:any) => {
+        if (value.checked === false) {
+          count++;
+        }
+      });
+    });
+    return count;
+  }
+
 
   ChangeVersion(valueId: number, attributeId: number): void {
     let changedArray = this.ChangeCurrentValueArray(valueId, attributeId);
     let x = changedArray.map((e:any) => e.id)
-    this.onChangeValue.emit(x);
+    
+   let newproductId:number = this.findMatchingProductId(this.versions,x)
+
+   if(newproductId === 0){
+  this.onChangeValue.emit(this.findFirstProductByValueId(valueId));
+   }else{
+     this.onChangeValue.emit(newproductId);
+   }
+  }
+
+  /* get the product Id of the changed values */
+  findMatchingProductId(versions: any[], x: number[]): number {
+    for (const version of versions) {
+      const versionValuesIds = version.values.map((value: any) => value.id);
+      const isMatch = x.every(valueId => versionValuesIds.includes(valueId));
+      
+      if (isMatch) {
+        return version.productId;
+      }
+    }
+  
+    return 0; 
   }
 
   checkValueForOtherVersions(valueId: number, attributeId: number): boolean {
     let changedArray = this.ChangeCurrentValueArray(valueId, attributeId);
-    return this.checkAnyVersionMatch(changedArray)
+    let avalable = this.checkAnyVersionMatch(changedArray)
+    this.updateValueById(valueId,avalable)
+    return avalable
   }
 
   ChangeCurrentValueArray(valueId: number, attributeId: number) {
@@ -78,7 +152,6 @@ export class ProductVersionsComponent implements OnInit, OnChanges {
   }
 
   AssignAttributes() {
-    console.log('ver',this.versions)
     let productVersion = this.versions.find((v: any) => v.productId === this.productId);
     this.currentValues = productVersion?.values;
 
@@ -109,4 +182,20 @@ export class ProductVersionsComponent implements OnInit, OnChanges {
 
   }
 
+
+  updateValueById(id: number, avl: boolean) {
+    this.attributes = this.attributes.map((attribute: any) => {
+      return {
+        ...attribute,
+        values: attribute.values.map((value: any) => {
+          if (value.id === id) {
+            return { ...value, checked: avl };
+          }
+          return value;
+        }),
+      };
+    });
+  }
+  
+  
 }
