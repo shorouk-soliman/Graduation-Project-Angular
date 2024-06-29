@@ -55,6 +55,59 @@ export class UpdateCategoryAdminComponent implements OnInit {
     this.selectedFile = event.target.files[0];
   }
 
+
+  Update(): void {
+    if (!this.categoryForm.valid) return;
+
+    if(this.selectedFile === null){
+      let updatedFormValue = {...this.categoryForm.value , image: this.category.image}
+      this.UpdateCategoryOnly(updatedFormValue);
+    }else{
+      this.UpdateCategoryWithImage();
+    }
+  }
+
+  
+  UpdateCategoryOnly(data:any): void {
+    this.unit.category.updateCategory(this.categoryId, data).subscribe(() => {
+        console.log("Category edited successfully");
+        this.router.navigateByUrl('/admin/category');
+      },
+      (error: any) => {
+        console.error('Error updating category:', error);
+        this.notificationMessage = 'Failed to update category. Please try again later.';
+      }
+    );
+  }
+
+  UpdateCategoryWithImage(): void {
+
+    let formdataImage:FormData = new FormData();
+    formdataImage.append('image',this.selectedFile!);
+
+    this.unit.image.ConvertImage(formdataImage).subscribe((res: any) => {
+        const updateData = { ...this.categoryForm.value, image: res };
+        this.UpdateCategoryOnly(updateData);
+      },
+      (error) => {
+        if (error instanceof HttpErrorResponse && error.status === 400) {
+          if (error.error && error.error.errors && error.error.errors.image) {
+            alert(error.error.errors.image[0]);
+          } else {
+            alert('Unexpected error occurred.');
+          }
+        } else {
+          console.error('Error converting image:', error);
+          alert('Failed to update category. Please try again later.');
+        }
+      }
+    );
+  }
+
+
+
+
+
   UpdateImageAndCategory(): void {
     if (!this.categoryForm.valid) return;
 
@@ -137,7 +190,7 @@ export class UpdateCategoryAdminComponent implements OnInit {
             this.notificationMessage = null;
           }, 3000); // Hide the notification after 3 seconds
         } else {
-          this.UpdateImageAndCategory();
+          this.Update();
         }
       } else {
         this.notificationMessage = 'Failed to update category. Please try again later.';
