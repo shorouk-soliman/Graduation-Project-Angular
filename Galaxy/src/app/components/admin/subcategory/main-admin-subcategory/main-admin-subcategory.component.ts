@@ -50,11 +50,15 @@ export class MainAdminSubcategoryComponent {
 
   }
   GetSubCategory():void{
-    this.subcategories=this.unit.subcategory.GetAdminSubCategories().subscribe((subcategory: any) => {
-      this.subcategories = subcategory.sort((a: any, b:any) => b.id -a.id);
-    }, (error: any) => {
-          console.error('Error fetching categories', error);
-        });
+    setTimeout(() => {
+      
+      this.unit.subcategory.GetAdminSubCategories().subscribe((subcategory: any) => {
+        console.log('after subcategory',subcategory)
+        this.subcategories = subcategory.sort((a: any, b:any) => b.id -a.id);
+      }, (error: any) => {
+        console.error('Error fetching categories', error);
+      });
+    }, 400);
 
     }
 

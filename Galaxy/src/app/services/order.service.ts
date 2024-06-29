@@ -44,7 +44,10 @@ export class OrderService {
     this.generic.postRequest<any>(Url, { address: address }, { responseType: 'text' })
       .subscribe((sessionUrl: string) => {
         window.location.href = sessionUrl;
-      });
+      },error=>{
+        
+      }
+      )
   }
 
   CancelOrder(orderId: number): void {

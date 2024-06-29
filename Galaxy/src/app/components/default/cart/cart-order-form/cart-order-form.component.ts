@@ -18,7 +18,9 @@ export class CartOrderFormComponent implements OnInit {
   });
 
   isLoading: boolean = false;
-
+  isAuth():boolean{
+   return this.unit.isAuthunicated();
+  }
   ngOnInit() { }
 
   GetTotalPrice(): number {

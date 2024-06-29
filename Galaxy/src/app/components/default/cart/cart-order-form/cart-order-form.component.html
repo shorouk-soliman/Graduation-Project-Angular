@@ -22,17 +22,15 @@
       <h4 class="card-title pt-0 pb-lg-0">{{ GetTotalPrice() | currency }}</h4>
     </div>
     <div class="card-footer text-muted">
-      <button style="border: none;" [disabled]="myForm.invalid || isStripeOptionValid() || isLoading" type="submit" class="btn btn-dark text-white w-100 p-2">
-        <ng-container *ngIf="!isLoading; else loadingTemplate">
+      @if (isAuth()) {
+        <button style="border: none;" [disabled]="myForm.invalid || isStripeOptionValid() || isLoading" type="submit" class="btn btn-dark text-white w-100 p-2">
           place Order
-        </ng-container>
-        <ng-template #loadingTemplate>
-          <button class="btn btn-primary" type="button" disabled>
-            <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
-            <span role="status">Loading...</span>
-          </button>
-        </ng-template>
-      </button>
+        </button>
+      }@else {
+        <button routerLink="/auth/login" style="border: none;" class="btn btn-dark text-white w-100 p-2">
+          place Order
+        </button>
+      }
     </div>
   </form>
 </div>
